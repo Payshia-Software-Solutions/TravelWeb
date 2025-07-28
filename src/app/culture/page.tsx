@@ -114,14 +114,14 @@ export default function CulturePage() {
           <p className="mt-4 text-2xl md:text-3xl font-headline">
             Timeless & Vibrant
           </p>
-          <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/90">
+          <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white">
             Step into a world of ancient traditions, sacred rituals, and colorful festivals
           </p>
           <Button size="lg" className="mt-8">Explore Culture Tours</Button>
         </div>
       </section>
 
-      <section className="py-16 lg:py-24 bg-background">
+      <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
@@ -176,9 +176,9 @@ export default function CulturePage() {
                   className="w-full h-64 object-cover"
                   data-ai-hint={festival.aiHint}
                 />
-                <CardContent className="p-6 bg-card">
-                  <h3 className="font-headline text-2xl font-bold text-primary">{festival.name}</h3>
-                  <p className="mt-2 text-muted-foreground">{festival.description}</p>
+                <CardContent className="p-6 bg-blue-50">
+                  <h3 className="font-headline text-2xl font-bold text-blue-950">{festival.name}</h3>
+                  <p className="mt-2 text-muted-">{festival.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -186,7 +186,7 @@ export default function CulturePage() {
         </div>
       </section>
 
-      <section className="py-16 lg:py-24 bg-background">
+      <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
@@ -208,9 +208,9 @@ export default function CulturePage() {
                   className="w-full h-80 object-cover"
                   data-ai-hint={art.aiHint}
                 />
-                <CardContent className="p-6">
-                  <h3 className="font-headline text-xl font-bold text-primary">{art.name}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground h-16">{art.description}</p>
+                <CardContent className="p-6 bg-blue-50">
+                  <h3 className="font-headline text-xl font-bold text-blue-950">{art.name}</h3>
+                  <p className="mt-2 text-sm text-muted- h-16">{art.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -240,9 +240,9 @@ export default function CulturePage() {
                   className="w-full h-56 object-cover"
                   data-ai-hint={site.aiHint}
                 />
-                <CardContent className="p-6 bg-card">
-                  <h3 className="font-headline text-xl font-bold text-primary">{site.name}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground h-20">{site.description}</p>
+                <CardContent className="p-6 bg-blue-50">
+                  <h3 className="font-headline text-xl font-bold text-blue-950">{site.name}</h3>
+                  <p className="mt-2 text-sm text-muted- h-20">{site.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -265,7 +265,7 @@ export default function CulturePage() {
             <h2 className="font-headline text-4xl md:text-5xl font-bold">
                 Experience Sri Lankan Culture
             </h2>
-            <p className="mt-4 max-w-2xl mx-auto text-lg text-primary-foreground/90">
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-white">
               Join our cultural tours and immerse yourself in authentic traditions with local guides
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -273,7 +273,7 @@ export default function CulturePage() {
                     <Calendar className="mr-2 h-5 w-5" />
                     Book a Traditional Experience
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-secondary">
+                <Button size="lg" variant="outline" className="border-white text-black hover:bg-white hover:text-secondary">
                     <Users className="mr-2 h-5 w-5" />
                     Join a Cultural Tour
                 </Button>

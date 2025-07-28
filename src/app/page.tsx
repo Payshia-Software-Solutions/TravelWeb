@@ -324,7 +324,6 @@ export default function Home() {
                 <p className="mt-6 text-lg text-white">
                 20 years from now you will be more disappointed by the things that you didn't do. Stop regretting and start travelling, start throwing off the bowlines.
                 </p>
-                <Button size="lg" className="mt-8">Let's Create trip plans</Button>
             </div>
         </div>
       </section>
