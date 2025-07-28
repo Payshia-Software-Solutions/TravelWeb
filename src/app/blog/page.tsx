@@ -85,7 +85,7 @@ export default function BlogPage() {
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white">
             Inspiration, stories, and tips for your next adventure in Sri Lanka
           </p>
-          <Button size="lg" className="mt-8">
+          <Button size="lg" className="mt-8 rounded-3xl">
             Subscribe to Newsletter
           </Button>
         </div>
@@ -132,7 +132,7 @@ export default function BlogPage() {
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Discover the breathtaking ancient rock fortress of Sigiriya, one of Sri Lanka's most iconic landmarks. From its fascinating history to practical climbing tips...
               </p>
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="rounded-3xl">
                 <Link href="#">Read more</Link>
               </Button>
               <div className="flex items-center gap-2 text-muted-foreground pt-4">
@@ -193,13 +193,13 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <section className="py-16 lg:py-24 bg-primary text-primary-foreground">
+      <section className="py-16 lg:py-24 bg-green-500 text-primary-foreground">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="font-headline text-3xl md:text-4xl">Get travel inspiration directly to your inbox</h2>
-            <p className="mt-4 max-w-2xl mx-auto">Subscribe to our newsletter for the latest travel stories, tips, and exclusive deals for your Sri Lankan adventure.</p>
+            <h2 className="font-headline text-3xl md:text-4xl text-white">Get travel inspiration directly to your inbox</h2>
+            <p className="mt-4 max-w-2xl mx-auto text-white">Subscribe to our newsletter for the latest travel stories, tips, and exclusive deals for your Sri Lankan adventure.</p>
             <div className="mt-6 flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
               <Input type="email" placeholder="Enter your email" className="flex-grow bg-white text-foreground" />
-              <Button variant="secondary" className="bg-white hover:bg-white/90 text-primary">Subscribe</Button>
+              <Button variant="secondary" className="bg-white hover:bg-white/90 text-green-500">Subscribe</Button>
             </div>
         </div>
       </section>

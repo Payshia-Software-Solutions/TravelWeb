@@ -11,7 +11,7 @@ import { Suspense } from 'react';
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const hasTransparentHeader = ['/', '/things-to-do', '/culture', '/wildlife', '/ayurveda', '/destinations', '/blog'].includes(pathname);
+  const hasTransparentHeader = ['/', '/things-to-do', '/culture', '/wildlife', '/ayurveda', '/destinations', '/blog', '/about'].includes(pathname);
 
   return (
     <body className={cn("font-body antialiased bg-background text-foreground", { 'bg-secondary': hasTransparentHeader })}>
