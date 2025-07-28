@@ -161,6 +161,34 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      <section className="relative py-24 lg:py-32">
+        <div className="absolute inset-0">
+            <Image
+              src="https://placehold.co/1920x800.png"
+              alt="Train passing through tea plantations in Sri Lanka"
+              fill
+              className="z-0 object-cover"
+              data-ai-hint="train tea plantation"
+            />
+            <div className="absolute inset-0 bg-black/60 z-10" />
+        </div>
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">
+                Ready to explore Sri Lanka with us?
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-white">
+              Let's create your perfect Sri Lankan adventure together.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+                <Button size="lg">
+                    Start Your Journey
+                </Button>
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-secondary">
+                    View Our Packages
+                </Button>
+            </div>
+        </div>
+      </section>
     </>
   );
 }
