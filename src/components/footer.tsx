@@ -79,8 +79,9 @@ export function Footer() {
           </div>
 
         </div>
-        <div className="mt-8 pt-8 border-t border-border/20 text-center text-sm text-muted-foreground">
+        <div className="mt-8 pt-8 border-t border-border/20 flex justify-between items-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} TravelSite. All rights reserved.</p>
+          <p>Powered by <Link href="https://payshia.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Payshia Software Solutions</Link></p>
         </div>
       </div>
     </footer>
