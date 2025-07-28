@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { PawPrint, MapPin, Tag, Calendar } from 'lucide-react';
+import { PawPrint, MapPin, Tag, Calendar, Bird, Anchor } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 export default function WildlifePage() {
@@ -223,6 +223,62 @@ export default function WildlifePage() {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div className="space-y-12">
+                    <div>
+                        <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+                           Beyond the Land
+                           <span className="absolute -bottom-2 left-0 w-1/3 h-1 bg-accent"></span>
+                        </h2>
+                    </div>
+                    <div className="space-y-8">
+                        <div className="flex items-start gap-4">
+                            <div className="text-primary pt-1"><Anchor className="w-6 h-6"/></div>
+                            <div>
+                                <h3 className="font-headline text-2xl font-semibold text-blue-950">Marine Life</h3>
+                                <p className="mt-2 text-muted-foreground">
+                                    Sri Lanka's waters are among the world's best for whale watching, with blue whales, sperm whales, and dolphins visible year-round.
+                                </p>
+                                <div className="flex flex-wrap gap-2 mt-4">
+                                    <Badge variant="outline">Trincomalee</Badge>
+                                    <Badge variant="outline">Kalpitiya</Badge>
+                                    <Badge variant="outline">Mirissa</Badge>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4">
+                            <div className="text-primary pt-1"><Bird className="w-6 h-6"/></div>
+                            <div>
+                                <h3 className="font-headline text-2xl font-semibold text-blue-950">Bird Watching</h3>
+                                <p className="mt-2 text-muted-foreground">
+                                    With over 400 bird species, including 26 endemic varieties, Sri Lanka is a paradise for birders and nature photographers.
+                                </p>
+                                <div className="flex flex-wrap gap-2 mt-4">
+                                    <Badge variant="outline">Kumana</Badge>
+                                    <Badge variant="outline">Bundala</Badge>
+                                    <Badge variant="outline">Sinharaja</Badge>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="relative">
+                    <div className="grid grid-cols-2 gap-4">
+                        <Image src="https://placehold.co/400x300.png" width={400} height={300} alt="Kingfisher bird" className="rounded-lg shadow-lg" data-ai-hint="kingfisher bird" />
+                        <Image src="https://placehold.co/400x300.png" width={400} height={300} alt="Dolphins jumping" className="rounded-lg shadow-lg" data-ai-hint="dolphins jumping" />
+                        <Image src="https://placehold.co/400x300.png" width={400} height={300} alt="Peacock" className="rounded-lg shadow-lg" data-ai-hint="peacock closeup" />
+                        <Image src="https://placehold.co/400x300.png" width={400} height={300} alt="Whale tail" className="rounded-lg shadow-lg" data-ai-hint="whale tail" />
+                    </div>
+                    <div className="absolute bottom-4 right-4 bg-white p-3 rounded-full shadow-lg">
+                        <PawPrint className="h-6 w-6 text-primary" />
+                    </div>
+                </div>
+            </div>
         </div>
       </section>
 
