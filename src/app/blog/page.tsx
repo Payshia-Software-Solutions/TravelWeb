@@ -193,6 +193,43 @@ export default function BlogPage() {
         </div>
       </section>
 
+      <section className="py-16 lg:py-24 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="font-headline text-3xl md:text-4xl">Get travel inspiration directly to your inbox</h2>
+            <p className="mt-4 max-w-2xl mx-auto">Subscribe to our newsletter for the latest travel stories, tips, and exclusive deals for your Sri Lankan adventure.</p>
+            <div className="mt-6 flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+              <Input type="email" placeholder="Enter your email" className="flex-grow bg-white text-foreground" />
+              <Button variant="secondary" className="bg-white hover:bg-white/90 text-primary">Subscribe</Button>
+            </div>
+        </div>
+      </section>
+
+      <section className="relative py-24 lg:py-32">
+        <div className="absolute inset-0">
+            <Image
+              src="https://placehold.co/1920x800.png"
+              alt="Mountain sunrise"
+              fill
+              className="z-0 object-cover"
+              data-ai-hint="mountain sunrise"
+            />
+            <div className="absolute inset-0 bg-black/50 z-10" />
+        </div>
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">
+                Ready to explore Sri Lanka?
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-white">
+              Turn your travel dreams into reality with our expertly crafted itineraries
+            </p>
+            <div className="mt-8 flex justify-center">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                    Start Your Journey
+                </Button>
+            </div>
+        </div>
+      </section>
+
     </>
   );
 }
