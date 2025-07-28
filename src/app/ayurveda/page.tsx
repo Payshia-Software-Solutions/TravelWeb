@@ -193,7 +193,7 @@ export default function AyurvedaPage() {
                     data-ai-hint={resort.aiHint}
                 />
                 <CardContent className="p-6 flex-grow flex flex-col bg-card">
-                  <h3 className="font-headline text-xl font-bold">{resort.name}</h3>
+                  <h3 className="font-headline text-xl font-bold h-12 flex items-center">{resort.name}</h3>
                   <div className="flex items-center text-sm text-muted-foreground mt-2">
                     <MapPin className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
                     <span>{resort.location}</span>
@@ -207,7 +207,7 @@ export default function AyurvedaPage() {
                       ))}
                   </div>
                 </CardContent>
-                 <CardFooter className="p-4 bg-card">
+                 <CardFooter className="p-4 bg-card mt-auto">
                     <Button className="w-full">View Details</Button>
                 </CardFooter>
               </Card>
