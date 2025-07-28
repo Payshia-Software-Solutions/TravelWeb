@@ -213,7 +213,7 @@ export default function ThingsToDoPage() {
                 <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                     Build Your Itinerary
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-secondary">
+                <Button size="lg" variant="outline" className="border-white text-black hover:bg-white hover:text-secondary">
                     Book Local Experiences
                 </Button>
             </div>

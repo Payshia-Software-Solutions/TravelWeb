@@ -1,4 +1,5 @@
 
+
 "use client";
 import './globals.css';
 import { Header } from '@/components/header';
@@ -10,7 +11,7 @@ import { Suspense } from 'react';
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const hasTransparentHeader = ['/', '/things-to-do', '/culture', '/wildlife', '/ayurveda'].includes(pathname);
+  const hasTransparentHeader = ['/', '/things-to-do', '/culture', '/wildlife', '/ayurveda', '/destinations'].includes(pathname);
 
   return (
     <body className={cn("font-body antialiased bg-background text-foreground", { 'bg-secondary': hasTransparentHeader })}>
