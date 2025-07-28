@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Waves, Mountain, Leaf, Sparkles, Trophy, Utensils, Wind } from 'lucide-react';
+import { Waves, Mountain, Leaf, Sparkles, Trophy, Utensils, Wind, Star, Users } from 'lucide-react';
 
 function CultureIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
@@ -188,6 +188,55 @@ export default function ThingsToDoPage() {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="relative py-24 lg:py-32">
+        <div className="absolute inset-0">
+            <Image
+              src="https://placehold.co/1920x800.png"
+              alt="People interacting with locals in Sri Lanka"
+              fill
+              className="z-0 object-cover"
+              data-ai-hint="tourists locals"
+            />
+            <div className="absolute inset-0 bg-black/60 z-10" />
+        </div>
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">
+                Let's Make Your Sri Lanka Experience Unforgettable
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-white">
+              Join thousands of travelers who've discovered the magic of Sri Lanka
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                    Build Your Itinerary
+                </Button>
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-secondary">
+                    Book Local Experiences
+                </Button>
+            </div>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm">
+                <div className="flex items-center gap-2">
+                    <div className="flex text-yellow-400">
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                    </div>
+                    <span>5000+ Reviews</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Leaf className="w-5 h-5 text-green-400" />
+                    <span>Eco-certified</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Users className="w-5 h-5" />
+                    <span>Local Guides</span>
+                </div>
+            </div>
         </div>
       </section>
 
