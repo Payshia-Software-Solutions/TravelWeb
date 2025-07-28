@@ -427,7 +427,7 @@ export default function Home() {
             <p className="mt-2 text-muted-foreground">Get inspired! Receive travel discounts, tips and behind the scenes stories.</p>
             <div className="mt-6 flex flex-col sm:flex-row gap-2 max-w-md">
               <Input type="email" placeholder="Your email address" className="flex-grow bg-white" />
-              <Button className="bg-secondary hover:bg-secondary/90">Subscribe</Button>
+              <Button className="bg-secondary hover:bg-secondary/90 text-white">Subscribe</Button>
             </div>
           </div>
         </div>
