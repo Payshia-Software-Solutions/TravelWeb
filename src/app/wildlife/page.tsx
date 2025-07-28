@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { PawPrint, MapPin, Tag, Calendar, Bird, Anchor } from 'lucide-react';
+import { PawPrint, MapPin, Leaf, Shield, Users, Heart, Calendar, Bird, Anchor } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 export default function WildlifePage() {
@@ -279,6 +279,46 @@ export default function WildlifePage() {
                     </div>
                 </div>
             </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <Card className="max-w-4xl mx-auto p-8 lg:p-12 text-center shadow-lg">
+                <div className="flex justify-center items-center gap-3">
+                    <Leaf className="h-8 w-8 text-primary" />
+                    <h2 className="font-headline text-3xl md:text-4xl text-foreground">Conservation & Eco-Tourism</h2>
+                </div>
+                <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
+                    Sri Lanka's commitment to wildlife conservation goes beyond protection—it's about creating sustainable tourism that benefits both wildlife and local communities. Our eco-tourism initiatives support elephant orphanages, promote ethical wildlife viewing, and empower local guides and communities.
+                </p>
+                <div className="mt-10 grid sm:grid-cols-3 gap-8">
+                    <div className="flex flex-col items-center gap-3">
+                        <div className="bg-primary/10 p-3 rounded-full">
+                            <Shield className="h-7 w-7 text-primary" />
+                        </div>
+                        <h3 className="font-semibold text-lg text-foreground">Protected Areas</h3>
+                        <p className="text-sm text-muted-foreground">26 national parks covering 15% of the island</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <div className="bg-primary/10 p-3 rounded-full">
+                            <Users className="h-7 w-7 text-primary" />
+                        </div>
+                        <h3 className="font-semibold text-lg text-foreground">Community Support</h3>
+                        <p className="text-sm text-muted-foreground">Local guides and eco-lodges benefit communities</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <div className="bg-primary/10 p-3 rounded-full">
+                            <Heart className="h-7 w-7 text-primary" />
+                        </div>
+                        <h3 className="font-semibold text-lg text-foreground">Ethical Tourism</h3>
+                        <p className="text-sm text-muted-foreground">Responsible wildlife viewing practices</p>
+                    </div>
+                </div>
+                <div className="mt-10">
+                    <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">Support Wildlife Tours</Button>
+                </div>
+            </Card>
         </div>
       </section>
 
