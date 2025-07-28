@@ -25,7 +25,7 @@ export function DestinationCard({ destination }: DestinationCardProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                  <div className="flex items-baseline gap-2">
-                    <h3 className="text-2xl font-bold font-headline">{name}</h3>
+                    <h3 className="text-2xl font-bold font-body">{name}</h3>
                     <p className="text-sm opacity-90">{location}</p>
                  </div>
                  <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
