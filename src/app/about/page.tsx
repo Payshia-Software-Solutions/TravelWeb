@@ -126,11 +126,11 @@ export default function AboutPage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value) => (
-              <Card key={value.title} className="text-center p-8 bg-blue-50/50 shadow-lg border-blue-100">
-                <CardContent className="flex flex-col items-center justify-center gap-4">
+              <Card key={value.title} className="text-center p-8 bg-blue-50/50 shadow-lg border-blue-100 flex flex-col">
+                <CardContent className="flex flex-col items-center justify-center gap-4 flex-grow">
                   <div className="mb-4">{value.icon}</div>
-                  <h3 className="font-headline text-xl font-bold">{value.title}</h3>
-                  <p className="text-muted-foreground text-sm">{value.description}</p>
+                  <h3 className="font-headline text-xl font-bold h-7 flex items-center">{value.title}</h3>
+                  <p className="text-muted-foreground text-sm flex-grow">{value.description}</p>
                 </CardContent>
               </Card>
             ))}
