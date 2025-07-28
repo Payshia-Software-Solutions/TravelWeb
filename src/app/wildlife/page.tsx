@@ -113,7 +113,7 @@ export default function WildlifePage() {
                         A Living Sanctuary
                         <span className="absolute -bottom-2 left-0 w-2/3 h-1 bg-accent"></span>
                     </h2>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg text-muted- leading-relaxed">
                         Sri Lanka, though small in size, harbors an extraordinary diversity of wildlife. From ancient elephants roaming through national parks to elusive leopards prowling through dense jungles, this island nation offers some of the world's most spectacular wildlife encounters.
                     </p>
                     <p className="text-lg text-muted-foreground leading-relaxed">
@@ -171,9 +171,9 @@ export default function WildlifePage() {
                   className="w-full h-48 object-cover"
                   data-ai-hint={animal.aiHint}
                 />
-                <CardContent className="p-6 flex-grow flex flex-col">
-                  <h3 className="font-headline text-xl font-bold flex-shrink-0 h-14">{animal.name}</h3>
-                  <p className="mt-2 text-muted-foreground text-sm flex-grow">{animal.description}</p>
+                <CardContent className="p-6 flex-grow flex flex-col bg-white">
+                  <h3 className="font-headline text-xl font-bold flex-shrink-0 h-14 text-green-700">{animal.name}</h3>
+                  <p className="mt-2 text-muted- text-sm flex-grow">{animal.description}</p>
                   <div className="flex items-center text-sm text-muted-foreground mt-4 flex-shrink-0">
                     <MapPin className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
                     <span>{animal.location}</span>
@@ -205,9 +205,9 @@ export default function WildlifePage() {
                   className="w-full h-48 object-cover"
                   data-ai-hint={park.aiHint}
                 />
-                <CardContent className="p-6 flex-grow flex flex-col">
-                  <h3 className="font-headline text-xl font-bold">{park.name}</h3>
-                  <p className="mt-2 text-muted-foreground text-sm flex-grow">{park.description}</p>
+                <CardContent className="p-6 flex-grow flex flex-col bg-white">
+                  <h3 className="font-headline text-xl font-bold text-yellow-700">{park.name}</h3>
+                  <p className="mt-2 text-muted- text-sm flex-grow">{park.description}</p>
                   <div className="flex flex-wrap gap-2 mt-4">
                       {park.tags.map(tag => (
                           <Badge key={tag} variant="secondary" className="bg-accent/20 text-accent-foreground">{tag}</Badge>
@@ -238,7 +238,7 @@ export default function WildlifePage() {
                         <div className="flex items-start gap-4">
                             <div className="text-primary pt-1"><Anchor className="w-6 h-6"/></div>
                             <div>
-                                <h3 className="font-headline text-2xl font-semibold text-blue-950">Marine Life</h3>
+                                <h3 className="font-headline text-2xl font-semibold text-blue-400">Marine Life</h3>
                                 <p className="mt-2 text-muted-foreground">
                                     Sri Lanka's waters are among the world's best for whale watching, with blue whales, sperm whales, and dolphins visible year-round.
                                 </p>
@@ -252,7 +252,7 @@ export default function WildlifePage() {
                         <div className="flex items-start gap-4">
                             <div className="text-primary pt-1"><Bird className="w-6 h-6"/></div>
                             <div>
-                                <h3 className="font-headline text-2xl font-semibold text-blue-950">Bird Watching</h3>
+                                <h3 className="font-headline text-2xl font-semibold text-green-400">Bird Watching</h3>
                                 <p className="mt-2 text-muted-foreground">
                                     With over 400 bird species, including 26 endemic varieties, Sri Lanka is a paradise for birders and nature photographers.
                                 </p>
@@ -285,7 +285,7 @@ export default function WildlifePage() {
             <Card className="max-w-4xl mx-auto p-8 lg:p-12 text-center shadow-lg">
                 <div className="flex justify-center items-center gap-3">
                     <Leaf className="h-8 w-8 text-primary" />
-                    <h2 className="font-headline text-3xl md:text-4xl text-foreground">Conservation & Eco-Tourism</h2>
+                    <h2 className="font-headline text-3xl md:text-4xl text-green-900 font-bold">Conservation & Eco-Tourism</h2>
                 </div>
                 <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
                     Sri Lanka's commitment to wildlife conservation goes beyond protection—it's about creating sustainable tourism that benefits both wildlife and local communities. Our eco-tourism initiatives support elephant orphanages, promote ethical wildlife viewing, and empower local guides and communities.
@@ -314,7 +314,7 @@ export default function WildlifePage() {
                     </div>
                 </div>
                 <div className="mt-10">
-                    <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">Support Wildlife Tours</Button>
+                    <Button size="lg" className="bg-green-700 hover:bg-secondary/90 text-secondary-foreground rounded-3xl">Support Wildlife Tours</Button>
                 </div>
             </Card>
         </div>

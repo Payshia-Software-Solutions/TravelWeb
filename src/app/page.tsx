@@ -270,7 +270,9 @@ export default function Home() {
                 <p className="mt-6 text-lg text-white">
                 Discover ancient wellness practices rooted in balance, nature, and self-care
                 </p>
-                <Button size="lg" className="mt-8">Book a Wellness Retreat</Button>
+                <Button size="lg" className="mt-8" asChild>
+                  <Link href="/ayurveda">Book a Wellness Retreat</Link>
+                </Button>
             </div>
         </div>
       </section>
