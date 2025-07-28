@@ -125,7 +125,7 @@ export default function CulturePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
-                    <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
+                    <h2 className="font-headline text-4xl md:text-5xl  relative inline-block">
                         A Living Heritage
                         <span className="absolute -bottom-2 left-0 w-2/3 h-1 bg-accent"></span>
                     </h2>
@@ -157,7 +157,7 @@ export default function CulturePage() {
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
+            <h2 className="font-headline text-4xl md:text-5xl  relative inline-block">
               Festivals & Traditions
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
             </h2>
@@ -176,7 +176,7 @@ export default function CulturePage() {
                   className="w-full h-64 object-cover"
                   data-ai-hint={festival.aiHint}
                 />
-                <CardContent className="p-6 bg-blue-50">
+                <CardContent className="p-6 bg-card">
                   <h3 className="font-headline text-2xl font-bold text-blue-950">{festival.name}</h3>
                   <p className="mt-2 text-muted-">{festival.description}</p>
                 </CardContent>
@@ -189,7 +189,7 @@ export default function CulturePage() {
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
+            <h2 className="font-headline text-4xl md:text-5xl  relative inline-block">
               Arts & Music
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
             </h2>
@@ -208,7 +208,7 @@ export default function CulturePage() {
                   className="w-full h-80 object-cover"
                   data-ai-hint={art.aiHint}
                 />
-                <CardContent className="p-6 bg-blue-50">
+                <CardContent className="p-6 bg-card">
                   <h3 className="font-headline text-xl font-bold text-blue-950">{art.name}</h3>
                   <p className="mt-2 text-sm text-muted- h-16">{art.description}</p>
                 </CardContent>
@@ -221,7 +221,7 @@ export default function CulturePage() {
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
+            <h2 className="font-headline text-4xl md:text-5xl  relative inline-block">
               Temples & Heritage Sites
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
             </h2>
@@ -240,7 +240,7 @@ export default function CulturePage() {
                   className="w-full h-56 object-cover"
                   data-ai-hint={site.aiHint}
                 />
-                <CardContent className="p-6 bg-blue-50">
+                <CardContent className="p-6 bg-card">
                   <h3 className="font-headline text-xl font-bold text-blue-950">{site.name}</h3>
                   <p className="mt-2 text-sm text-muted- h-20">{site.description}</p>
                 </CardContent>

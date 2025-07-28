@@ -220,7 +220,9 @@ export default function Home() {
                 <p className="mt-6 text-lg text-white">
                 Experience the wild heart of the island through safaris, marine life, and tropical bird sanctuaries.
                 </p>
-                <Button size="lg" className="mt-8">Plan Your Safari Adventure</Button>
+                <Button size="lg" className="mt-8" asChild>
+                  <Link href="/wildlife">Plan Your Safari Adventure</Link>
+                </Button>
             </div>
         </div>
       </section>
