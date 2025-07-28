@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Sparkles } from 'lucide-react';
+import { Calendar, Sparkles, Star, Users } from 'lucide-react';
 
 export default function CulturePage() {
   const festivals = [
@@ -247,6 +247,53 @@ export default function CulturePage() {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="relative py-24 lg:py-32">
+        <div className="absolute inset-0">
+            <Image
+              src="https://placehold.co/1920x1080.png"
+              alt="Person looking over a lush valley"
+              fill
+              className="z-0 object-cover"
+              data-ai-hint="valley view"
+            />
+            <div className="absolute inset-0 bg-black/60 z-10" />
+        </div>
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">
+                Experience Sri Lankan Culture
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-primary-foreground/90">
+              Join our cultural tours and immerse yourself in authentic traditions with local guides
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                    <Calendar className="mr-2 h-5 w-5" />
+                    Book a Traditional Experience
+                </Button>
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-secondary">
+                    <Users className="mr-2 h-5 w-5" />
+                    Join a Cultural Tour
+                </Button>
+            </div>
+            <div className="mt-8 flex items-center justify-center gap-8 text-sm">
+                <div className="flex items-center gap-2">
+                    <div className="flex text-yellow-400">
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                    </div>
+                    <span>4.9/5 Rating</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Users className="w-5 h-5" />
+                    <span>Local Guides Included</span>
+                </div>
+            </div>
         </div>
       </section>
 
