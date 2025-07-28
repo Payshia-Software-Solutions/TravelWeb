@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, Mountain, X } from 'lucide-react';
 import { Button } from './ui/button';
@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
   const navLinks = [
@@ -16,9 +17,31 @@ export function Header() {
     { href: '/blog', label: 'Blog' },
     { href: '/about', label: 'About us' },
   ];
+  
+  const isHomePage = pathname === '/';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset;
+      if (scrollTop > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
-    <header className="bg-secondary/90 text-secondary-foreground sticky top-0 z-50 shadow-md">
+    <header className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        isHomePage && !isScrolled && !isOpen ? 'bg-transparent text-white' : 'bg-secondary/90 text-secondary-foreground shadow-md',
+        isOpen && 'bg-secondary/90 text-secondary-foreground shadow-md'
+    )}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
@@ -48,7 +71,7 @@ export function Header() {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-              <Button variant="link" asChild>
+              <Button variant="link" asChild className={cn(isHomePage && !isScrolled && !isOpen ? 'text-white hover:text-primary' : '')}>
                 <Link href="/login">Login</Link>
               </Button>
               <Button asChild>
@@ -74,10 +97,10 @@ export function Header() {
                 href={link.href} 
                 onClick={() => setIsOpen(false)} 
                 className={cn(
-                  "block px-3 py-2 rounded-md text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
+                  "block px-3 py-2 rounded-md text-base font-medium transition-colors",
                   pathname === link.href
                     ? "bg-accent text-accent-foreground"
-                    : "text-foreground"
+                    : "text-secondary-foreground hover:bg-accent hover:text-accent-foreground"
                 )}
               >
                   {link.label}
