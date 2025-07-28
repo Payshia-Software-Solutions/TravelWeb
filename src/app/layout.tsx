@@ -10,10 +10,10 @@ import { Suspense } from 'react';
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
+  const hasTransparentHeader = ['/', '/things-to-do'].includes(pathname);
 
   return (
-    <body className={cn("font-body antialiased bg-background text-foreground", { 'bg-secondary': isHomePage })}>
+    <body className={cn("font-body antialiased bg-background text-foreground", { 'bg-secondary': hasTransparentHeader })}>
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">

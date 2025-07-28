@@ -18,7 +18,7 @@ export function Header() {
     { href: '/about', label: 'About us' },
   ];
   
-  const isHomePage = pathname === '/';
+  const hasTransparentHeader = ['/', '/things-to-do'].includes(pathname);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +39,7 @@ export function Header() {
   return (
     <header className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isHomePage && !isScrolled && !isOpen ? 'bg-transparent text-white' : 'bg-secondary/90 text-secondary-foreground shadow-md',
+        hasTransparentHeader && !isScrolled && !isOpen ? 'bg-transparent text-white' : 'bg-secondary/90 text-secondary-foreground shadow-md',
         isOpen && 'bg-secondary/90 text-secondary-foreground shadow-md'
     )}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,7 +71,7 @@ export function Header() {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-              <Button variant="link" asChild className={cn(isHomePage && !isScrolled && !isOpen ? 'text-white hover:text-primary' : '')}>
+              <Button variant="link" asChild className={cn(hasTransparentHeader && !isScrolled && !isOpen ? 'text-white hover:text-primary' : '')}>
                 <Link href="/login">Login</Link>
               </Button>
               <Button asChild>
