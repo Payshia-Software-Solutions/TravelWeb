@@ -240,10 +240,10 @@ export default function Home() {
             </div>
         </div>
       </section>
-      <section className="py-16 lg:py-24 bg-background">
+      <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Blog</h2>
+            <h2 className="font-headline text-4xl md:text-5xl">Our Blog</h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
               An insight the incredible experience in the world
             </p>
@@ -260,7 +260,7 @@ export default function Home() {
               />
             </div>
             <div>
-              <h3 className="font-headline text-3xl font-bold">Beautiful Sri Lanka</h3>
+              <h3 className="font-headline text-3xl">Beautiful Sri Lanka</h3>
               <p className="font-headline text-2xl text-muted-foreground mb-4">Let's travel</p>
               <p className="mb-8 text-foreground/80 leading-relaxed">
                 Beautiful Sri Lanka is a tropical paradise brimming with lush landscapes, golden beaches, ancient ruins, and vibrant culture. From the misty mountains of Ella to the sun-kissed shores of Mirissa, every corner offers a new adventure. Wander through the sacred city of Kandy, explore the wildlife of Yala National Park, or sip world-renowned Ceylon tea in Nuwara Eliya. Let's travel to Sri Lanka and discover its rich heritage, warm hospitality, and breathtaking natural beauty—it's a journey you'll never forget!
@@ -270,6 +270,30 @@ export default function Home() {
               </Button>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="relative py-24 lg:py-32">
+        <div className="absolute inset-0">
+            <Image
+              src="https://placehold.co/1920x1080.png"
+              alt="Train on a bridge in a lush forest"
+              fill
+              className="z-0 object-cover"
+              data-ai-hint="train bridge"
+            />
+            <div className="absolute inset-0 bg-black/50 z-10" />
+        </div>
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <div className="max-w-2xl text-white">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
+                Plan Your Own Journey
+                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+                </h2>
+                <p className="mt-6 text-lg text-primary-foreground/90 max-w-xl mx-auto">
+                20 years from now you will be more disappointed by the things that you didn't do. Stop regretting and start travelling, start throwing off the bowlines.
+                </p>
+                <Button size="lg" className="mt-8">Let's Create trip plans</Button>
+            </div>
         </div>
       </section>
     </>
