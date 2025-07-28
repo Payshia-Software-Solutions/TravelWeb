@@ -179,7 +179,7 @@ export default function Home() {
             />
             <div className="absolute inset-0 bg-black/50 z-10" />
         </div>
-        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 flex justify-end">
             <div className="max-w-2xl text-white">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
                 Wildlife Encounters in Sri Lanka
