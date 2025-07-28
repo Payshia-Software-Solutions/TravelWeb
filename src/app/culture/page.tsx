@@ -54,6 +54,45 @@ export default function CulturePage() {
     }
   ];
 
+  const heritageSites = [
+    {
+      name: 'Anuradhapura Ancient City',
+      description: 'Explore the ruins of the first capital of Sri Lanka, a UNESCO World Heritage site filled with stupas and monasteries.',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'anuradhapura city'
+    },
+    {
+      name: 'Polonnaruwa Ancient City',
+      description: 'Discover the well-preserved ruins of the second ancient capital, known for its impressive statues and temples.',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'polonnaruwa ruins'
+    },
+    {
+        name: 'Temple of the Tooth',
+        description: 'Visit the sacred temple in Kandy that houses the relic of the tooth of the Buddha, a major pilgrimage site.',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'kandy temple'
+    },
+    {
+      name: 'Katharagama',
+      description: 'A multi-religious sacred city, a pilgrimage site for Buddhists, Hindus, and the indigenous Vedda people.',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'katharagama temple'
+    },
+    {
+      name: 'Aluwiharaya',
+      description: 'A rock monastery with ancient caves where the Buddhist scriptures were first written down on palm leaves.',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'cave temple'
+    },
+    {
+        name: 'Dambulla Cave Temple',
+        description: 'The largest and best-preserved cave temple complex in Sri Lanka, with stunning murals and statues.',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'dambulla temple'
+    }
+  ];
+
   return (
     <>
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
@@ -172,6 +211,38 @@ export default function CulturePage() {
                 <CardContent className="p-6">
                   <h3 className="font-headline text-xl font-bold text-primary">{art.name}</h3>
                   <p className="mt-2 text-sm text-muted-foreground h-16">{art.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
+              Temples & Heritage Sites
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+            </h2>
+            <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
+              Explore the island's most sacred and historic sites, where ancient stories are carved in stone.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {heritageSites.map((site) => (
+              <Card key={site.name} className="overflow-hidden shadow-lg border-none">
+                <Image
+                  src={site.image}
+                  alt={site.name}
+                  width={600}
+                  height={400}
+                  className="w-full h-56 object-cover"
+                  data-ai-hint={site.aiHint}
+                />
+                <CardContent className="p-6 bg-card">
+                  <h3 className="font-headline text-xl font-bold text-primary">{site.name}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground h-20">{site.description}</p>
                 </CardContent>
               </Card>
             ))}
