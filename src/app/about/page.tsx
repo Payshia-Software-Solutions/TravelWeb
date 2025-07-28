@@ -68,7 +68,7 @@ export default function AboutPage() {
             <div className="absolute inset-0 bg-black/50 z-10" />
         </div>
         <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
-          <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+          <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl  tracking-tight">
             About Us
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white">
@@ -129,8 +129,8 @@ export default function AboutPage() {
               <Card key={value.title} className="text-center p-8 bg-blue-50/50 shadow-lg border-blue-100 flex flex-col">
                 <CardContent className="flex flex-col items-center justify-center gap-4 flex-grow">
                   <div className="mb-4">{value.icon}</div>
-                  <h3 className="font-headline text-xl font-bold h-7 flex items-center">{value.title}</h3>
-                  <p className="text-muted-foreground text-sm flex-grow">{value.description}</p>
+                  <h3 className="font-headline text-xl font-bold h-7 flex items-center text-black">{value.title}</h3>
+                  <p className="text-muted- text-sm flex-grow">{value.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -150,11 +150,11 @@ export default function AboutPage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {whyUs.map((item) => (
-              <Card key={item.title} className="text-center p-8 bg-card shadow-lg border-border flex flex-col">
+              <Card key={item.title} className="text-center p-8 bg-white shadow-lg border-border flex flex-col">
                 <CardContent className="flex flex-col items-center justify-center gap-4 flex-grow">
                   <div className="mb-4">{item.icon}</div>
-                  <h3 className="font-headline text-xl font-bold h-12 flex items-center justify-center">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm flex-grow">{item.description}</p>
+                  <h3 className="font-headline text-xl font-bold h-12 flex items-center justify-center text-black">{item.title}</h3>
+                  <p className="text-muted- text-sm flex-grow">{item.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -183,7 +183,7 @@ export default function AboutPage() {
                 <Button size="lg">
                     Start Your Journey
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-secondary">
+                <Button size="lg" variant="outline" className="border-white text-black hover:bg-white hover:text-secondary">
                     View Our Packages
                 </Button>
             </div>
