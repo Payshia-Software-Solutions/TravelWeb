@@ -2,9 +2,33 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { PawPrint, Sparkles } from 'lucide-react';
+import { PawPrint, Sparkles, Hand, Leaf, BrainCircuit, HeartPulse } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function AyurvedaPage() {
+  const treatments = [
+    {
+      name: 'Herbal Oil Massage',
+      description: 'Deep tissue relaxation with warm herbal oils to release tension and improve circulation',
+      icon: <Hand className="h-10 w-10 text-primary" />,
+    },
+    {
+      name: 'Panchakarma',
+      description: 'Complete detoxification program to eliminate toxins and restore natural balance',
+      icon: <HeartPulse className="h-10 w-10 text-primary" />,
+    },
+    {
+      name: 'Detox Therapy',
+      description: 'Cleansing treatments using indigenous herbs to purify and rejuvenate your system',
+      icon: <Leaf className="h-10 w-10 text-primary" />,
+    },
+    {
+      name: 'Meditation',
+      description: 'Guided mindfulness practices to achieve mental clarity and spiritual awakening',
+      icon: <BrainCircuit className="h-10 w-10 text-primary" />,
+    },
+  ];
+
   return (
     <>
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
@@ -30,7 +54,7 @@ export default function AyurvedaPage() {
             Discover ancient wellness practices rooted in balance, nature, and self-care
           </p>
           <Button size="lg" className="mt-8" asChild>
-            <Link href="#">Book a Wellness Retreat</Link>
+            <Link href="/ayurveda">Book a Wellness Retreat</Link>
           </Button>
         </div>
       </section>
@@ -68,6 +92,31 @@ export default function AyurvedaPage() {
                     </div>
                 </div>
             </div>
+        </div>
+      </section>
+      
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+              Popular Treatments
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+            </h2>
+            <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
+              Discover transformative healing experiences designed to restore your natural balance
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {treatments.map((treatment) => (
+              <Card key={treatment.name} className="text-center p-8 bg-green-50/50 shadow-lg border-green-200">
+                <CardContent className="flex flex-col items-center justify-center gap-4">
+                  <div className="mb-4">{treatment.icon}</div>
+                  <h3 className="font-headline text-xl font-bold">{treatment.name}</h3>
+                  <p className="text-muted-foreground text-sm">{treatment.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
     </>
