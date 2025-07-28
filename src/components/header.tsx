@@ -18,7 +18,7 @@ export function Header() {
     { href: '/about', label: 'About us' },
   ];
   
-  const hasTransparentHeader = ['/', '/things-to-do'].includes(pathname);
+  const hasTransparentHeader = ['/', '/things-to-do', '/culture', '/wildlife', '/ayurveda'].includes(pathname);
 
   useEffect(() => {
     const handleScroll = () => {
