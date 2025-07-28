@@ -129,7 +129,7 @@ export default function BlogPage() {
                 Climbing Sigiriya: A Journey Through Ancient Sri Lankan History
                 <span className="block w-2/3 h-1 bg-accent mt-2"></span>
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-lg text-muted- leading-relaxed">
                 Discover the breathtaking ancient rock fortress of Sigiriya, one of Sri Lanka's most iconic landmarks. From its fascinating history to practical climbing tips...
               </p>
               <Button asChild size="lg" className="rounded-3xl">
