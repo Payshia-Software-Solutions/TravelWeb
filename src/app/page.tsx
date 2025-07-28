@@ -161,7 +161,7 @@ export default function Home() {
                 Sri Lankan Culture
                 <span className="absolute -bottom-2 left-0 w-2/3 h-1 bg-accent"></span>
                 </h2>
-                <p className="mt-6 text-lg text-primary-foreground/90">
+                <p className="mt-6 text-lg text-white">
                 Step into a world of ancient traditions, sacred rituals, and colorful festivals
                 </p>
                 <Button size="lg" className="mt-8">Explore Culture Tours</Button>
@@ -185,7 +185,7 @@ export default function Home() {
                 Wildlife Encounters in Sri Lanka
                 <span className="absolute -bottom-2 right-0 w-2/3 h-1 bg-accent"></span>
                 </h2>
-                <p className="mt-6 text-lg text-primary-foreground/90">
+                <p className="mt-6 text-lg text-white">
                 Experience the wild heart of the island through safaris, marine life, and tropical bird sanctuaries.
                 </p>
                 <Button size="lg" className="mt-8">Plan Your Safari Adventure</Button>
@@ -209,7 +209,7 @@ export default function Home() {
                 Things to Do in Sri Lanka
                 <span className="absolute -bottom-2 left-0 w-2/3 h-1 bg-accent"></span>
                 </h2>
-                <p className="mt-6 text-lg text-primary-foreground/90">
+                <p className="mt-6 text-lg text-white">
                 From thrill-filled adventures to peaceful retreats, discover unforgettable experiences.
                 </p>
                 <Button size="lg" className="mt-8">Start Planning</Button>
@@ -233,7 +233,7 @@ export default function Home() {
                 Ayurveda in Sri Lanka
                 <span className="absolute -bottom-2 right-0 w-2/3 h-1 bg-accent"></span>
                 </h2>
-                <p className="mt-6 text-lg text-primary-foreground/90">
+                <p className="mt-6 text-lg text-white">
                 Discover ancient wellness practices rooted in balance, nature, and self-care
                 </p>
                 <Button size="lg" className="mt-8">Book a Wellness Retreat</Button>
@@ -289,13 +289,59 @@ export default function Home() {
                 Plan Your Own Journey
                 <span className="absolute -bottom-2 left-0 w-1/3 h-1 bg-accent"></span>
                 </h2>
-                <p className="mt-6 text-lg text-primary-foreground/90">
+                <p className="mt-6 text-lg text-white">
                 20 years from now you will be more disappointed by the things that you didn't do. Stop regretting and start travelling, start throwing off the bowlines.
                 </p>
                 <Button size="lg" className="mt-8">Let's Create trip plans</Button>
             </div>
         </div>
       </section>
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl">Destination Gallery</h2>
+             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+                Our photo gallery on trip
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid gap-4">
+                  <div>
+                      <Image className="h-auto max-w-full rounded-lg" src="https://placehold.co/500x750.png" alt="" width={500} height={750} data-ai-hint="man mural" />
+                  </div>
+                  <div>
+                      <Image className="h-auto max-w-full rounded-lg" src="https://placehold.co/500x300.png" alt="" width={500} height={300} data-ai-hint="man backpack" />
+                  </div>
+              </div>
+              <div className="grid gap-4">
+                  <div>
+                      <Image className="h-auto max-w-full rounded-lg" src="https://placehold.co/500x300.png" alt="" width={500} height={300} data-ai-hint="couple beach" />
+                  </div>
+                  <div>
+                      <Image className="h-auto max-w-full rounded-lg" src="https://placehold.co/500x750.png" alt="" width={500} height={750} data-ai-hint="woman backpack" />
+                  </div>
+              </div>
+              <div className="grid gap-4">
+                  <div>
+                      <Image className="h-auto max-w-full rounded-lg" src="https://placehold.co/500x750.png" alt="" width={500} height={750} data-ai-hint="man mural" />
+                  </div>
+                  <div>
+                      <Image className="h-auto max-w-full rounded-lg" src="https://placehold.co/500x300.png" alt="" width={500} height={300} data-ai-hint="couple beach" />
+                  </div>
+              </div>
+              <div className="grid gap-4">
+                  <div>
+                      <Image className="h-auto max-w-full rounded-lg" src="https://placehold.co/500x300.png" alt="" width={500} height={300} data-ai-hint="couple beach" />
+                  </div>
+                  <div>
+                      <Image className="h-auto max-w-full rounded-lg" src="https://placehold.co/500x750.png" alt="" width={500} height={750} data-ai-hint="woman backpack" />
+                  </div>
+              </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
+
+    
