@@ -2,9 +2,34 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { PawPrint } from 'lucide-react';
+import { PawPrint, ShieldCheck, Sprout, UserCheck, HelpCircle } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function AboutPage() {
+
+  const values = [
+    {
+      title: 'Sustainability',
+      description: "Protecting Sri Lanka's natural beauty for future generations",
+      icon: <ShieldCheck className="h-10 w-10 text-primary" />,
+    },
+    {
+      title: 'Local Empowerment',
+      description: 'Supporting communities and local businesses',
+      icon: <Sprout className="h-10 w-10 text-primary" />,
+    },
+    {
+      title: 'Personalized Service',
+      description: 'Crafting unique experiences tailored to you',
+      icon: <UserCheck className="h-10 w-10 text-primary" />,
+    },
+    {
+      title: 'Cultural Respect',
+      description: 'Honoring traditions and authentic experiences',
+      icon: <HelpCircle className="h-10 w-10 text-primary" />,
+    },
+  ];
+
   return (
     <>
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
@@ -63,6 +88,30 @@ export default function AboutPage() {
                     </div>
                 </div>
             </div>
+        </div>
+      </section>
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+              Our Mission & Values
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+            </h2>
+            <p className="mt-6 text-lg text-muted- max-w-2xl mx-auto">
+              Guiding principles that shape every journey we create
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value) => (
+              <Card key={value.title} className="text-center p-8 bg-blue-50/50 shadow-lg border-blue-100">
+                <CardContent className="flex flex-col items-center justify-center gap-4">
+                  <div className="mb-4">{value.icon}</div>
+                  <h3 className="font-headline text-xl font-bold">{value.title}</h3>
+                  <p className="text-muted-foreground text-sm">{value.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
     </>
