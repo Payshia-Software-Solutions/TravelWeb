@@ -40,3 +40,5 @@ export function DestinationCard({ destination }: DestinationCardProps) {
         </div>
     );
 }
+
+    
