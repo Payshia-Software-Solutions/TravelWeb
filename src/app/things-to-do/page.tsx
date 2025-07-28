@@ -176,11 +176,13 @@ export default function ThingsToDoPage() {
                     data-ai-hint={experience.aiHint}
                 />
                 <CardContent className="p-6 flex-grow flex flex-col">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-start gap-3">
                     {experience.icon}
-                    <h3 className="font-headline text-xl font-bold">{experience.name}</h3>
+                    <div className="flex-1">
+                      <h3 className="font-headline text-xl font-bold">{experience.name}</h3>
+                      <p className="text-muted-foreground mt-2">{experience.description}</p>
+                    </div>
                   </div>
-                  <p className="text-muted-foreground mt-2 flex-grow">{experience.description}</p>
                 </CardContent>
                 <CardFooter className="p-4 bg-card mt-auto">
                     <Button className="w-full">Learn More</Button>
