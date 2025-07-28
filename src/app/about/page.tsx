@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { PawPrint, ShieldCheck, Sprout, UserCheck, HelpCircle } from 'lucide-react';
+import { PawPrint, ShieldCheck, Sprout, UserCheck, HelpCircle, Users, Heart, ClipboardList, Headset } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 export default function AboutPage() {
@@ -29,6 +29,29 @@ export default function AboutPage() {
       icon: <HelpCircle className="h-10 w-10 text-primary" />,
     },
   ];
+
+  const whyUs = [
+    {
+        title: 'Trusted Local Experts',
+        description: 'Native guides with insider knowledge and authentic connections',
+        icon: <Users className="h-10 w-10 text-primary" />,
+    },
+    {
+        title: '1000+ Happy Travelers',
+        description: 'Proven track record of creating unforgettable memories',
+        icon: <Heart className="h-10 w-10 text-primary" />,
+    },
+    {
+        title: 'Customized Itineraries',
+        description: 'Tailored experiences designed around your interests and preferences',
+        icon: <ClipboardList className="h-10 w-10 text-primary" />,
+    },
+    {
+        title: '24/7 Support',
+        description: 'Round-the-clock assistance for peace of mind during your journey',
+        icon: <Headset className="h-10 w-10 text-primary" />,
+    },
+  ]
 
   return (
     <>
@@ -108,6 +131,30 @@ export default function AboutPage() {
                   <div className="mb-4">{value.icon}</div>
                   <h3 className="font-headline text-xl font-bold">{value.title}</h3>
                   <p className="text-muted-foreground text-sm">{value.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+              Why Travel With Us?
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+            </h2>
+            <p className="mt-6 text-lg text-muted- max-w-2xl mx-auto">
+              Discover what makes us your perfect travel partner
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {whyUs.map((item) => (
+              <Card key={item.title} className="text-center p-8 bg-card shadow-lg border-border">
+                <CardContent className="flex flex-col items-center justify-center gap-4">
+                  <div className="mb-4">{item.icon}</div>
+                  <h3 className="font-headline text-xl font-bold h-12 flex items-center">{item.title}</h3>
+                  <p className="text-muted-foreground text-sm flex-grow">{item.description}</p>
                 </CardContent>
               </Card>
             ))}
