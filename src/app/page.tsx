@@ -124,7 +124,7 @@ export default function Home() {
 
         </div>
       </section>
-      <section className="py-16 lg:py-24 bg-white">
+      <section className="py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Popular Destinations</h2>
@@ -165,6 +165,30 @@ export default function Home() {
                 Step into a world of ancient traditions, sacred rituals, and colorful festivals
                 </p>
                 <Button size="lg" className="mt-8">Explore Culture Tours</Button>
+            </div>
+        </div>
+      </section>
+      <section className="relative py-24 lg:py-32">
+        <div className="absolute inset-0">
+            <Image
+              src="https://placehold.co/1920x1080.png"
+              alt="Elephants in a field in Sri Lanka"
+              fill
+              className="z-0 object-cover"
+              data-ai-hint="elephants safari"
+            />
+            <div className="absolute inset-0 bg-black/50 z-10" />
+        </div>
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl text-white">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
+                Wildlife Encounters in Sri Lanka
+                <span className="absolute -bottom-2 left-0 w-2/3 h-1 bg-accent"></span>
+                </h2>
+                <p className="mt-6 text-lg text-primary-foreground/90">
+                Experience the wild heart of the island through safaris, marine life, and tropical bird sanctuaries.
+                </p>
+                <Button size="lg" className="mt-8">Plan Your Safari Adventure</Button>
             </div>
         </div>
       </section>
