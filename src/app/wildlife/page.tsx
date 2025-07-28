@@ -172,8 +172,8 @@ export default function WildlifePage() {
                   data-ai-hint={animal.aiHint}
                 />
                 <CardContent className="p-6 flex-grow flex flex-col">
-                  <h3 className="font-headline text-xl font-bold flex-shrink-0">{animal.name}</h3>
-                  <p className="mt-2 text-muted-foreground text-sm flex-grow">{animal.description}</p>
+                  <h3 className="font-headline text-xl font-bold flex-shrink-0 h-14">{animal.name}</h3>
+                  <p className="mt-2 text-muted-foreground text-sm flex-grow h-24">{animal.description}</p>
                   <div className="flex items-center text-sm text-muted-foreground mt-4 flex-shrink-0">
                     <MapPin className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
                     <span>{animal.location}</span>
