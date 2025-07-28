@@ -15,6 +15,7 @@ import { DestinationCard } from "@/components/destination-card";
 import Link from "next/link";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
 
 const testimonials = [
     {
@@ -153,7 +154,7 @@ export default function Home() {
 
         </div>
       </section>
-      <section className="py-16 lg:py-24 bg-background">
+      <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Popular Destinations</h2>
@@ -398,8 +399,8 @@ export default function Home() {
                           data-ai-hint="travel landscape"
                         />
                         <div className="relative -mt-24 w-full max-w-2xl">
-                             <Card className="bg-background/90 backdrop-blur-sm shadow-xl p-8 text-center">
-                                <Avatar className="h-20 w-20 mx-auto -mt-20 mb-4 border-4 border-background">
+                             <Card className="bg-white backdrop-blur-sm shadow-xl p-8 text-center">
+                                <Avatar className="h-20 w-20 mx-auto -mt-20 mb-4 border-4 border-white">
                                     <AvatarImage src={testimonial.avatar} alt={testimonial.name} data-ai-hint={testimonial.aiHint} />
                                     <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
                                 </Avatar>
@@ -418,10 +419,19 @@ export default function Home() {
           </Carousel>
         </div>
       </section>
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto bg-card p-8 rounded-lg text-center">
+            <h2 className="font-headline text-3xl md:text-4xl">Subscribe Newsletter</h2>
+            <p className="mt-2 text-lg font-bold">The Travel</p>
+            <p className="mt-2 text-muted-foreground">Get inspired! Receive travel discounts, tips and behind the scenes stories.</p>
+            <div className="mt-6 flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+              <Input type="email" placeholder="Your email address" className="flex-grow bg-white" />
+              <Button className="bg-secondary hover:bg-secondary/90">Subscribe</Button>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
-
-    
-
-    
