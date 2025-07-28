@@ -1,19 +1,20 @@
-import type { Metadata } from 'next';
+
+"use client";
 import './globals.css';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { Toaster } from "@/components/ui/toaster";
-
-export const metadata: Metadata = {
-  title: 'Wanderlust Web',
-  description: 'Explore the world with Wanderlust Web',
-};
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -21,7 +22,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased bg-background text-foreground">
+      <body className={cn("font-body antialiased bg-background text-foreground", { 'bg-secondary': isHomePage })}>
         <div className="flex flex-col min-h-screen">
           <Header />
           <main className="flex-grow">

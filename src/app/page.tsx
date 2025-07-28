@@ -36,7 +36,7 @@ export default function Home() {
             The best travel for your journey begins now
           </p>
 
-          <Card className="mt-12 w-full max-w-4xl bg-white/90 backdrop-blur-sm p-4 text-left">
+          <Card className="mt-12 w-full max-w-4xl bg-white/90 backdrop-blur-sm p-4 text-left text-card-foreground">
             <CardContent className="p-0 md:p-2">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
                     <div className="flex flex-col space-y-1">
