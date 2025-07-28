@@ -173,7 +173,7 @@ export default function WildlifePage() {
                 />
                 <CardContent className="p-6 flex-grow flex flex-col">
                   <h3 className="font-headline text-xl font-bold flex-shrink-0 h-14">{animal.name}</h3>
-                  <p className="mt-2 text-muted-foreground text-sm flex-grow h-20">{animal.description}</p>
+                  <p className="mt-2 text-muted-foreground text-sm flex-grow">{animal.description}</p>
                   <div className="flex items-center text-sm text-muted-foreground mt-4 flex-shrink-0">
                     <MapPin className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
                     <span>{animal.location}</span>
@@ -206,20 +206,18 @@ export default function WildlifePage() {
                   data-ai-hint={park.aiHint}
                 />
                 <CardContent className="p-6 flex-grow flex flex-col">
-                  <h3 className="font-headline text-xl font-bold h-12">{park.name}</h3>
-                  <p className="mt-2 text-muted-foreground text-sm flex-grow h-16">{park.description}</p>
-                  <div className="flex flex-wrap gap-2 mt-4 h-10 items-center">
+                  <h3 className="font-headline text-xl font-bold">{park.name}</h3>
+                  <p className="mt-2 text-muted-foreground text-sm flex-grow">{park.description}</p>
+                  <div className="flex flex-wrap gap-2 mt-4">
                       {park.tags.map(tag => (
                           <Badge key={tag} variant="secondary" className="bg-accent/20 text-accent-foreground">{tag}</Badge>
                       ))}
                   </div>
-                </CardContent>
-                 <div className="p-6 pt-0">
-                    <div className="flex items-center text-sm text-muted-foreground mt-4">
+                   <div className="flex items-center text-sm text-muted-foreground mt-4">
                         <Calendar className="h-4 w-4 mr-2 text-primary" />
                         <span>Best: {park.bestTime}</span>
                     </div>
-                 </div>
+                </CardContent>
               </Card>
             ))}
           </div>
