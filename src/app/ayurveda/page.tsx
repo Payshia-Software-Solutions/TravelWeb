@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { PawPrint, Sparkles, Hand, Leaf, BrainCircuit, HeartPulse, MapPin, Home, Bed, Tag } from 'lucide-react';
+import { PawPrint, Sparkles, Hand, Leaf, BrainCircuit, HeartPulse, MapPin, Home, Bed, Tag, Star, CheckCircle } from 'lucide-react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -253,6 +253,47 @@ export default function AyurvedaPage() {
             </p>
             <p className="text-right mt-4 font-semibold text-foreground">- Sarah M., Wellness Traveler</p>
           </div>
+        </div>
+      </section>
+      <section className="relative py-24 lg:py-32">
+        <div className="absolute inset-0">
+            <Image
+              src="https://placehold.co/1920x800.png"
+              alt="Leopard in Sri Lanka"
+              fill
+              className="z-0 object-cover"
+              data-ai-hint="leopard closeup"
+            />
+            <div className="absolute inset-0 bg-black/60 z-10" />
+        </div>
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">
+                Ready to Rejuvenate in Sri Lanka?
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-white">
+              Begin your journey to wellness with authentic Ayurvedic treatments
+            </p>
+            <div className="mt-8 flex justify-center">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                    Find Ayurveda Packages
+                </Button>
+            </div>
+            <div className="mt-8 flex items-center justify-center gap-8 text-sm">
+                <div className="flex items-center gap-2">
+                    <div className="flex text-yellow-400">
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                    </div>
+                    <span>4.9/5 Rating</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <span>Certified Centers</span>
+                </div>
+            </div>
         </div>
       </section>
     </>
