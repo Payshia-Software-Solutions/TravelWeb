@@ -161,8 +161,8 @@ export default function AyurvedaPage() {
               <Card key={treatment.name} className="text-center p-8 bg-green-50/50 shadow-lg border-green-200">
                 <CardContent className="flex flex-col items-center justify-center gap-4">
                   <div className="mb-4">{treatment.icon}</div>
-                  <h3 className="font-headline text-xl font-bold">{treatment.name}</h3>
-                  <p className="text-muted-foreground text-sm">{treatment.description}</p>
+                  <h3 className="font-headline text-xl font-bold h-14 flex items-center justify-center">{treatment.name}</h3>
+                  <p className="text-muted-foreground text-sm flex-grow">{treatment.description}</p>
                 </CardContent>
               </Card>
             ))}
