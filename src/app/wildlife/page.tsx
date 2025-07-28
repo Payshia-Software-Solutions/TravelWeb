@@ -162,7 +162,7 @@ export default function WildlifePage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
             {bigFive.map((animal) => (
-              <Card key={animal.name} className="overflow-hidden shadow-lg rounded-lg">
+              <Card key={animal.name} className="overflow-hidden shadow-lg rounded-lg flex flex-col">
                 <Image
                   src={animal.image}
                   alt={animal.name}
@@ -171,11 +171,11 @@ export default function WildlifePage() {
                   className="w-full h-48 object-cover"
                   data-ai-hint={animal.aiHint}
                 />
-                <CardContent className="p-6">
-                  <h3 className="font-headline text-xl font-bold">{animal.name}</h3>
-                  <p className="mt-2 text-muted-foreground text-sm h-24">{animal.description}</p>
-                  <div className="flex items-center text-sm text-muted-foreground mt-2">
-                    <MapPin className="h-4 w-4 mr-2 text-primary" />
+                <CardContent className="p-6 flex-grow flex flex-col">
+                  <h3 className="font-headline text-xl font-bold flex-shrink-0">{animal.name}</h3>
+                  <p className="mt-2 text-muted-foreground text-sm flex-grow">{animal.description}</p>
+                  <div className="flex items-center text-sm text-muted-foreground mt-4 flex-shrink-0">
+                    <MapPin className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
                     <span>{animal.location}</span>
                   </div>
                 </CardContent>
