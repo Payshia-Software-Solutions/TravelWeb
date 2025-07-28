@@ -246,7 +246,9 @@ export default function Home() {
                 <p className="mt-6 text-lg text-white">
                 From thrill-filled adventures to peaceful retreats, discover unforgettable experiences.
                 </p>
-                <Button size="lg" className="mt-8">Start Planning</Button>
+                <Button size="lg" className="mt-8" asChild>
+                  <Link href="/things-to-do">Start Planning</Link>
+                </Button>
             </div>
         </div>
       </section>
