@@ -20,7 +20,7 @@ export function DestinationCard({ destination }: DestinationCardProps) {
                 data-ai-hint={`${name.toLowerCase()}`}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-white flex justify-between items-end">
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white flex justify-between items-baseline">
                  <h3 className="text-2xl font-bold font-body">{name}</h3>
                  <p className="text-sm opacity-90">{location}</p>
             </div>
