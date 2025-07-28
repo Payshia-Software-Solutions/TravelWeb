@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Info, Bot } from 'lucide-react';
+import { Info } from 'lucide-react';
 import Link from 'next/link';
 
 export default function BlogPage() {
@@ -96,12 +96,6 @@ export default function BlogPage() {
           </div>
         </div>
       </section>
-
-      <div className="fixed bottom-8 right-8 z-50">
-        <Button size="icon" className="rounded-full w-14 h-14 bg-yellow-400 hover:bg-yellow-500 text-black shadow-lg">
-          <Bot className="w-7 h-7" />
-        </Button>
-      </div>
 
     </>
   );
