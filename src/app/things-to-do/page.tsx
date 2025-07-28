@@ -2,8 +2,8 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Card, CardContent } from '@/components/ui/card';
-import { Waves, Mountain, Leaf, Sparkles, Trophy } from 'lucide-react';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Waves, Mountain, Leaf, Sparkles, Trophy, Utensils, Wind } from 'lucide-react';
 
 function CultureIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
@@ -38,6 +38,65 @@ export default function ThingsToDoPage() {
       icon: <Leaf className="h-10 w-10 text-green-500" />,
     },
   ];
+
+  const experiences = [
+    {
+        name: 'Surfing at Arugam Bay',
+        description: 'Perfect waves from May to October, ideal for all skill levels',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'surfing wave',
+        icon: <Waves className="h-6 w-6 text-primary" />,
+    },
+    {
+        name: 'Hiking in Ella',
+        description: 'Perfect waves from May to October, ideal for all skill levels',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'hiking ella',
+        icon: <Mountain className="h-6 w-6 text-green-500" />,
+    },
+    {
+        name: 'Waterfall Jumping Lakshapana',
+        description: 'Perfect waves from May to October, ideal for all skill levels',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'waterfall jumping',
+        icon: <Waves className="h-6 w-6 text-primary" />,
+    },
+    {
+        name: 'Cooking Classes',
+        description: 'Perfect waves from May to October, ideal for all skill levels',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'cooking class',
+        icon: <Utensils className="h-6 w-6 text-red-500" />,
+    },
+    {
+        name: 'Beach Yoga',
+        description: 'Perfect waves from May to October, ideal for all skill levels',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'beach yoga',
+        icon: <Leaf className="h-6 w-6 text-green-500" />,
+    },
+    {
+        name: 'Ravana Zip Line',
+        description: 'Perfect waves from May to October, ideal for all skill levels',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'zip line',
+        icon: <Mountain className="h-6 w-6 text-green-500" />,
+    },
+    {
+        name: 'Skating in Hikkaduwa',
+        description: 'Perfect waves from May to October, ideal for all skill levels',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'surfing hikkaduwa',
+        icon: <Waves className="h-6 w-6 text-primary" />,
+    },
+    {
+        name: 'Rafting Kithulgala',
+        description: 'Perfect waves from May to October, ideal for all skill levels',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'rafting river',
+        icon: <Waves className="h-6 w-6 text-primary" />,
+    }
+  ]
 
   return (
     <>
@@ -96,6 +155,42 @@ export default function ThingsToDoPage() {
             </div>
         </div>
       </section>
+
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+              Top Experiences
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {experiences.map((experience, index) => (
+              <Card key={index} className="overflow-hidden shadow-lg rounded-lg flex flex-col">
+                <Image
+                    src={experience.image}
+                    alt={experience.name}
+                    width={600}
+                    height={400}
+                    className="w-full h-48 object-cover"
+                    data-ai-hint={experience.aiHint}
+                />
+                <CardContent className="p-6 flex-grow flex flex-col">
+                  <div className="flex items-center gap-3">
+                    {experience.icon}
+                    <h3 className="font-headline text-xl font-bold">{experience.name}</h3>
+                  </div>
+                  <p className="text-muted-foreground mt-2 flex-grow">{experience.description}</p>
+                </CardContent>
+                <CardFooter className="p-4 bg-card mt-auto">
+                    <Button className="w-full">Learn More</Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
     </>
   );
 }
