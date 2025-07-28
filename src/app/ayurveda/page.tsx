@@ -1,9 +1,11 @@
 
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { PawPrint, Sparkles, Hand, Leaf, BrainCircuit, HeartPulse } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { PawPrint, Sparkles, Hand, Leaf, BrainCircuit, HeartPulse, MapPin, Home, Bed, Tag } from 'lucide-react';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 export default function AyurvedaPage() {
   const treatments = [
@@ -26,6 +28,53 @@ export default function AyurvedaPage() {
       name: 'Meditation',
       description: 'Guided mindfulness practices to achieve mental clarity and spiritual awakening',
       icon: <BrainCircuit className="h-10 w-10 text-primary" />,
+    },
+  ];
+
+  const resorts = [
+    {
+        name: 'Barberyn Ayurveda Resort',
+        location: 'Beruwala, Sri Lanka',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'ayurveda resort',
+        tags: [
+            { icon: <Tag className="h-4 w-4" />, label: 'Spa' },
+            { icon: <Home className="h-4 w-4" />, label: 'Resort' },
+            { icon: <Bed className="h-4 w-4" />, label: 'Luxury' },
+        ],
+    },
+    {
+        name: 'Siddhalepa Ayurveda Health Resort',
+        location: 'Wadduwa, Sri Lanka',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'ayurveda resort',
+        tags: [
+            { icon: <Tag className="h-4 w-4" />, label: 'Spa' },
+            { icon: <Home className="h-4 w-4" />, label: 'Resort' },
+            { icon: <Bed className="h-4 w-4" />, label: 'Luxury' },
+        ],
+    },
+    {
+        name: 'Jetwing Ayurveda Pavilions',
+        location: 'Negombo, Sri Lanka',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'ayurveda resort beach',
+        tags: [
+            { icon: <Tag className="h-4 w-4" />, label: 'Spa' },
+            { icon: <Home className="h-4 w-4" />, label: 'Resort' },
+            { icon: <Bed className="h-4 w-4" />, label: 'Luxury' },
+        ],
+    },
+    {
+        name: 'Jetwing Ayurveda Pavilions',
+        location: 'Negombo, Sri Lanka',
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'ayurveda resort beach',
+        tags: [
+            { icon: <Tag className="h-4 w-4" />, label: 'Spa' },
+            { icon: <Home className="h-4 w-4" />, label: 'Resort' },
+            { icon: <Bed className="h-4 w-4" />, label: 'Luxury' },
+        ],
     },
   ];
 
@@ -114,6 +163,52 @@ export default function AyurvedaPage() {
                   <h3 className="font-headline text-xl font-bold">{treatment.name}</h3>
                   <p className="text-muted-foreground text-sm">{treatment.description}</p>
                 </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+              Top Ayurvedic Resorts
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+            </h2>
+            <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
+              Luxury wellness destinations offering authentic healing experiences
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {resorts.map((resort, index) => (
+              <Card key={index} className="overflow-hidden shadow-lg rounded-lg flex flex-col">
+                 <Image
+                    src={resort.image}
+                    alt={resort.name}
+                    width={600}
+                    height={400}
+                    className="w-full h-48 object-cover"
+                    data-ai-hint={resort.aiHint}
+                />
+                <CardContent className="p-6 flex-grow flex flex-col bg-card">
+                  <h3 className="font-headline text-xl font-bold">{resort.name}</h3>
+                  <div className="flex items-center text-sm text-muted-foreground mt-2">
+                    <MapPin className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
+                    <span>{resort.location}</span>
+                  </div>
+                   <div className="flex flex-wrap gap-4 mt-4 text-muted-foreground text-sm">
+                      {resort.tags.map(tag => (
+                        <div key={tag.label} className="flex items-center gap-1">
+                          {tag.icon}
+                          <span>{tag.label}</span>
+                        </div>
+                      ))}
+                  </div>
+                </CardContent>
+                 <CardFooter className="p-4 bg-card">
+                    <Button className="w-full">View Details</Button>
+                </CardFooter>
               </Card>
             ))}
           </div>
