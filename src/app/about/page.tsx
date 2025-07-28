@@ -150,10 +150,10 @@ export default function AboutPage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {whyUs.map((item) => (
-              <Card key={item.title} className="text-center p-8 bg-card shadow-lg border-border">
-                <CardContent className="flex flex-col items-center justify-center gap-4">
+              <Card key={item.title} className="text-center p-8 bg-card shadow-lg border-border flex flex-col">
+                <CardContent className="flex flex-col items-center justify-center gap-4 flex-grow">
                   <div className="mb-4">{item.icon}</div>
-                  <h3 className="font-headline text-xl font-bold h-12 flex items-center">{item.title}</h3>
+                  <h3 className="font-headline text-xl font-bold h-12 flex items-center justify-center">{item.title}</h3>
                   <p className="text-muted-foreground text-sm flex-grow">{item.description}</p>
                 </CardContent>
               </Card>
