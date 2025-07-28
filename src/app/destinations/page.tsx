@@ -39,13 +39,13 @@ export default function ExplorePage() {
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white">
             Discover the beauty, history, and culture of each region.
           </p>
-          <Button size="lg" className="mt-8">
+          <Button size="lg" className="mt-8 rounded-3xl">
             Book Now
           </Button>
         </div>
       </section>
 
-      <section className="py-16 lg:py-24 bg-background">
+      <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <Carousel
                 opts={{
@@ -57,7 +57,7 @@ export default function ExplorePage() {
                 <div className="flex justify-between items-center mb-12">
                     <div>
                         <h2 className="font-headline text-4xl md:text-5xl font-bold">Featured Destinations</h2>
-                        <p className="mt-2 text-lg text-muted-foreground">
+                        <p className="mt-2 text-lg text-muted-">
                             Our most popular and highly recommended places to visit
                         </p>
                     </div>
@@ -81,7 +81,7 @@ export default function ExplorePage() {
         </div>
       </section>
       
-      <section className="py-16 lg:py-24 bg-background">
+      <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
