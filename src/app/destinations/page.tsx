@@ -3,8 +3,13 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { destinations } from '@/lib/destinations';
+import { DestinationCard } from '@/components/destination-card';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import Link from 'next/link';
 
 export default function ExplorePage() {
+  const featuredDestinations = destinations.filter(d => d.popular);
 
   return (
     <>
@@ -32,6 +37,43 @@ export default function ExplorePage() {
           </Button>
         </div>
       </section>
+
+      <section className="py-16 lg:py-24 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center mb-12">
+                <div>
+                    <h2 className="font-headline text-4xl md:text-5xl font-bold">Featured Destinations</h2>
+                    <p className="mt-2 text-lg text-muted-foreground">
+                        Our most popular and highly recommended places to visit
+                    </p>
+                </div>
+                <div className="hidden md:flex gap-2">
+                    <CarouselPrevious />
+                    <CarouselNext />
+                </div>
+            </div>
+            <Carousel
+                opts={{
+                    align: "start",
+                    loop: true,
+                }}
+                className="w-full"
+            >
+                <CarouselContent>
+                    {featuredDestinations.map((dest, index) => (
+                        <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4">
+                             <DestinationCard destination={dest} />
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <div className="md:hidden flex justify-center gap-2 mt-8">
+                    <CarouselPrevious />
+                    <CarouselNext />
+                </div>
+            </Carousel>
+        </div>
+      </section>
+
     </>
   );
 }
