@@ -216,6 +216,30 @@ export default function Home() {
             </div>
         </div>
       </section>
+      <section className="relative py-24 lg:py-32">
+        <div className="absolute inset-0">
+            <Image
+              src="https://placehold.co/1920x1080.png"
+              alt="Ayurveda in Sri Lanka"
+              fill
+              className="z-0 object-cover"
+              data-ai-hint="ayurveda spa"
+            />
+            <div className="absolute inset-0 bg-black/50 z-10" />
+        </div>
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 flex justify-end text-right">
+            <div className="max-w-2xl text-white">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
+                Ayurveda in Sri Lanka
+                <span className="absolute -bottom-2 right-0 w-2/3 h-1 bg-accent"></span>
+                </h2>
+                <p className="mt-6 text-lg text-primary-foreground/90">
+                Discover ancient wellness practices rooted in balance, nature, and self-care
+                </p>
+                <Button size="lg" className="mt-8">Book a Wellness Retreat</Button>
+            </div>
+        </div>
+      </section>
     </>
   );
 }
