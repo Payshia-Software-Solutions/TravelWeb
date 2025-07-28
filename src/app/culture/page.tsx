@@ -27,6 +27,33 @@ export default function CulturePage() {
     }
   ]
 
+    const arts = [
+    {
+      name: 'Kandyan Dance',
+      description: 'Graceful classical dance form with elaborate costumes and precise movements',
+      image: 'https://placehold.co/600x800.png',
+      aiHint: 'kandyan dance'
+    },
+    {
+      name: 'Traditional Masks',
+      description: 'Intricately carved wooden masks used in devil dancing and folk performances',
+      image: 'https://placehold.co/600x800.png',
+      aiHint: 'traditional masks'
+    },
+    {
+      name: 'Percussion Ensemble',
+      description: 'Hypnotic rhythms created by geta bera, yak bera, and other traditional drums',
+      image: 'https://placehold.co/600x800.png',
+      aiHint: 'traditional drums'
+    },
+    {
+      name: 'Devil Dance',
+      description: 'Hypnotic rhythms created by geta bera, yak bera, and other traditional drums',
+      image: 'https://placehold.co/600x800.png',
+      aiHint: 'devil dance'
+    }
+  ];
+
   return (
     <>
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
@@ -119,6 +146,39 @@ export default function CulturePage() {
           </div>
         </div>
       </section>
+
+      <section className="py-16 lg:py-24 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
+              Arts & Music
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+            </h2>
+            <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
+              Sri Lankan performing arts are a spectacular fusion of rhythm, movement, and storytelling that has captivated audiences for centuries.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {arts.map((art) => (
+              <Card key={art.name} className="overflow-hidden shadow-lg border rounded-lg text-center">
+                <Image
+                  src={art.image}
+                  alt={art.name}
+                  width={600}
+                  height={800}
+                  className="w-full h-80 object-cover"
+                  data-ai-hint={art.aiHint}
+                />
+                <CardContent className="p-6">
+                  <h3 className="font-headline text-xl font-bold text-primary">{art.name}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground h-16">{art.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
     </>
   );
 }
