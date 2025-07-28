@@ -1,9 +1,48 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { PawPrint } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { PawPrint, MapPin } from 'lucide-react';
 
 export default function WildlifePage() {
+
+  const bigFive = [
+    {
+      name: 'Asian Elephant',
+      description: 'Largest land mammal in Asia, highly intelligent and social',
+      location: 'Udawalawe, Minneriya',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'asian elephant'
+    },
+    {
+      name: 'Sri Lankan Leopard',
+      description: 'Endemic subspecies, apex predator of the island',
+      location: 'Yala, Wilpattu',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'sri lankan leopard'
+    },
+    {
+      name: 'Sloth Bear',
+      description: 'Shaggy-coated bear with distinctive white chest patch',
+      location: 'Yala, Wasgamuwa',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'sloth bear'
+    },
+    {
+      name: 'Blue Whale',
+      description: 'Largest animal on Earth, frequent visitor to Sri Lankan sea area',
+      location: 'Mirissa, Trincomalee',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'blue whale'
+    },
+    {
+      name: 'Dolphin',
+      description: 'Cute animal on Earth, frequent visitor to Sri Lankan Sea area',
+      location: 'Kalpitiya, Dondra',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'dolphin jumping'
+    }
+  ];
   return (
     <>
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
@@ -72,6 +111,40 @@ export default function WildlifePage() {
                     </div>
                 </div>
             </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl">The Big Five of Sri Lanka</h2>
+            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+              The Big Five of Sri Lanka
+            </p>
+             <span className="inline-block w-20 h-1 bg-accent mt-4"></span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            {bigFive.map((animal) => (
+              <Card key={animal.name} className="overflow-hidden shadow-lg rounded-lg">
+                <Image
+                  src={animal.image}
+                  alt={animal.name}
+                  width={600}
+                  height={400}
+                  className="w-full h-48 object-cover"
+                  data-ai-hint={animal.aiHint}
+                />
+                <CardContent className="p-6">
+                  <h3 className="font-headline text-xl font-bold">{animal.name}</h3>
+                  <p className="mt-2 text-muted-foreground text-sm h-16">{animal.description}</p>
+                  <div className="flex items-center text-sm text-muted-foreground mt-4">
+                    <MapPin className="h-4 w-4 mr-2 text-primary" />
+                    <span>{animal.location}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
     </>
