@@ -18,7 +18,7 @@ export default function BlogPage() {
             <div className="absolute inset-0 bg-black/50 z-10" />
         </div>
         <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
-          <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+          <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl tracking-tight">
             Travel Blog & Stories
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white">
