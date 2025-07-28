@@ -117,10 +117,10 @@ export default function AyurvedaPage() {
                         What is Ayurveda?
                         <span className="absolute -bottom-2 left-0 w-2/3 h-1 bg-accent"></span>
                     </h2>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg text-muted- leading-relaxed">
                         Ayurveda, the ancient "science of life," has flourished in Sri Lanka for over 3,000 years. This holistic healing system emphasizes the balance between mind, body, and spirit through natural remedies, herbal treatments, and mindful practices.
                     </p>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg text-muted- leading-relaxed">
                         Experience authentic treatments that cleanse toxins, restore energy, and promote deep healing in the birthplace of traditional wellness wisdom.
                     </p>
                     <div className="flex items-center gap-3 text-primary">
@@ -152,7 +152,7 @@ export default function AyurvedaPage() {
               Popular Treatments
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
             </h2>
-            <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mt-6 text-lg text-muted- max-w-2xl mx-auto">
               Discover transformative healing experiences designed to restore your natural balance
             </p>
           </div>
@@ -177,7 +177,7 @@ export default function AyurvedaPage() {
               Top Ayurvedic Resorts
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
             </h2>
-            <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mt-6 text-lg text-muted- max-w-2xl mx-auto">
               Luxury wellness destinations offering authentic healing experiences
             </p>
           </div>
@@ -223,7 +223,7 @@ export default function AyurvedaPage() {
               Tips for Tourists
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
             </h2>
-            <p className="mt-6 text-lg text-muted-foreground">
+            <p className="mt-6 text-lg text-muted-">
               Everything you need to know for an authentic Ayurveda experience
             </p>
           </div>

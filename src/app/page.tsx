@@ -67,7 +67,7 @@ export default function Home() {
           <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight">
             Start your unforgettable journey with us.
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/90">
+          <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-primary-/90">
             The best travel for your journey begins now
           </p>
 
@@ -158,7 +158,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Popular Destinations</h2>
-                <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="mt-4 text-lg text-muted- max-w-2xl mx-auto">
                     Most popular destinations around the world, from historical places to natural wonders.
                 </p>
             </div>
@@ -282,7 +282,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-headline text-4xl md:text-5xl">Our Blog</h2>
-            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mt-4 text-lg text-muted- max-w-2xl mx-auto">
               An insight the incredible experience in the world
             </p>
           </div>
@@ -300,7 +300,7 @@ export default function Home() {
             <div>
               <h3 className="font-headline text-3xl">Beautiful Sri Lanka</h3>
               <p className="font-headline text-2xl text-muted-foreground mb-4">Let's travel</p>
-              <p className="mb-8 text-foreground/80 leading-relaxed">
+              <p className="mb-8 text-/80 leading-relaxed">
                 Beautiful Sri Lanka is a tropical paradise brimming with lush landscapes, golden beaches, ancient ruins, and vibrant culture. From the misty mountains of Ella to the sun-kissed shores of Mirissa, every corner offers a new adventure. Wander through the sacred city of Kandy, explore the wildlife of Yala National Park, or sip world-renowned Ceylon tea in Nuwara Eliya. Let's travel to Sri Lanka and discover its rich heritage, warm hospitality, and breathtaking natural beauty—it's a journey you'll never forget!
               </p>
               <Button size="lg" asChild>
@@ -337,7 +337,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-headline text-4xl md:text-5xl">Destination Gallery</h2>
-             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+             <p className="mt-4 text-lg text-muted- max-w-2xl mx-auto">
                 Our photo gallery on trip
             </p>
           </div>
@@ -381,7 +381,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-headline text-4xl md:text-5xl">Traveler's Experiences</h2>
-            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mt-4 text-lg text-muted- max-w-2xl mx-auto">
               Here some awesome feedback from our travelers
             </p>
              <span className="inline-block w-20 h-1 bg-accent mt-4"></span>

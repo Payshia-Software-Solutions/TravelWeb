@@ -116,7 +116,7 @@ export default function WildlifePage() {
                     <p className="text-lg text-muted- leading-relaxed">
                         Sri Lanka, though small in size, harbors an extraordinary diversity of wildlife. From ancient elephants roaming through national parks to elusive leopards prowling through dense jungles, this island nation offers some of the world's most spectacular wildlife encounters.
                     </p>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg text-muted- leading-relaxed">
                        With over 26 national parks and nature reserves, Sri Lanka protects its endemic species while providing unforgettable experiences for nature enthusiasts and adventure seekers alike.
                     </p>
                     <div className="flex space-x-8 pt-4">
@@ -155,7 +155,7 @@ export default function WildlifePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-headline text-4xl md:text-5xl">The Big Five of Sri Lanka</h2>
-            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mt-4 text-lg text-muted- max-w-2xl mx-auto">
               Meet the island's most iconic and sought-after wildlife species.
             </p>
              <span className="inline-block w-20 h-1 bg-accent mt-4"></span>
@@ -189,7 +189,7 @@ export default function WildlifePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-headline text-4xl md:text-5xl">Top National Parks</h2>
-            <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="mt-4 text-lg text-muted- max-w-3xl mx-auto">
               Sri Lankan performing arts are a spectacular fusion of rhythm, movement, and storytelling that has captivated audiences for centuries.
             </p>
              <span className="inline-block w-20 h-1 bg-accent mt-4"></span>
@@ -239,7 +239,7 @@ export default function WildlifePage() {
                             <div className="text-primary pt-1"><Anchor className="w-6 h-6"/></div>
                             <div>
                                 <h3 className="font-headline text-2xl font-semibold text-blue-400">Marine Life</h3>
-                                <p className="mt-2 text-muted-foreground">
+                                <p className="mt-2 text-muted-">
                                     Sri Lanka's waters are among the world's best for whale watching, with blue whales, sperm whales, and dolphins visible year-round.
                                 </p>
                                 <div className="flex flex-wrap gap-2 mt-4">
@@ -253,7 +253,7 @@ export default function WildlifePage() {
                             <div className="text-primary pt-1"><Bird className="w-6 h-6"/></div>
                             <div>
                                 <h3 className="font-headline text-2xl font-semibold text-green-400">Bird Watching</h3>
-                                <p className="mt-2 text-muted-foreground">
+                                <p className="mt-2 text-muted-">
                                     With over 400 bird species, including 26 endemic varieties, Sri Lanka is a paradise for birders and nature photographers.
                                 </p>
                                 <div className="flex flex-wrap gap-2 mt-4">

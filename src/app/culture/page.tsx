@@ -129,10 +129,10 @@ export default function CulturePage() {
                         A Living Heritage
                         <span className="absolute -bottom-2 left-0 w-2/3 h-1 bg-accent"></span>
                     </h2>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg text-muted- leading-relaxed">
                         Sri Lankan culture is a vibrant tapestry woven from over 2,500 years of history. Influenced by Buddhism, Hinduism, Islam, and Christianity, the island's cultural landscape reflects a harmonious blend of ancient traditions and modern expressions.
                     </p>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg text-muted- leading-relaxed">
                         From the rhythmic beats of traditional drums to the graceful movements of Kandyan dancers, every aspect of Sri Lankan culture tells a story of resilience, spirituality, and celebration.
                     </p>
                     <div className="flex items-center gap-3 text-primary">
@@ -161,7 +161,7 @@ export default function CulturePage() {
               Festivals & Traditions
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
             </h2>
-            <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mt-6 text-lg text-muted- max-w-2xl mx-auto">
               Celebrate life through Sri Lanka's most cherished festivals and time-honored traditions
             </p>
           </div>
@@ -193,7 +193,7 @@ export default function CulturePage() {
               Arts & Music
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
             </h2>
-            <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="mt-6 text-lg text-muted- max-w-3xl mx-auto">
               Sri Lankan performing arts are a spectacular fusion of rhythm, movement, and storytelling that has captivated audiences for centuries.
             </p>
           </div>
@@ -225,7 +225,7 @@ export default function CulturePage() {
               Temples & Heritage Sites
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
             </h2>
-            <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="mt-6 text-lg text-muted- max-w-3xl mx-auto">
               Explore the island's most sacred and historic sites, where ancient stories are carved in stone.
             </p>
           </div>

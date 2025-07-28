@@ -133,7 +133,7 @@ export default function ThingsToDoPage() {
                         Discover Paradise
                         <span className="absolute -bottom-2 left-0 w-2/3 h-1 bg-green-200"></span>
                     </h2>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg text-muted- leading-relaxed">
                         Sri Lanka's diverse landscapes offer everything from pristine beaches and lush rainforests to ancient temples and vibrant cities. Whether you seek adrenaline-pumping adventures or serene cultural experiences, the Pearl of the Indian Ocean has something magical waiting for you.
                     </p>
                     
