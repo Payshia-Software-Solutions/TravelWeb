@@ -40,18 +40,6 @@ export default function ExplorePage() {
 
       <section className="py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center mb-12">
-                <div>
-                    <h2 className="font-headline text-4xl md:text-5xl font-bold">Featured Destinations</h2>
-                    <p className="mt-2 text-lg text-muted-foreground">
-                        Our most popular and highly recommended places to visit
-                    </p>
-                </div>
-                <div className="hidden md:flex gap-2">
-                    <CarouselPrevious />
-                    <CarouselNext />
-                </div>
-            </div>
             <Carousel
                 opts={{
                     align: "start",
@@ -59,6 +47,18 @@ export default function ExplorePage() {
                 }}
                 className="w-full"
             >
+                <div className="flex justify-between items-center mb-12">
+                    <div>
+                        <h2 className="font-headline text-4xl md:text-5xl font-bold">Featured Destinations</h2>
+                        <p className="mt-2 text-lg text-muted-foreground">
+                            Our most popular and highly recommended places to visit
+                        </p>
+                    </div>
+                    <div className="hidden md:flex gap-2">
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </div>
+                </div>
                 <CarouselContent>
                     {featuredDestinations.map((dest, index) => (
                         <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4">
