@@ -283,13 +283,13 @@ export default function Home() {
             />
             <div className="absolute inset-0 bg-black/50 z-10" />
         </div>
-        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl text-white">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
                 Plan Your Own Journey
-                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+                <span className="absolute -bottom-2 left-0 w-1/3 h-1 bg-accent"></span>
                 </h2>
-                <p className="mt-6 text-lg text-primary-foreground/90 max-w-xl mx-auto">
+                <p className="mt-6 text-lg text-primary-foreground/90">
                 20 years from now you will be more disappointed by the things that you didn't do. Stop regretting and start travelling, start throwing off the bowlines.
                 </p>
                 <Button size="lg" className="mt-8">Let's Create trip plans</Button>
