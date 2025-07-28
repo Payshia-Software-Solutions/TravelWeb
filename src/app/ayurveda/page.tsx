@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { PawPrint, Sparkles, Hand, Leaf, BrainCircuit, HeartPulse, MapPin, Home, Bed, Tag } from 'lucide-react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function AyurvedaPage() {
   const treatments = [
@@ -211,6 +212,46 @@ export default function AyurvedaPage() {
                 </CardFooter>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+           <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+              Tips for Tourists
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+            </h2>
+            <p className="mt-6 text-lg text-muted-foreground">
+              Everything you need to know for an authentic Ayurveda experience
+            </p>
+          </div>
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="item-1">
+              <AccordionTrigger>What to expect during an Ayurveda session?</AccordionTrigger>
+              <AccordionContent>
+                An authentic Ayurvedic session begins with a consultation with a qualified practitioner who will determine your unique mind-body constitution (dosha). Treatments often involve herbal oil massages, steam baths, and other therapies designed to detoxify and rejuvenate. Expect a calming and deeply relaxing experience that focuses on holistic well-being.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+              <AccordionTrigger>How to book an authentic experience?</AccordionTrigger>
+              <AccordionContent>
+                To book an authentic Ayurvedic experience, research reputable wellness centers and resorts that are certified by the Sri Lanka Tourism Development Authority. Reading reviews, checking practitioner credentials, and booking directly through official websites are good practices. Our recommended resorts are all verified for authenticity and quality.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3">
+              <AccordionTrigger>Is it safe and certified?</AccordionTrigger>
+              <AccordionContent>
+                Yes, authentic Ayurvedic treatments in Sri Lanka are safe when performed by certified professionals. Look for centers registered with the Department of Ayurveda. Practitioners undergo rigorous training, and the herbal remedies used are regulated for quality and safety, ensuring a trustworthy and effective healing journey.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <div className="mt-12 bg-green-50 p-8 rounded-lg shadow-md">
+            <p className="text-lg italic text-muted-foreground text-center">
+              "The healing I experienced in Sri Lanka was beyond anything I imagined. The authentic treatments and peaceful environment created a transformation that lasted long after I returned home."
+            </p>
+            <p className="text-right mt-4 font-semibold text-foreground">- Sarah M., Wellness Traveler</p>
           </div>
         </div>
       </section>
