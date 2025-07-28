@@ -173,8 +173,8 @@ export default function WildlifePage() {
                 />
                 <CardContent className="p-6">
                   <h3 className="font-headline text-xl font-bold">{animal.name}</h3>
-                  <p className="mt-2 text-muted-foreground text-sm h-16">{animal.description}</p>
-                  <div className="flex items-center text-sm text-muted-foreground mt-4">
+                  <p className="mt-2 text-muted-foreground text-sm h-24">{animal.description}</p>
+                  <div className="flex items-center text-sm text-muted-foreground mt-2">
                     <MapPin className="h-4 w-4 mr-2 text-primary" />
                     <span>{animal.location}</span>
                   </div>
