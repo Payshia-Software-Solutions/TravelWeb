@@ -1,9 +1,32 @@
 
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { Sparkles } from 'lucide-react';
 
 export default function CulturePage() {
+  const festivals = [
+    {
+      name: 'Vesak Festival',
+      description: "The most sacred Buddhist festival celebrating the birth, enlightenment, and death of Buddha with thousands of colorful lanterns lighting up the night sky.",
+      image: 'https://placehold.co/800x600.png',
+      aiHint: 'vesak lanterns'
+    },
+    {
+      name: 'Poson Festival',
+      description: "Commemorates the arrival of Buddhism in Sri Lanka. The day is celebrated with religious activities, decorations, and the lighting of paper lanterns.",
+      image: 'https://placehold.co/800x600.png',
+      aiHint: 'buddhist festival'
+    },
+    {
+      name: 'Esala Perahera',
+      description: "A grand festival of dance, music, and decorated elephants held in Kandy to pay homage to the Sacred Tooth Relic of Lord Buddha.",
+      image: 'https://placehold.co/800x600.png',
+      aiHint: 'festival parade'
+    }
+  ]
+
   return (
     <>
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
@@ -62,6 +85,38 @@ export default function CulturePage() {
                     />
                 </div>
             </div>
+        </div>
+      </section>
+
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold relative inline-block">
+              Festivals & Traditions
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+            </h2>
+            <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
+              Celebrate life through Sri Lanka's most cherished festivals and time-honored traditions
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {festivals.map((festival) => (
+              <Card key={festival.name} className="overflow-hidden shadow-lg border-none">
+                <Image
+                  src={festival.image}
+                  alt={festival.name}
+                  width={800}
+                  height={600}
+                  className="w-full h-64 object-cover"
+                  data-ai-hint={festival.aiHint}
+                />
+                <CardContent className="p-6 bg-card">
+                  <h3 className="font-headline text-2xl font-bold text-primary">{festival.name}</h3>
+                  <p className="mt-2 text-muted-foreground">{festival.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
     </>
