@@ -421,11 +421,11 @@ export default function Home() {
       </section>
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto bg-card p-8 rounded-lg text-center">
+          <div className="max-w-2xl mx-auto bg-card p-8 rounded-lg text-left">
             <h2 className="font-headline text-3xl md:text-4xl">Subscribe Newsletter</h2>
             <p className="mt-2 text-lg font-bold">The Travel</p>
             <p className="mt-2 text-muted-foreground">Get inspired! Receive travel discounts, tips and behind the scenes stories.</p>
-            <div className="mt-6 flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+            <div className="mt-6 flex flex-col sm:flex-row gap-2 max-w-md">
               <Input type="email" placeholder="Your email address" className="flex-grow bg-white" />
               <Button className="bg-secondary hover:bg-secondary/90">Subscribe</Button>
             </div>
