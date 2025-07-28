@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { PawPrint, MapPin, Leaf, Shield, Users, Heart, Calendar, Bird, Anchor } from 'lucide-react';
+import { PawPrint, MapPin, Leaf, Shield, Users, Heart, Calendar, Bird, Anchor, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 export default function WildlifePage() {
@@ -322,6 +322,42 @@ export default function WildlifePage() {
         </div>
       </section>
 
+      <section className="relative py-24 lg:py-32">
+        <div className="absolute inset-0">
+            <Image
+              src="https://placehold.co/1920x1080.png"
+              alt="Leopard in the wild"
+              fill
+              className="z-0 object-cover"
+              data-ai-hint="leopard closeup"
+            />
+            <div className="absolute inset-0 bg-black/60 z-10" />
+        </div>
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">
+                Ready for the Wild Side of Sri Lanka!
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-white">
+              Embark on an unforgettable journey through pristine wilderness and encounter magnificent wildlife in their natural habitat.
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6">
+                <Button size="lg" className="bg-white hover:bg-gray-100 text-black">
+                    <Calendar className="mr-2 h-5 w-5" />
+                    Book a Wildlife Experience
+                </Button>
+                <div className="flex items-center gap-2">
+                    <div className="flex text-yellow-400">
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                        <Star className="w-5 h-5 fill-current" />
+                    </div>
+                    <span className="font-semibold">4.9/5 on TripAdvisor</span>
+                </div>
+            </div>
+        </div>
+      </section>
     </>
   );
 }
