@@ -2,7 +2,8 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { PawPrint, MapPin } from 'lucide-react';
+import { PawPrint, MapPin, Tag, Calendar } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 export default function WildlifePage() {
 
@@ -43,6 +44,42 @@ export default function WildlifePage() {
       aiHint: 'dolphin jumping'
     }
   ];
+
+    const nationalParks = [
+    {
+      name: 'Yala National Park',
+      description: 'Highest leopard density in the world',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'yala safari',
+      tags: ['Safari', 'Birds'],
+      bestTime: 'May - September'
+    },
+    {
+      name: 'Wilpattu National Park',
+      description: 'Natural lakes and dense forest cover',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'wilpattu safari',
+      tags: ['Safari', 'Lakes'],
+      bestTime: 'May - September'
+    },
+    {
+      name: 'Udawalawe National Park',
+      description: 'Premier elephant watching destination',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'udawalawe elephants',
+      tags: ['Safari', 'Elephants'],
+      bestTime: 'Year Round'
+    },
+    {
+      name: 'Minneriya National Park',
+      description: 'Famous for elephant gathering',
+      image: 'https://placehold.co/600x400.png',
+      aiHint: 'minneriya elephants',
+      tags: ['Safari', 'Elephants'],
+      bestTime: 'August - September'
+    }
+  ];
+
   return (
     <>
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
@@ -119,7 +156,7 @@ export default function WildlifePage() {
           <div className="text-center mb-12">
             <h2 className="font-headline text-4xl md:text-5xl">The Big Five of Sri Lanka</h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-              The Big Five of Sri Lanka
+              Meet the island's most iconic and sought-after wildlife species.
             </p>
              <span className="inline-block w-20 h-1 bg-accent mt-4"></span>
           </div>
@@ -147,6 +184,48 @@ export default function WildlifePage() {
           </div>
         </div>
       </section>
+
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-4xl md:text-5xl">Top National Parks</h2>
+            <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+              Sri Lankan performing arts are a spectacular fusion of rhythm, movement, and storytelling that has captivated audiences for centuries.
+            </p>
+             <span className="inline-block w-20 h-1 bg-accent mt-4"></span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {nationalParks.map((park) => (
+              <Card key={park.name} className="overflow-hidden shadow-lg rounded-lg flex flex-col">
+                <Image
+                  src={park.image}
+                  alt={park.name}
+                  width={600}
+                  height={400}
+                  className="w-full h-48 object-cover"
+                  data-ai-hint={park.aiHint}
+                />
+                <CardContent className="p-6 flex-grow flex flex-col">
+                  <h3 className="font-headline text-xl font-bold">{park.name}</h3>
+                  <p className="mt-2 text-muted-foreground text-sm flex-grow">{park.description}</p>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                      {park.tags.map(tag => (
+                          <Badge key={tag} variant="secondary" className="bg-accent/20 text-accent-foreground">{tag}</Badge>
+                      ))}
+                  </div>
+                </CardContent>
+                 <div className="p-6 pt-0">
+                    <div className="flex items-center text-sm text-muted-foreground mt-4">
+                        <Calendar className="h-4 w-4 mr-2 text-primary" />
+                        <span>Best: {park.bestTime}</span>
+                    </div>
+                 </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
     </>
   );
 }
