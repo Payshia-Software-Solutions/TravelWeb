@@ -1,10 +1,9 @@
+
 import { destinations } from '@/lib/destinations';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { Separator } from '@/components/ui/separator';
-import { CheckCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function DestinationDetailPage({ params }: { params: { id: string } }) {
   const destination = destinations.find(d => d.id === params.id);
@@ -13,6 +12,38 @@ export default function DestinationDetailPage({ params }: { params: { id: string
     notFound();
   }
 
+  // A more generic hero for all destinations for now.
+  // We can specialize it for Sigiriya if needed.
+  if (params.id === 'sigiriya-matale') {
+    return (
+        <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
+            <div className="absolute inset-0">
+                <Image
+                src="https://placehold.co/1920x1080.png"
+                alt="Discover the Ancient Marvel of Sigiriya"
+                fill
+                className="z-0 object-cover"
+                priority
+                data-ai-hint="sigiriya fortress"
+                />
+                <div className="absolute inset-0 bg-black/50 z-10" />
+            </div>
+            <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+                <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl tracking-tight">
+                    Discover the Ancient Marvel of Sigiriya
+                </h1>
+                <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white">
+                    Explore Sri Lanka's iconic rock fortress and its majestic surroundings.
+                </p>
+                <Button size="lg" className="mt-8 rounded-3xl" asChild>
+                    <Link href="/culture">Explore Culture Tours</Link>
+                </Button>
+            </div>
+        </section>
+    );
+  }
+
+  // Fallback for other destinations
   return (
     <div className="bg-white text-gray-800">
       <section className="relative h-[60vh] flex items-center justify-center text-white">
@@ -32,65 +63,6 @@ export default function DestinationDetailPage({ params }: { params: { id: string
           <p className="mt-2 text-xl md:text-2xl font-light">{destination.name.split(', ')[1]}</p>
         </div>
       </section>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <article>
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-            <div className="md:col-span-2">
-              <h2 className="font-headline text-3xl font-semibold mb-4">About {destination.name.split(',')[0]}</h2>
-              <p className="text-lg text-foreground/80 leading-relaxed">{destination.details}</p>
-
-              <Separator className="my-8" />
-              
-              <h3 className="font-headline text-2xl font-semibold mb-6">Top Attractions</h3>
-              <div className="space-y-6">
-                {destination.attractions.map(attraction => (
-                  <Card key={attraction.name}>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-3">
-                        <CheckCircle className="text-primary w-6 h-6 flex-shrink-0" />
-                        <span className="font-body text-xl font-semibold">{attraction.name}</span>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground pl-9">{attraction.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-            <aside className="md:col-span-1">
-              <Card className="sticky top-24">
-                <CardHeader>
-                  <CardTitle className="font-headline text-2xl">Photo Gallery</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <Carousel className="w-full">
-                    <CarouselContent>
-                      {destination.gallery.map((img, index) => (
-                        <CarouselItem key={index}>
-                          <div className="p-1">
-                              <Image
-                                src={img}
-                                alt={`Image ${index + 1} of ${destination.name}`}
-                                width={800}
-                                height={600}
-                                className="w-full rounded-md object-cover aspect-video"
-                                data-ai-hint="destination attraction"
-                              />
-                          </div>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="left-2"/>
-                    <CarouselNext className="right-2"/>
-                  </Carousel>
-                </CardContent>
-              </Card>
-            </aside>
-          </div>
-        </article>
-      </div>
     </div>
   );
 }
