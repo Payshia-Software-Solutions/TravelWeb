@@ -88,6 +88,8 @@ export default function PlanPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [fromDate, setFromDate] = useState<Date>();
   const [toDate, setToDate] = useState<Date>();
+  const [isFromDatePickerOpen, setIsFromDatePickerOpen] = useState(false);
+  const [isToDatePickerOpen, setIsToDatePickerOpen] = useState(false);
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
@@ -399,7 +401,7 @@ export default function PlanPage() {
                           When do you plan to travel?
                       </h2>
                       <div className="grid md:grid-cols-2 gap-6">
-                          <Popover>
+                          <Popover open={isFromDatePickerOpen} onOpenChange={setIsFromDatePickerOpen}>
                               <PopoverTrigger asChild>
                                   <Button variant="outline" className={cn("justify-start text-left font-normal h-12", !fromDate && "text-muted-foreground")}>
                                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -407,10 +409,10 @@ export default function PlanPage() {
                                   </Button>
                               </PopoverTrigger>
                               <PopoverContent className="w-auto p-0">
-                                  <Calendar mode="single" selected={fromDate} onSelect={setFromDate} initialFocus />
+                                  <Calendar mode="single" selected={fromDate} onSelect={(date) => {setFromDate(date); setIsFromDatePickerOpen(false);}} initialFocus />
                               </PopoverContent>
                           </Popover>
-                          <Popover>
+                          <Popover open={isToDatePickerOpen} onOpenChange={setIsToDatePickerOpen}>
                               <PopoverTrigger asChild>
                                   <Button variant="outline" className={cn("justify-start text-left font-normal h-12", !toDate && "text-muted-foreground")}>
                                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -418,7 +420,7 @@ export default function PlanPage() {
                                   </Button>
                               </PopoverTrigger>
                               <PopoverContent className="w-auto p-0">
-                                  <Calendar mode="single" selected={toDate} onSelect={setToDate} disabled={(date) => date < (fromDate || new Date())} initialFocus />
+                                  <Calendar mode="single" selected={toDate} onSelect={(date) => {setToDate(date); setIsToDatePickerOpen(false);}} disabled={(date) => date < (fromDate || new Date())} initialFocus />
                               </PopoverContent>
                           </Popover>
                       </div>
