@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Camera, Eye, HelpCircle, Leaf, MapPin, MessageSquare, Mountain, Palmtree, Users } from 'lucide-react';
+import { Camera, Eye, HelpCircle, Leaf, MapPin, MessageSquare, Mountain, Palmtree, Users, Sun, Footprints, Waves, Ticket } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 function ChatIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -72,6 +72,29 @@ const nearbyAttractions = [
   { name: 'Dambulla Cave Temple', icon: <MapPin className="h-5 w-5 text-primary" /> },
   { name: 'Minneriya National Park', icon: <MapPin className="h-5 w-5 text-primary" /> }
 ];
+
+const travelTips = [
+    {
+        title: 'Best Time',
+        description: 'Visit early morning or late afternoon for cooler weather',
+        icon: <Sun className="h-10 w-10 text-primary" />
+    },
+    {
+        title: 'What to Wear',
+        description: 'Comfortable shoes, hat, and light clothing recommended',
+        icon: <Footprints className="h-10 w-10 text-primary" />
+    },
+    {
+        title: 'Stay Hydrated',
+        description: 'Bring plenty of water for the 1,200-step climb',
+        icon: <Waves className="h-10 w-10 text-primary" />
+    },
+    {
+        title: 'Book Ahead',
+        description: 'Reserve tickets online to avoid long queues',
+        icon: <Ticket className="h-10 w-10 text-primary" />
+    }
+]
 
 export default function DestinationDetailPage({ params }: { params: { id: string } }) {
   const destination = destinations.find(d => d.id === params.id);
@@ -265,6 +288,27 @@ export default function DestinationDetailPage({ params }: { params: { id: string
               </div>
             </div>
           </div>
+        </section>
+        <section className="py-16 lg:py-24 bg-white">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-12">
+                    <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+                        Travel Tips
+                        <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+                    </h2>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {travelTips.map((tip) => (
+                        <Card key={tip.title} className="text-center p-8 bg-green-50/50 shadow-lg border-green-200">
+                            <CardContent className="flex flex-col items-center justify-center gap-4">
+                                <div className="mb-4">{tip.icon}</div>
+                                <h3 className="font-headline text-xl font-bold">{tip.title}</h3>
+                                <p className="text-muted-foreground text-sm flex-grow">{tip.description}</p>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            </div>
         </section>
       </>
     );
