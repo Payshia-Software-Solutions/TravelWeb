@@ -147,7 +147,9 @@ export default function Home() {
                         </Popover>
                     </div>
 
-                    <Button size="lg" className="h-full text-base md:h-14 md:text-lg w-full">Create Your Plan</Button>
+                    <Button size="lg" className="h-full text-base md:h-14 md:text-lg w-full" asChild>
+                      <Link href="/plan">Create Your Plan</Link>
+                    </Button>
                 </div>
             </CardContent>
           </Card>
@@ -304,7 +306,7 @@ export default function Home() {
                 Beautiful Sri Lanka is a tropical paradise brimming with lush landscapes, golden beaches, ancient ruins, and vibrant culture. From the misty mountains of Ella to the sun-kissed shores of Mirissa, every corner offers a new adventure. Wander through the sacred city of Kandy, explore the wildlife of Yala National Park, or sip world-renowned Ceylon tea in Nuwara Eliya. Let's travel to Sri Lanka and discover its rich heritage, warm hospitality, and breathtaking natural beauty—it's a journey you'll never forget!
               </p>
               <Button size="lg" asChild>
-                <Link href="/destinations">See All Destinations</Link>
+                <Link href="/destinations">SeeAll Destinations</Link>
               </Button>
             </div>
           </div>
