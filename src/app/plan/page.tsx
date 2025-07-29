@@ -6,11 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft } from 'lucide-react';
+import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import Image from 'next/image';
 
 function DiamondIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -37,6 +38,16 @@ const steps = [
   { id: 7, name: 'Finish' },
 ];
 
+const interests = [
+    { name: 'Adventure', image: 'https://placehold.co/400x500.png', aiHint: 'river rafting' },
+    { name: 'Culture', image: 'https://placehold.co/400x500.png', aiHint: 'traditional dancer' },
+    { name: 'Relaxation', image: 'https://placehold.co/400x500.png', aiHint: 'woman relaxing' },
+    { name: 'Food', image: 'https://placehold.co/400x500.png', aiHint: 'food platter' },
+    { name: 'City Exploration', image: 'https://placehold.co/400x500.png', aiHint: 'city skyline' },
+    { name: 'Nature', image: 'https://placehold.co/400x500.png', aiHint: 'mountain landscape' },
+];
+
+
 export default function PlanPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [fromDate, setFromDate] = useState<Date>();
@@ -44,6 +55,15 @@ export default function PlanPage() {
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+
+  const toggleInterest = (interestName: string) => {
+    setSelectedInterests(prev => 
+      prev.includes(interestName) 
+        ? prev.filter(item => item !== interestName)
+        : [...prev, interestName]
+    );
+  };
 
 
   const handleNext = () => {
@@ -111,11 +131,16 @@ export default function PlanPage() {
             ))}
           </div>
 
-          {currentStep === 2 && (
+          {(currentStep === 2 || currentStep === 3) && (
              <Card className="mb-8 bg-muted/30 border-dashed">
                 <CardContent className="p-4 flex items-center gap-4">
                     <DiamondIcon className="h-5 w-5" />
-                    <p className="text-sm text-muted-foreground">Please note that it will take a minimum of 4 days for your selected options to be processed.</p>
+                    <p className="text-sm text-muted-foreground">
+                        {currentStep === 2 
+                            ? "Please note that it will take a minimum of 4 days for your selected options to be processed."
+                            : "Select any ind of activity category and then you can choose specific activities in Next Step."
+                        }
+                    </p>
                 </CardContent>
             </Card>
           )}
@@ -214,6 +239,43 @@ export default function PlanPage() {
                   </div>
                 </div>
               )}
+               {currentStep === 3 && (
+                <div>
+                  <h2 className="text-2xl font-headline font-semibold mb-2">What do you want to do?</h2>
+                  <p className="text-muted-foreground mb-6">Select the activities you're most interested in. This helps us tailor your trip to your preferences.</p>
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {interests.map((interest) => (
+                      <Card 
+                        key={interest.name} 
+                        className={cn(
+                          "relative rounded-lg overflow-hidden cursor-pointer group border-2",
+                          selectedInterests.includes(interest.name) ? 'border-primary' : 'border-transparent'
+                        )}
+                        onClick={() => toggleInterest(interest.name)}
+                      >
+                        <Image src={interest.image} alt={interest.name} width={400} height={500} className="h-48 w-full object-cover group-hover:scale-105 transition-transform" data-ai-hint={interest.aiHint} />
+                        <div className="absolute inset-0 bg-black/40" />
+                        <div className="absolute top-2 right-2 w-6 h-6 rounded-full border-2 border-white bg-white/30 flex items-center justify-center">
+                          {selectedInterests.includes(interest.name) && <Check className="h-4 w-4 text-white" />}
+                        </div>
+                        <div className="absolute bottom-0 left-0 p-4">
+                          <h3 className="text-white font-bold text-lg">{interest.name}</h3>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+
+                  <div className="flex justify-between mt-8">
+                    <Button variant="outline" onClick={handleBack}>
+                      <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={handleNext}>
+                      Continue <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -221,3 +283,4 @@ export default function PlanPage() {
     </div>
   );
 }
+
