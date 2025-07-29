@@ -630,35 +630,41 @@ export default function PlanPage() {
                         </div>
                     </div>
 
-                    <div className="space-y-6">
-                        <h3 className="text-xl font-semibold">Accommodation</h3>
-                        {selectedAccommodation && (
+                    {selectedAccommodation && (
+                        <div className="space-y-6">
+                            <h3 className="text-xl font-semibold">Accommodation</h3>
                             <Card className="flex flex-col md:flex-row items-center gap-6 p-4">
                                 <Image src="https://placehold.co/400x300.png" alt={selectedAccommodation} width={200} height={150} className="rounded-lg object-cover w-full md:w-1/4" data-ai-hint="hotel room" />
                                 <div className="flex-grow">
                                     <Badge>{selectedAccommodation}</Badge>
                                     <h4 className="font-semibold text-lg mt-2">Hotel with stunning mountain views, perfect for a peaceful getaway</h4>
                                     {selectedBudget && <p className="text-sm font-semibold mt-1">{selectedBudget}</p>}
+                                    {selectedAmenities.length > 0 && (
                                     <div className="flex flex-wrap gap-2 mt-2">
                                         {selectedAmenities.map(amenity => <Badge key={amenity} variant="secondary">{amenity}</Badge>)}
                                     </div>
+                                    )}
                                 </div>
                                 <Button variant="ghost" size="icon" onClick={() => setCurrentStep(4)}><Edit className="h-4 w-4" /></Button>
                             </Card>
-                        )}
-                    </div>
-                     <div className="space-y-6">
-                        <h3 className="text-xl font-semibold">Activities</h3>
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                            {selectedActivities.map(activityName => {
-                                const activity = [...adventureActivities, ...culturalActivities].find(a => a.name === activityName);
-                                return activity ? <ActivityCard key={activity.name} {...activity} isSelected={true} onSelect={() => {}} /> : null;
-                            })}
                         </div>
-                    </div>
-                     <div className="space-y-6">
-                        <h3 className="text-xl font-semibold">Transportation</h3>
-                         {selectedTransportation.length > 0 && (
+                    )}
+                    
+                    {selectedActivities.length > 0 && (
+                        <div className="space-y-6">
+                            <h3 className="text-xl font-semibold">Activities</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                {selectedActivities.map(activityName => {
+                                    const activity = [...adventureActivities, ...culturalActivities].find(a => a.name === activityName);
+                                    return activity ? <ActivityCard key={activity.name} {...activity} isSelected={true} onSelect={() => {}} /> : null;
+                                })}
+                            </div>
+                        </div>
+                    )}
+
+                    {selectedTransportation.length > 0 && (
+                        <div className="space-y-6">
+                            <h3 className="text-xl font-semibold">Transportation</h3>
                             <Card className="flex flex-col md:flex-row items-center gap-6 p-4">
                                 <Image src="https://placehold.co/400x300.png" alt={selectedTransportation[0]} width={200} height={150} className="rounded-lg object-cover w-full md:w-1/4" data-ai-hint="rental car" />
                                 <div className="flex-grow">
@@ -668,12 +674,15 @@ export default function PlanPage() {
                                 </div>
                                 <Button variant="ghost" size="icon" onClick={() => setCurrentStep(5)}><Edit className="h-4 w-4" /></Button>
                             </Card>
-                        )}
-                    </div>
+                        </div>
+                    )}
 
                     <div className="space-y-4 pt-8 border-t">
                         <h3 className="text-xl font-semibold">Estimated Cost</h3>
-                        <p className="text-3xl font-bold">Total RON. 7,250 <span className="text-sm font-normal text-muted-foreground">(This is an estimate only based on final selections and availability.)</span></p>
+                        <p className="text-3xl font-bold">
+                            {(selectedAccommodation || selectedActivities.length > 0 || selectedTransportation.length > 0) ? 'Total RON. 7,250' : 'Total RON. 0'}
+                            <span className="text-sm font-normal text-muted-foreground"> (This is an estimate only based on final selections and availability.)</span>
+                        </p>
                     </div>
 
 
