@@ -5,7 +5,8 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { HelpCircle, MessageSquare } from 'lucide-react';
+import { Camera, Eye, HelpCircle, Leaf, MessageSquare, Mountain, Palmtree, Users } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 
 function ChatIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
@@ -20,6 +21,51 @@ function ChatIcon(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     )
 }
+
+const thingsToDo = [
+    {
+        title: 'Climb the Fortress',
+        description: "Ascend the ancient rock through lion's paws and enjoy panoramic views from the summit.",
+        icon: <Mountain className="h-8 w-8 text-primary" />,
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'fortress climb'
+    },
+    {
+        title: 'See Ancient Frescoes',
+        description: 'Marvel at 1,500-year-old paintings of celestial maidens on the rock face.',
+        icon: <Eye className="h-8 w-8 text-primary" />,
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'ancient frescoes'
+    },
+    {
+        title: 'Explore Royal Gardens',
+        description: 'Walk through sophisticated water gardens and landscaped terraces.',
+        icon: <Palmtree className="h-8 w-8 text-primary" />,
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'royal gardens'
+    },
+    {
+        title: 'Photography Tour',
+        description: 'Capture stunning sunrise and sunset views from various vantage points.',
+        icon: <Camera className="h-8 w-8 text-primary" />,
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'photography tour'
+    },
+    {
+        title: 'Village Safari',
+        description: 'Experience local culture and traditional life in nearby villages.',
+        icon: <Users className="h-8 w-8 text-primary" />,
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'village safari'
+    },
+    {
+        title: 'Ayurveda Spa',
+        description: 'Relax with traditional Sri Lankan wellness treatments and massages.',
+        icon: <Leaf className="h-8 w-8 text-primary" />,
+        image: 'https://placehold.co/600x400.png',
+        aiHint: 'ayurveda spa'
+    }
+]
 
 export default function DestinationDetailPage({ params }: { params: { id: string } }) {
   const destination = destinations.find(d => d.id === params.id);
@@ -145,6 +191,40 @@ export default function DestinationDetailPage({ params }: { params: { id: string
                 </div>
             </div>
           </div>
+        </section>
+        <section className="py-16 lg:py-24 bg-white">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-12">
+                    <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+                        Things To Do
+                        <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+                    </h2>
+                    <p className="mt-6 text-lg text-muted- max-w-2xl mx-auto">
+                        Sri Lankan performing arts are a spectacular fusion of rhythm, movement, and storytelling that has captivated audiences for centuries.
+                    </p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {thingsToDo.map((item) => (
+                        <Card key={item.title} className="overflow-hidden shadow-lg rounded-lg flex flex-col">
+                            <Image
+                                src={item.image}
+                                alt={item.title}
+                                width={600}
+                                height={400}
+                                className="w-full h-48 object-cover"
+                                data-ai-hint={item.aiHint}
+                            />
+                            <CardContent className="p-6 flex-grow flex flex-col bg-card">
+                                <div className="flex items-center gap-4">
+                                    {item.icon}
+                                    <h3 className="font-headline text-xl font-bold">{item.title}</h3>
+                                </div>
+                                <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            </div>
         </section>
       </>
     );
