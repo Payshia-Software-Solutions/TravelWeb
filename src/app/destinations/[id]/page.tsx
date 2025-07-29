@@ -1,4 +1,5 @@
 
+
 import { destinations } from '@/lib/destinations';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -88,6 +89,62 @@ export default function DestinationDetailPage({ params }: { params: { id: string
                     </div>
                 </div>
             </div>
+        </section>
+        <section className="py-16 lg:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+                Explore Sigiriya
+                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid gap-4 col-span-2">
+                    <div className="col-span-2">
+                        <Image
+                            src="https://placehold.co/800x400.png"
+                            alt="Sigiriya frescoes"
+                            width={800}
+                            height={400}
+                            className="h-auto w-full rounded-lg object-cover"
+                            data-ai-hint="sigiriya frescoes"
+                        />
+                    </div>
+                    <div className="col-span-1">
+                        <Image
+                            src="https://placehold.co/400x400.png"
+                            alt="Woman leading towards Sigiriya rock"
+                            width={400}
+                            height={400}
+                            className="h-auto w-full rounded-lg object-cover"
+                            data-ai-hint="follow me sigiriya"
+                        />
+                    </div>
+                     <div className="col-span-1">
+                        <Image
+                            src="https://placehold.co/400x400.png"
+                            alt="Aerial view of Sigiriya rock"
+                            width={400}
+                            height={400}
+                            className="h-auto w-full rounded-lg object-cover"
+                            data-ai-hint="sigiriya aerial"
+                        />
+                    </div>
+                </div>
+                <div className="grid gap-4 col-span-2">
+                    <div className="col-span-2">
+                         <Image
+                            src="https://placehold.co/800x800.png"
+                            alt="Pathway to Sigiriya"
+                            width={800}
+                            height={800}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="sigiriya path"
+                        />
+                    </div>
+                </div>
+            </div>
+          </div>
         </section>
       </>
     );
