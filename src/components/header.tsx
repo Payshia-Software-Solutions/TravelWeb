@@ -6,10 +6,21 @@ import { Menu, Mountain, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const pathname = usePathname();
 
   const navLinks = [
@@ -31,11 +42,19 @@ export function Header() {
       }
     };
 
+    // Simulate login status change after login/signup
+    if (pathname === '/login' || pathname === '/signup') {
+        // A real app would have a proper auth flow.
+        // For now, let's pretend we logged in.
+        // This is a placeholder for real auth logic.
+    }
+
+
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [pathname]);
 
   const headerIsTransparent = hasTransparentHeader && !isScrolled && !isOpen;
   const planPageActive = pathname === '/plan';
@@ -76,12 +95,33 @@ export function Header() {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-              <Button variant="link" asChild className={cn(headerIsTransparent ? 'text-white hover:text-primary' : '')}>
-                <Link href="/login">Login</Link>
-              </Button>
-              <Button asChild>
-                <Link href="/signup">Sign up</Link>
-              </Button>
+              {isLoggedIn ? (
+                 <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Avatar className="cursor-pointer h-9 w-9">
+                            <AvatarImage src="https://placehold.co/100x100.png" alt="User" />
+                            <AvatarFallback>U</AvatarFallback>
+                        </Avatar>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem asChild><Link href="/profile">Profile</Link></DropdownMenuItem>
+                        <DropdownMenuItem>Settings</DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={() => setIsLoggedIn(false)}>Log out</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <>
+                    <Button variant="link" asChild className={cn(headerIsTransparent ? 'text-white hover:text-primary' : '')}>
+                        <Link href="/login">Login</Link>
+                    </Button>
+                    <Button asChild>
+                        <Link href="/signup">Sign up</Link>
+                    </Button>
+                </>
+              )}
           </div>
 
           <div className="md:hidden">
@@ -112,12 +152,23 @@ export function Header() {
               </Link>
             ))}
             <div className="border-t border-border pt-4 mt-4 flex flex-col space-y-2">
-                <Button variant="outline" asChild>
-                    <Link href="/login">Login</Link>
-                </Button>
-                <Button asChild>
-                    <Link href="/signup">Sign up</Link>
-                </Button>
+                {isLoggedIn ? (
+                    <>
+                        <Button variant="outline" asChild onClick={() => setIsOpen(false)}>
+                            <Link href="/profile">Profile</Link>
+                        </Button>
+                        <Button onClick={() => { setIsLoggedIn(false); setIsOpen(false); }}>Log Out</Button>
+                    </>
+                ) : (
+                    <>
+                        <Button variant="outline" asChild onClick={() => setIsOpen(false)}>
+                            <Link href="/login">Login</Link>
+                        </Button>
+                        <Button asChild onClick={() => setIsOpen(false)}>
+                            <Link href="/signup">Sign up</Link>
+                        </Button>
+                    </>
+                )}
             </div>
           </div>
         </div>

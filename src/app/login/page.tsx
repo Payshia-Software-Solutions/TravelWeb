@@ -43,10 +43,12 @@ export default function LoginPage() {
     });
 
     form.reset();
+    // In a real app, you would redirect or update global state here.
+    // For now, we rely on the header's simulated state.
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[calc(100vh-5rem)]">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 flex items-center justify-center min-h-[calc(100vh-5rem)] bg-white">
       <div className="w-full max-w-md">
         <Card className="shadow-lg bg-white">
           <CardHeader className="text-center">
@@ -56,7 +58,7 @@ export default function LoginPage() {
               Access your account
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-6">
+          <CardContent className="p-6 ">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
@@ -65,11 +67,11 @@ export default function LoginPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Email Address</FormLabel>
-                      <FormControl>
+                      <FormControl className='bg-white'>
                         <Input type="email" placeholder="you@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
-                    </FormItem>
+                    </FormItem> 
                   )}
                 />
                 <FormField
@@ -78,7 +80,7 @@ export default function LoginPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Password</FormLabel>
-                      <FormControl>
+                      <FormControl className='bg-white'>
                         <Input type="password" placeholder="••••••••" {...field} />
                       </FormControl>
                       <FormMessage />
