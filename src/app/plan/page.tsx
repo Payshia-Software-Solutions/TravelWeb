@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility, Edit } from 'lucide-react';
+import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility, Edit, Send, Compass, MessageSquare } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
@@ -113,6 +113,7 @@ export default function PlanPage() {
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [selectedTransportation, setSelectedTransportation] = useState<string[]>([]);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
 
   const toggleInterest = (interestName: string) => {
@@ -158,6 +159,8 @@ export default function PlanPage() {
   const handleNext = () => {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1);
+    } else if (currentStep === steps.length) {
+      setIsSubmitted(true);
     }
   };
 
@@ -218,6 +221,50 @@ export default function PlanPage() {
       </div>
     </Card>
   );
+
+  if (isSubmitted) {
+    return (
+      <div className="relative min-h-screen flex flex-col items-center justify-center text-center text-white p-4">
+        <div className="absolute inset-0">
+            <Image
+              src="https://placehold.co/1920x1080.png"
+              alt="Lush green mountains"
+              fill
+              className="z-0 object-cover"
+              priority
+              data-ai-hint="mountain landscape"
+            />
+            <div className="absolute inset-0 bg-black/50 z-10" />
+        </div>
+        <div className="relative z-20 flex flex-col items-center">
+          <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+            Your trip plan has been submitted!
+          </h1>
+          <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-white">
+            Our team of travel experts will review your plan and get back to you within 24 hours with a detailed itinerary and cost estimate.
+          </p>
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-4xl">
+            <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow">
+                <MapPin className="h-12 w-12 text-primary"/>
+                <h3 className="text-xl font-bold text-foreground">View Plan</h3>
+            </Card>
+             <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow">
+                <Send className="h-12 w-12 text-primary"/>
+                <h3 className="text-xl font-bold text-foreground">Share Plan</h3>
+            </Card>
+             <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow">
+                <MessageSquare className="h-12 w-12 text-primary"/>
+                <h3 className="text-xl font-bold text-foreground">Contact Expert</h3>
+            </Card>
+             <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow">
+                <Compass className="h-12 w-12 text-primary"/>
+                <h3 className="text-xl font-bold text-foreground">Explore Destinations</h3>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -648,7 +695,7 @@ export default function PlanPage() {
                         <Button variant="outline" onClick={handleBack}>
                             <ArrowLeft className="mr-2 h-4 w-4" /> Back
                         </Button>
-                        <Button>
+                        <Button onClick={handleNext}>
                             Finalize Trip
                         </Button>
                     </div>
