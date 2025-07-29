@@ -12,11 +12,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useToast } from "@/hooks/use-toast";
 import { UserPlus } from 'lucide-react';
 import Link from 'next/link';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const formSchema = z.object({
   fullName: z.string().min(2, { message: "Name must be at least 2 characters." }),
   address: z.string().min(5, { message: "Address must be at least 5 characters." }),
-  phoneNumber: z.string().regex(/^\+?[1-9]\d{1,14}$/, { message: "Please enter a valid phone number." }),
+  countryCode: z.string(),
+  phoneNumber: z.string().regex(/^\d{7,15}$/, { message: "Please enter a valid phone number." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   password: z.string().min(8, { message: "Password must be at least 8 characters." }),
   confirmPassword: z.string()
@@ -24,6 +26,14 @@ const formSchema = z.object({
   message: "Passwords don't match",
   path: ["confirmPassword"],
 });
+
+const countryCodes = [
+  { code: '+94', country: 'LK' },
+  { code: '+1', country: 'US' },
+  { code: '+44', country: 'GB' },
+  { code: '+91', country: 'IN' },
+  { code: '+61', country: 'AU' },
+];
 
 export default function SignupPage() {
   const { toast } = useToast();
@@ -34,6 +44,7 @@ export default function SignupPage() {
     defaultValues: {
       fullName: "",
       address: "",
+      countryCode: "+94",
       phoneNumber: "",
       email: "",
       password: "",
@@ -45,7 +56,8 @@ export default function SignupPage() {
     setIsSubmitting(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log(values);
+    const fullPhoneNumber = `${values.countryCode}${values.phoneNumber}`;
+    console.log({...values, phoneNumber: fullPhoneNumber});
     setIsSubmitting(false);
     
     toast({
@@ -60,7 +72,7 @@ export default function SignupPage() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 flex items-center justify-center min-h-[calc(100vh-5rem)] bg-white">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-md bg-white">
         <Card className="shadow-lg bg-white">
           <CardHeader className="text-center">
             <UserPlus className="mx-auto h-12 w-12 text-primary mb-4" />
@@ -98,19 +110,39 @@ export default function SignupPage() {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="phoneNumber"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone Number</FormLabel>
-                      <FormControl className='bg-white'>
-                        <Input placeholder="+1234567890" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <FormItem>
+                  <FormLabel>Phone Number</FormLabel>
+                  <div className="flex gap-2">
+                     <FormField
+                        control={form.control}
+                        name="countryCode"
+                        render={({ field }) => (
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl className="w-28 bg-white">
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Code" />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                    {countryCodes.map(c => (
+                                        <SelectItem key={c.code} value={c.code}>{c.country} ({c.code})</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        )}
+                        />
+                    <FormField
+                      control={form.control}
+                      name="phoneNumber"
+                      render={({ field }) => (
+                          <FormControl className='bg-white'>
+                            <Input placeholder="71 123 4567" {...field} />
+                          </FormControl>
+                      )}
+                    />
+                  </div>
+                  <FormMessage />
+                </FormItem>
                 <FormField
                   control={form.control}
                   name="email"
