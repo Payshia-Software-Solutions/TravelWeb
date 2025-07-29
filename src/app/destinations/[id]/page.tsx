@@ -1,12 +1,12 @@
 
-
 import { destinations } from '@/lib/destinations';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Camera, Eye, HelpCircle, Leaf, MapPin, MessageSquare, Mountain, Palmtree, Users, Sun, Footprints, Waves, Ticket } from 'lucide-react';
+import { Camera, Eye, HelpCircle, Leaf, MapPin, MessageSquare, Mountain, Palmtree, Users, Sun, Footprints, Waves, Ticket, Star } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 function ChatIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
@@ -94,6 +94,33 @@ const travelTips = [
         description: 'Reserve tickets online to avoid long queues',
         icon: <Ticket className="h-10 w-10 text-primary" />
     }
+];
+
+const reviews = [
+    {
+        name: 'John Doe',
+        title: 'Accountant',
+        quote: "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.",
+        avatar: 'https://placehold.co/100x100.png',
+        aiHint: 'person portrait',
+        rating: 5,
+    },
+    {
+        name: 'John Smith',
+        title: 'Journalist, HWO News',
+        quote: "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.",
+        avatar: 'https://placehold.co/100x100.png',
+        aiHint: 'person portrait',
+        rating: 5,
+    },
+    {
+        name: 'Tamara Bellis',
+        title: 'Managing Director, JTH',
+        quote: "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.",
+        avatar: 'https://placehold.co/100x100.png',
+        aiHint: 'person portrait',
+        rating: 5,
+    },
 ]
 
 export default function DestinationDetailPage({ params }: { params: { id: string } }) {
@@ -259,7 +286,7 @@ export default function DestinationDetailPage({ params }: { params: { id: string
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
-                Location & Nearby Attractions
+                Location &amp; Nearby Attractions
                 <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
               </h2>
             </div>
@@ -310,6 +337,36 @@ export default function DestinationDetailPage({ params }: { params: { id: string
                 </div>
             </div>
         </section>
+        <section className="py-16 lg:py-24 bg-white">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-12">
+                    <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+                        What Travelers Say
+                        <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+                    </h2>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {reviews.map((review) => (
+                        <Card key={review.name} className="bg-gray-50/50 shadow-lg p-6 relative flex flex-col items-center">
+                            <Avatar className="h-24 w-24 border-4 border-white absolute -top-12">
+                                <AvatarImage src={review.avatar} alt={review.name} data-ai-hint={review.aiHint} />
+                                <AvatarFallback>{review.name.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <CardContent className="pt-16 text-center">
+                                <p className="text-muted-foreground text-sm italic">"{review.quote}"</p>
+                                <div className="flex justify-center mt-4">
+                                    {[...Array(review.rating)].map((_, i) => (
+                                        <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                                    ))}
+                                </div>
+                                <h3 className="mt-4 font-bold text-lg">{review.name}</h3>
+                                <p className="text-sm text-muted-foreground">{review.title}</p>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+        </section>
       </>
     );
   }
@@ -343,3 +400,5 @@ export async function generateStaticParams() {
       id: destination.id,
     }))
 }
+
+    
