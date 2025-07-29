@@ -5,6 +5,7 @@ import { SigiriyaPage } from './sigiriya';
 import { RuwanvalisayaPage } from './ruwanvalisaya';
 import Image from 'next/image';
 import { GalleFortPage } from './galle-fort';
+import { YalaPage } from './yala';
 
 export default function DestinationDetailPage({ params }: { params: { id: string } }) {
   const destination = destinations.find(d => d.id === params.id);
@@ -23,6 +24,10 @@ export default function DestinationDetailPage({ params }: { params: { id: string
 
   if (params.id === 'galle-fort-galle') {
     return <GalleFortPage />;
+  }
+
+  if (params.id === 'yala-hambanthota') {
+    return <YalaPage />;
   }
 
   // Fallback for other destinations
