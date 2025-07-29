@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check } from 'lucide-react';
+import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
@@ -31,10 +31,10 @@ function DiamondIcon(props: React.SVGProps<SVGSVGElement>) {
 const steps = [
   { id: 1, name: 'Destination' },
   { id: 2, name: 'Dates' },
-  { id: 3, name: 'Travelers' },
-  { id: 4, name: 'Interests' },
-  { id: 5, name: 'Pace' },
-  { id: 6, name: 'Budget' },
+  { id: 3, name: 'Interests' },
+  { id: 4, name: 'Pace' },
+  { id: 5, name: 'Accommodation' },
+  { id: 6, name: 'Transportation' },
   { id: 7, name: 'Finish' },
 ];
 
@@ -84,6 +84,20 @@ const amenities = [
   { name: 'Gym', image: 'https://placehold.co/200x200.png', aiHint: 'gym equipment' },
 ];
 
+const transportationOptions = [
+    { name: 'Flights', image: 'https://placehold.co/400x300.png', aiHint: 'airplane sky' },
+    { name: 'Rental Car', image: 'https://placehold.co/400x300.png', aiHint: 'rental car' },
+    { name: 'Public Transport', image: 'https://placehold.co/400x300.png', aiHint: 'public bus' },
+    { name: 'Rental Bike', image: 'https://placehold.co/400x300.png', aiHint: 'scooter rental' },
+    { name: 'Rental Van', image: 'https://placehold.co/400x300.png', aiHint: 'rental van' },
+    { name: 'Rental Bus', image: 'https://placehold.co/400x300.png', aiHint: 'tour bus' },
+];
+
+const optionalAddons = [
+    { name: 'Travel Insurance', icon: <Shield /> },
+    { name: 'Accessibility Needs', icon: <Accessibility /> },
+]
+
 export default function PlanPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [fromDate, setFromDate] = useState<Date>();
@@ -96,6 +110,8 @@ export default function PlanPage() {
   const [selectedAccommodation, setSelectedAccommodation] = useState<string | null>(null);
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const [selectedTransportation, setSelectedTransportation] = useState<string[]>([]);
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
 
 
   const toggleInterest = (interestName: string) => {
@@ -119,6 +135,22 @@ export default function PlanPage() {
       prev.includes(amenityName)
         ? prev.filter(item => item !== amenityName)
         : [...prev, amenityName]
+    );
+  };
+
+  const toggleTransportation = (transportationName: string) => {
+    setSelectedTransportation(prev =>
+        prev.includes(transportationName)
+            ? prev.filter(item => item !== transportationName)
+            : [...prev, transportationName]
+    );
+  };
+
+  const toggleAddon = (addonName: string) => {
+    setSelectedAddons(prev =>
+        prev.includes(addonName)
+            ? prev.filter(item => item !== addonName)
+            : [...prev, addonName]
     );
   };
 
@@ -207,7 +239,7 @@ export default function PlanPage() {
             ))}
           </div>
 
-          {(currentStep >= 2 && currentStep <= 5) && (
+          {(currentStep >= 2 && currentStep <= 6) && (
              <Card className="mb-8 bg-muted/30 border-dashed">
                 <CardContent className="p-4 flex items-center gap-4">
                     <DiamondIcon className="h-5 w-5" />
@@ -216,6 +248,7 @@ export default function PlanPage() {
                         {currentStep === 3 && "Select any ind of activity category and then you can choose specific activities in Next Step."}
                         {currentStep === 4 && "Select any ind of activities you want to Experience. (This suggestions based on Previous categories you chosen)"}
                         {currentStep === 5 && "Select any type accommodation and amenities."}
+                        {currentStep === 6 && "We’ll help you figure out the best way for you to get around your destination."}
                     </p>
                 </CardContent>
             </Card>
@@ -478,6 +511,59 @@ export default function PlanPage() {
                   </div>
                 </div>
               )}
+               {currentStep === 6 && (
+                <div className="space-y-8">
+                    <div>
+                        <h2 className="text-2xl font-headline font-semibold mb-2">How will you get around?</h2>
+                        <p className="text-muted-foreground mb-6">Select your preferred mode of transportation.</p>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                            {transportationOptions.map((option) => (
+                                <Card
+                                    key={option.name}
+                                    className={cn(
+                                        "relative rounded-lg overflow-hidden cursor-pointer group border-2",
+                                        selectedTransportation.includes(option.name) ? 'border-primary' : 'border-transparent'
+                                    )}
+                                    onClick={() => toggleTransportation(option.name)}
+                                >
+                                    <Image src={option.image} alt={option.name} width={400} height={300} className="h-32 w-full object-cover group-hover:scale-105 transition-transform" data-ai-hint={option.aiHint} />
+                                    <div className="absolute inset-0 bg-black/40" />
+                                    <div className="absolute top-2 right-2 w-6 h-6 rounded-full border-2 border-white bg-white/30 flex items-center justify-center">
+                                        {selectedTransportation.includes(option.name) && <Check className="h-4 w-4 text-white" />}
+                                    </div>
+                                    <div className="absolute bottom-0 left-0 p-2">
+                                        <h3 className="text-white font-bold text-base">{option.name}</h3>
+                                    </div>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <h3 className="text-xl font-semibold mb-4">Optional</h3>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            {optionalAddons.map((addon) => (
+                                <Button
+                                    key={addon.name}
+                                    variant={selectedAddons.includes(addon.name) ? 'default' : 'outline'}
+                                    onClick={() => toggleAddon(addon.name)}
+                                    className="w-full justify-center text-base py-6"
+                                >
+                                    {addon.icon}
+                                    <span>{addon.name}</span>
+                                </Button>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="flex justify-between mt-8">
+                        <Button variant="outline" onClick={handleBack}>
+                            <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                        </Button>
+                        <Button onClick={handleNext}>
+                            Continue <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                    </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -485,4 +571,3 @@ export default function PlanPage() {
     </div>
   );
 }
-
