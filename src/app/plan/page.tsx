@@ -6,12 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility } from 'lucide-react';
+import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility, Edit } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
+import { Badge } from '@/components/ui/badge';
 
 function DiamondIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -198,6 +199,22 @@ export default function PlanPage() {
       <div className="absolute bottom-0 left-0 p-4 text-white">
         <h3 className="font-bold text-lg">{name}</h3>
         <p className="text-sm flex items-center gap-1"><MapPin className="h-3 w-3" /> {location}</p>
+      </div>
+    </Card>
+  );
+
+  const SummaryItemCard = ({ name, image, aiHint, onSelect }: { name: string, image: string, aiHint: string, onSelect: () => void }) => (
+    <Card
+      className="relative rounded-lg overflow-hidden cursor-pointer group"
+      onClick={onSelect}
+    >
+      <Image src={image} alt={name} width={400} height={300} className="h-32 w-full object-cover" data-ai-hint={aiHint} />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      <div className="absolute top-2 right-2 w-6 h-6 rounded-full border-2 border-white bg-white/30 flex items-center justify-center">
+        <div className="w-3 h-3 rounded-full bg-white" />
+      </div>
+      <div className="absolute bottom-0 left-0 p-4 text-white">
+        <h3 className="font-bold text-base flex items-center gap-2"><MapPin className="h-4 w-4"/>{name}</h3>
       </div>
     </Card>
   );
@@ -560,6 +577,79 @@ export default function PlanPage() {
                         </Button>
                         <Button onClick={handleNext}>
                             Continue <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                    </div>
+                </div>
+              )}
+              {currentStep === 7 && (
+                <div className="space-y-8">
+                    <div>
+                        <h2 className="text-2xl font-headline font-semibold mb-2">Your Trip Summary</h2>
+                        <p className="text-muted-foreground mb-6">Review your selections and make adjustments before finalizing your trip.</p>
+                    </div>
+
+                    <div className="space-y-6">
+                        <h3 className="text-xl font-semibold">Destinations</h3>
+                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <SummaryItemCard name="Anuradapura" image="https://placehold.co/400x300.png" aiHint="sigiriya" onSelect={() => {}} />
+                            <SummaryItemCard name="Kandy" image="https://placehold.co/400x300.png" aiHint="kandy" onSelect={() => {}} />
+                            <SummaryItemCard name="Galle" image="https://placehold.co/400x300.png" aiHint="galle" onSelect={() => {}} />
+                        </div>
+                    </div>
+
+                    <div className="space-y-6">
+                        <h3 className="text-xl font-semibold">Accommodation</h3>
+                        {selectedAccommodation && (
+                            <Card className="flex flex-col md:flex-row items-center gap-6 p-4">
+                                <Image src="https://placehold.co/400x300.png" alt={selectedAccommodation} width={200} height={150} className="rounded-lg object-cover w-full md:w-1/4" data-ai-hint="hotel room" />
+                                <div className="flex-grow">
+                                    <Badge>{selectedAccommodation}</Badge>
+                                    <h4 className="font-semibold text-lg mt-2">Hotel with stunning mountain views, perfect for a peaceful getaway</h4>
+                                    {selectedBudget && <p className="text-sm font-semibold mt-1">{selectedBudget}</p>}
+                                    <div className="flex flex-wrap gap-2 mt-2">
+                                        {selectedAmenities.map(amenity => <Badge key={amenity} variant="secondary">{amenity}</Badge>)}
+                                    </div>
+                                </div>
+                                <Button variant="ghost" size="icon" onClick={() => setCurrentStep(5)}><Edit className="h-4 w-4" /></Button>
+                            </Card>
+                        )}
+                    </div>
+                     <div className="space-y-6">
+                        <h3 className="text-xl font-semibold">Activities</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {selectedActivities.map(activityName => {
+                                const activity = [...adventureActivities, ...culturalActivities].find(a => a.name === activityName);
+                                return activity ? <ActivityCard key={activity.name} {...activity} isSelected={true} onSelect={() => {}} /> : null;
+                            })}
+                        </div>
+                    </div>
+                     <div className="space-y-6">
+                        <h3 className="text-xl font-semibold">Transportation</h3>
+                         {selectedTransportation.length > 0 && (
+                            <Card className="flex flex-col md:flex-row items-center gap-6 p-4">
+                                <Image src="https://placehold.co/400x300.png" alt={selectedTransportation[0]} width={200} height={150} className="rounded-lg object-cover w-full md:w-1/4" data-ai-hint="rental car" />
+                                <div className="flex-grow">
+                                    <Badge>{selectedTransportation.join(', ')}</Badge>
+                                    <h4 className="font-semibold text-lg mt-2">Compact car, great for city navigation and flexibility during your trip</h4>
+                                    <p className="text-sm font-semibold mt-1">Less than RON. 3000</p>
+                                </div>
+                                <Button variant="ghost" size="icon" onClick={() => setCurrentStep(6)}><Edit className="h-4 w-4" /></Button>
+                            </Card>
+                        )}
+                    </div>
+
+                    <div className="space-y-4 pt-8 border-t">
+                        <h3 className="text-xl font-semibold">Estimated Cost</h3>
+                        <p className="text-3xl font-bold">Total RON. 7,250 <span className="text-sm font-normal text-muted-foreground">(This is an estimate only based on final selections and availability.)</span></p>
+                    </div>
+
+
+                    <div className="flex justify-between mt-8">
+                        <Button variant="outline" onClick={handleBack}>
+                            <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                        </Button>
+                        <Button>
+                            Finalize Trip
                         </Button>
                     </div>
                 </div>
