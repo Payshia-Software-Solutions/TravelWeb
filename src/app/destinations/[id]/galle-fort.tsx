@@ -150,60 +150,62 @@ export function GalleFortPage() {
             </div>
         </section>
         <section className="py-16 lg:py-24 bg-white">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
                 Explore Galle Fort
                 <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
               </h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="grid gap-4 col-span-2">
-                    <div className="col-span-2">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4">
+                <div className="grid gap-4">
+                    <div>
                         <Image
-                            src="https://placehold.co/800x400.png"
+                            src="https://placehold.co/800x1200.png"
                             alt="Galle fort street"
                             width={800}
-                            height={400}
+                            height={1200}
                             className="h-auto w-full rounded-lg object-cover"
                             data-ai-hint="galle street"
                         />
                     </div>
-                    <div className="col-span-1">
+                </div>
+                <div className="grid gap-4">
+                    <div>
                         <Image
-                            src="https://placehold.co/400x400.png"
+                            src="https://placehold.co/800x1200.png"
                             alt="Galle fort ramparts"
-                            width={400}
-                            height={400}
+                            width={800}
+                            height={1200}
                             className="h-auto w-full rounded-lg object-cover"
                             data-ai-hint="galle ramparts"
                         />
                     </div>
-                     <div className="col-span-1">
+                </div>
+                <div className="grid gap-4">
+                     <div>
                         <Image
-                            src="https://placehold.co/400x400.png"
+                            src="https://placehold.co/800x1200.png"
                             alt="Galle fort cafe"
-                            width={400}
-                            height={400}
+                            width={800}
+                            height={1200}
                             className="h-auto w-full rounded-lg object-cover"
                             data-ai-hint="galle cafe"
                         />
                     </div>
                 </div>
-                <div className="grid gap-4 col-span-2">
-                    <div className="col-span-2">
+                <div className="grid gap-4">
+                    <div>
                          <Image
-                            src="https://placehold.co/800x800.png"
+                            src="https://placehold.co/800x1200.png"
                             alt="Galle fort aerial"
                             width={800}
-                            height={800}
-                            className="h-full w-full rounded-lg object-cover"
+                            height={1200}
+                            className="h-auto w-full rounded-lg object-cover"
                             data-ai-hint="galle aerial"
                         />
                     </div>
                 </div>
             </div>
-          </div>
         </section>
         <section className="py-16 lg:py-24 bg-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
