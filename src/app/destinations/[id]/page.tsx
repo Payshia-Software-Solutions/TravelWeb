@@ -219,7 +219,7 @@ export default function DestinationDetailPage({ params }: { params: { id: string
                                     {item.icon}
                                     <h3 className="font-headline text-xl font-bold">{item.title}</h3>
                                 </div>
-                                <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
+                                <p className="text-muted-foreground mt-2">{item.description}</p>
                             </CardContent>
                         </Card>
                     ))}
