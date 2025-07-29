@@ -319,7 +319,7 @@ export default function PlanPage() {
 
   return (
     <div className="min-h-screen bg-white text-foreground">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-headline font-bold">
             Let's Start Planning Your Adventure!
@@ -802,5 +802,3 @@ export default function PlanPage() {
     </div>
   );
 }
-
-    

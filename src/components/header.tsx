@@ -45,7 +45,7 @@ export function Header() {
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         headerIsTransparent ? 'bg-transparent text-white' : 'bg-secondary text-secondary-foreground shadow-md',
         isOpen && 'bg-secondary text-secondary-foreground shadow-md',
-        planPageActive && 'bg-secondary text-secondary-foreground shadow-md'
+        (planPageActive || pathname === '/login' || pathname === '/signup') && 'bg-secondary text-secondary-foreground shadow-md'
     )}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
