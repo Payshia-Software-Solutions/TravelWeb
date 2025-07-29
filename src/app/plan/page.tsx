@@ -380,7 +380,7 @@ export default function PlanPage() {
           )}
 
           {/* Step Content */}
-          <Card className="shadow-lg">
+          <Card className="shadow-lg bg-white">
             <CardContent className="p-8">
               {currentStep === 1 && (
                 <div className="space-y-8">
@@ -399,7 +399,7 @@ export default function PlanPage() {
                         onChange={handleSearchChange}
                       />
                       {filteredDestinations.length > 0 && (
-                        <Card className="absolute z-10 w-full mt-1 bg-background shadow-lg">
+                        <Card className="absolute z-10 w-full mt-1 bg-white shadow-lg">
                           <ul className="py-1">
                             {filteredDestinations.map(dest => (
                               <li
