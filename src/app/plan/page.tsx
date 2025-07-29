@@ -54,11 +54,11 @@ const accommodationTypes = [
 ];
 
 const budgetRanges = [
-    'Less than RON. 3000',
-    'RON. 3000-5000',
-    'RON. 5000-8000',
-    'RON. 8000-10,000',
-    'RON. 10,000 to Above',
+    'Less than LKR 3000',
+    'LKR 3000-5000',
+    'LKR 5000-8000',
+    'LKR 8000-10,000',
+    'LKR 10,000 to Above',
 ];
 
 const amenities = [
@@ -731,7 +731,7 @@ export default function PlanPage() {
                                 <div className="flex-grow">
                                     <Badge>{selectedTransportation.join(', ')}</Badge>
                                     <h4 className="font-semibold text-lg mt-2">Compact car, great for city navigation and flexibility during your trip</h4>
-                                    <p className="text-sm font-semibold mt-1">Less than RON. 3000</p>
+                                    <p className="text-sm font-semibold mt-1">Less than LKR 3000</p>
                                 </div>
                                 <Button variant="ghost" size="icon" onClick={() => setCurrentStep(5)}><Edit className="h-4 w-4" /></Button>
                             </Card>
@@ -741,7 +741,7 @@ export default function PlanPage() {
                     <div className="space-y-4 pt-8 border-t">
                         <h3 className="text-xl font-semibold">Estimated Cost</h3>
                         <p className="text-3xl font-bold">
-                            {(selectedAccommodation || selectedActivities.length > 0 || selectedTransportation.length > 0) ? 'Total RON. 7,250' : 'Total RON. 0'}
+                            {(selectedAccommodation || selectedActivities.length > 0 || selectedTransportation.length > 0) ? 'Total LKR 7,250' : 'Total LKR 0'}
                             <span className="text-sm font-normal text-muted-foreground"> (This is an estimate only based on final selections and availability.)</span>
                         </p>
                     </div>
