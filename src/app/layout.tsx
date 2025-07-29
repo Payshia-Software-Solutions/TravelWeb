@@ -17,7 +17,10 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
     <body className={cn("font-body antialiased bg-background text-foreground")}>
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="flex-grow">
+        <main className={cn(
+            "flex-grow",
+            !hasTransparentHeader && 'pt-20'
+        )}>
           {children}
         </main>
         <Footer />
