@@ -59,6 +59,30 @@ const culturalActivities = [
   { name: 'Village Food', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'sri lankan food' },
 ];
 
+const accommodationTypes = [
+  { name: 'Hotel', image: 'https://placehold.co/400x300.png', aiHint: 'luxury hotel' },
+  { name: 'Resort', image: 'https://placehold.co/400x300.png', aiHint: 'beach resort' },
+  { name: 'Rental', image: 'https://placehold.co/400x300.png', aiHint: 'vacation rental' },
+  { name: 'Village Home', image: 'https://placehold.co/400x300.png', aiHint: 'village house' },
+  { name: 'Camping', image: 'https://placehold.co/400x300.png', aiHint: 'camping tent' },
+];
+
+const budgetRanges = [
+    'Less than RON. 3000',
+    'RON. 3000-5000',
+    'RON. 5000-8000',
+    'RON. 8000-10,000',
+    'RON. 10,000 to Above',
+];
+
+const amenities = [
+  { name: 'Free WiFi', image: 'https://placehold.co/200x200.png', aiHint: 'wifi symbol' },
+  { name: 'Pool', image: 'https://placehold.co/200x200.png', aiHint: 'swimming pool' },
+  { name: 'Parking', image: 'https://placehold.co/200x200.png', aiHint: 'parking sign' },
+  { name: 'Breakfast', image: 'https://placehold.co/200x200.png', aiHint: 'breakfast food' },
+  { name: 'Pet-friendly', image: 'https://placehold.co/200x200.png', aiHint: 'dog cat' },
+  { name: 'Gym', image: 'https://placehold.co/200x200.png', aiHint: 'gym equipment' },
+];
 
 export default function PlanPage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -69,6 +93,10 @@ export default function PlanPage() {
   const [infants, setInfants] = useState(0);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
+  const [selectedAccommodation, setSelectedAccommodation] = useState<string | null>(null);
+  const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+
 
   const toggleInterest = (interestName: string) => {
     setSelectedInterests(prev => 
@@ -86,6 +114,13 @@ export default function PlanPage() {
     );
   };
 
+  const toggleAmenity = (amenityName: string) => {
+    setSelectedAmenities(prev =>
+      prev.includes(amenityName)
+        ? prev.filter(item => item !== amenityName)
+        : [...prev, amenityName]
+    );
+  };
 
   const handleNext = () => {
     if (currentStep < steps.length) {
@@ -172,7 +207,7 @@ export default function PlanPage() {
             ))}
           </div>
 
-          {(currentStep >= 2 && currentStep <= 4) && (
+          {(currentStep >= 2 && currentStep <= 5) && (
              <Card className="mb-8 bg-muted/30 border-dashed">
                 <CardContent className="p-4 flex items-center gap-4">
                     <DiamondIcon className="h-5 w-5" />
@@ -180,6 +215,7 @@ export default function PlanPage() {
                         {currentStep === 2 && "Please note that it will take a minimum of 4 days for your selected options to be processed."}
                         {currentStep === 3 && "Select any ind of activity category and then you can choose specific activities in Next Step."}
                         {currentStep === 4 && "Select any ind of activities you want to Experience. (This suggestions based on Previous categories you chosen)"}
+                        {currentStep === 5 && "Select any type accommodation and amenities."}
                     </p>
                 </CardContent>
             </Card>
@@ -357,6 +393,82 @@ export default function PlanPage() {
 
 
                   <div className="flex justify-between mt-8">
+                    <Button variant="outline" onClick={handleBack}>
+                      <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={handleNext}>
+                      Continue <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+              {currentStep === 5 && (
+                <div className="space-y-8">
+                   <div>
+                        <h2 className="text-2xl font-headline font-semibold mb-2">Where to Stay?</h2>
+                        <p className="text-muted-foreground mb-6">Select what kind of accommodation do you want.</p>
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                            {accommodationTypes.map((type) => (
+                                <Card 
+                                    key={type.name} 
+                                    className={cn(
+                                        "relative rounded-lg overflow-hidden cursor-pointer group border-2",
+                                        selectedAccommodation === type.name ? 'border-primary' : 'border-transparent'
+                                    )}
+                                    onClick={() => setSelectedAccommodation(type.name)}
+                                >
+                                    <Image src={type.image} alt={type.name} width={400} height={300} className="h-32 w-full object-cover group-hover:scale-105 transition-transform" data-ai-hint={type.aiHint} />
+                                    <div className="absolute inset-0 bg-black/40" />
+                                     <div className="absolute top-2 right-2 w-6 h-6 rounded-full border-2 border-white bg-white/30 flex items-center justify-center">
+                                        {selectedAccommodation === type.name && <Check className="h-4 w-4 text-white" />}
+                                    </div>
+                                    <div className="absolute bottom-0 left-0 p-2">
+                                        <h3 className="text-white font-bold text-base">{type.name}</h3>
+                                    </div>
+                                </Card>
+                            ))}
+                        </div>
+                   </div>
+                   <div>
+                        <h3 className="text-xl font-semibold mb-4">Budget Range</h3>
+                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            {budgetRanges.map((range) => (
+                                <Button 
+                                    key={range} 
+                                    variant={selectedBudget === range ? "default" : "outline"}
+                                    onClick={() => setSelectedBudget(range)}
+                                    className="justify-start"
+                                >
+                                    {range}
+                                </Button>
+                            ))}
+                        </div>
+                   </div>
+                   <div>
+                        <h3 className="text-xl font-semibold mb-4">Amenities</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {amenities.map((amenity) => (
+                                <Card 
+                                    key={amenity.name} 
+                                    className={cn(
+                                        "relative rounded-lg overflow-hidden cursor-pointer group border-2",
+                                        selectedAmenities.includes(amenity.name) ? 'border-primary' : 'border-transparent'
+                                    )}
+                                    onClick={() => toggleAmenity(amenity.name)}
+                                >
+                                    <Image src={amenity.image} alt={amenity.name} width={200} height={200} className="h-24 w-full object-cover" data-ai-hint={amenity.aiHint}/>
+                                    <div className="absolute inset-0 bg-black/40" />
+                                    <div className="absolute top-2 right-2 w-5 h-5 rounded-full border border-white bg-white/30 flex items-center justify-center">
+                                        {selectedAmenities.includes(amenity.name) && <Check className="h-3 w-3 text-white" />}
+                                    </div>
+                                    <div className="absolute bottom-2 left-2">
+                                        <h3 className="text-white font-semibold text-sm">{amenity.name}</h3>
+                                    </div>
+                                </Card>
+                            ))}
+                        </div>
+                   </div>
+                   <div className="flex justify-between mt-8">
                     <Button variant="outline" onClick={handleBack}>
                       <ArrowLeft className="mr-2 h-4 w-4" /> Back
                     </Button>
