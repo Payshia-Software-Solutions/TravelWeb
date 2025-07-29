@@ -6,28 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility, Edit, Send, Compass, MessageSquare } from 'lucide-react';
+import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility, Edit, Send, Compass, MessageSquare, Diamond } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
-
-function DiamondIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="text-primary"
-    >
-      <path d="M12 2L2 12l10 10 10-12L12 2z" />
-    </svg>
-  );
-}
-
 
 const steps = [
   { id: 1, name: 'Destination & Dates' },
@@ -305,7 +290,7 @@ export default function PlanPage() {
           {(currentStep >= 2 && currentStep <= 5) && (
              <Card className="mb-8 bg-muted/30 border-dashed">
                 <CardContent className="p-4 flex items-center gap-4">
-                    <DiamondIcon className="h-5 w-5" />
+                    <Diamond className="h-5 w-5 text-primary" />
                     <p className="text-sm text-muted-foreground">
                         {currentStep === 2 && "Select any ind of activity category and then you can choose specific activities in Next Step."}
                         {currentStep === 3 && "Select any ind of activities you want to Experience. (This suggestions based on Previous categories you chosen)"}
@@ -319,7 +304,7 @@ export default function PlanPage() {
           {currentStep === 1 && (
              <Card className="mb-8 bg-muted/30 border-dashed">
                 <CardContent className="p-4 flex items-center gap-4">
-                    <DiamondIcon className="h-5 w-5" />
+                    <Diamond className="h-5 w-5 text-primary" />
                     <p className="text-sm text-muted-foreground">
                         Please note that it will take a minimum of 4 days for your selected options to be processed.
                     </p>
