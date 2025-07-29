@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   fullName: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -38,6 +39,7 @@ const countryCodes = [
 export default function SignupPage() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -62,12 +64,10 @@ export default function SignupPage() {
     
     toast({
       title: "Account Created!",
-      description: "You have successfully signed up.",
+      description: "You have successfully signed up. Redirecting to your profile...",
     });
 
-    form.reset();
-    // In a real app, you would redirect or update global state here.
-    // For now, we rely on the header's simulated state.
+    router.push('/profile');
   }
 
   return (
