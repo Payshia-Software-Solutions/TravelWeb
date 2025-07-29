@@ -160,11 +160,11 @@ export function YalaPage() {
                 <div className="grid gap-4">
                     <div>
                         <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x750.png"
                             alt="Elephants in Yala"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={750}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="yala elephants"
                         />
                     </div>
@@ -172,36 +172,56 @@ export function YalaPage() {
                 <div className="grid gap-4">
                     <div>
                         <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x500.png"
                             alt="Yala landscape"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="yala landscape"
                         />
                     </div>
-                </div>
-                <div className="grid gap-4">
-                     <div>
+                    <div>
                         <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x500.png"
                             alt="Yala lake"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="yala lake"
                         />
                     </div>
                 </div>
                 <div className="grid gap-4">
                     <div>
-                         <Image
-                            src="https://placehold.co/800x1200.png"
+                        <Image
+                            src="https://placehold.co/500x500.png"
                             alt="Yala safari jeep"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="safari jeep"
+                        />
+                    </div>
+                     <div>
+                        <Image
+                            src="https://placehold.co/500x500.png"
+                            alt="Yala bird"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="yala bird"
+                        />
+                    </div>
+                </div>
+                 <div className="grid gap-4">
+                    <div>
+                        <Image
+                            src="https://placehold.co/500x750.png"
+                            alt="Yala leopard"
+                            width={500}
+                            height={750}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="yala leopard rock"
                         />
                     </div>
                 </div>

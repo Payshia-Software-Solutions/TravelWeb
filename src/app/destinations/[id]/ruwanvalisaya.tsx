@@ -177,35 +177,33 @@ export function RuwanvalisayaPage() {
                 <div className="grid gap-4">
                     <div>
                         <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x750.png"
                             alt="Ruwanvalisaya stupa"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={750}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="ruwanvalisaya day"
-                        />
-                    </div>
-                </div>
-                <div className="grid gap-4">
-                    <div>
-                        <Image
-                            src="https://placehold.co/800x1200.png"
-                            alt="Pilgrims at Ruwanvalisaya"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
-                            data-ai-hint="pilgrims worship"
                         />
                     </div>
                 </div>
                 <div className="grid gap-4">
                      <div>
                         <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x500.png"
+                            alt="Pilgrims at Ruwanvalisaya"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="pilgrims worship"
+                        />
+                    </div>
+                    <div>
+                        <Image
+                            src="https://placehold.co/500x500.png"
                             alt="Ruwanvalisaya at night"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="ruwanvalisaya night"
                         />
                     </div>
@@ -213,12 +211,34 @@ export function RuwanvalisayaPage() {
                 <div className="grid gap-4">
                     <div>
                          <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x500.png"
                             alt="Pathway to Ruwanvalisaya"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="anuradhapura path"
+                        />
+                    </div>
+                     <div>
+                        <Image
+                            src="https://placehold.co/500x500.png"
+                            alt="Anuradhapura ruins"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="anuradhapura ruins"
+                        />
+                    </div>
+                </div>
+                <div className="grid gap-4">
+                    <div>
+                        <Image
+                            src="https://placehold.co/500x750.png"
+                            alt="Bodhi tree leaf"
+                            width={500}
+                            height={750}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="bodhi leaf"
                         />
                     </div>
                 </div>

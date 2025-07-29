@@ -194,11 +194,11 @@ export function SigiriyaPage() {
                 <div className="grid gap-4">
                     <div>
                         <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x750.png"
                             alt="Sigiriya frescoes"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={750}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="sigiriya frescoes"
                         />
                     </div>
@@ -206,36 +206,56 @@ export function SigiriyaPage() {
                 <div className="grid gap-4">
                      <div>
                         <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x500.png"
                             alt="Pathway to Sigiriya"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="sigiriya path"
                         />
                     </div>
-                </div>
-                <div className="grid gap-4">
-                    <div>
+                     <div>
                         <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x500.png"
                             alt="Woman leading towards Sigiriya rock"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="follow me sigiriya"
                         />
                     </div>
                 </div>
+                 <div className="grid gap-4">
+                    <div>
+                        <Image
+                            src="https://placehold.co/500x750.png"
+                            alt="Aerial view of Sigiriya rock"
+                            width={500}
+                            height={750}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="sigiriya aerial"
+                        />
+                    </div>
+                </div>
                 <div className="grid gap-4">
                     <div>
                         <Image
-                            src="https://placehold.co/800x1200.png"
-                            alt="Aerial view of Sigiriya rock"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
-                            data-ai-hint="sigiriya aerial"
+                            src="https://placehold.co/500x500.png"
+                            alt="Sigiriya lion paw"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="sigiriya lion paw"
+                        />
+                    </div>
+                     <div>
+                        <Image
+                            src="https://placehold.co/500x500.png"
+                            alt="Sigiriya gardens"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="sigiriya gardens"
                         />
                     </div>
                 </div>

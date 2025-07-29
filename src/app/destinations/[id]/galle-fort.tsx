@@ -160,35 +160,33 @@ export function GalleFortPage() {
                 <div className="grid gap-4">
                     <div>
                         <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x750.png"
                             alt="Galle fort street"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={750}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="galle street"
-                        />
-                    </div>
-                </div>
-                <div className="grid gap-4">
-                    <div>
-                        <Image
-                            src="https://placehold.co/800x1200.png"
-                            alt="Galle fort ramparts"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
-                            data-ai-hint="galle ramparts"
                         />
                     </div>
                 </div>
                 <div className="grid gap-4">
                      <div>
                         <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x500.png"
+                            alt="Galle fort ramparts"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="galle ramparts"
+                        />
+                    </div>
+                    <div>
+                        <Image
+                            src="https://placehold.co/500x500.png"
                             alt="Galle fort cafe"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="galle cafe"
                         />
                     </div>
@@ -196,12 +194,34 @@ export function GalleFortPage() {
                 <div className="grid gap-4">
                     <div>
                          <Image
-                            src="https://placehold.co/800x1200.png"
+                            src="https://placehold.co/500x500.png"
                             alt="Galle fort aerial"
-                            width={800}
-                            height={1200}
-                            className="h-auto w-full rounded-lg object-cover"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
                             data-ai-hint="galle aerial"
+                        />
+                    </div>
+                     <div>
+                        <Image
+                            src="https://placehold.co/500x500.png"
+                            alt="Galle fort wall"
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="galle wall"
+                        />
+                    </div>
+                </div>
+                <div className="grid gap-4">
+                    <div>
+                        <Image
+                            src="https://placehold.co/500x750.png"
+                            alt="Galle fort door"
+                            width={500}
+                            height={750}
+                            className="h-full w-full rounded-lg object-cover"
+                            data-ai-hint="galle door"
                         />
                     </div>
                 </div>
