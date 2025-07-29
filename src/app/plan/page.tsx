@@ -47,6 +47,18 @@ const interests = [
     { name: 'Nature', image: 'https://placehold.co/400x500.png', aiHint: 'mountain landscape' },
 ];
 
+const adventureActivities = [
+  { name: 'Rafting', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'river rafting' },
+  { name: 'Surfing', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'surfing wave' },
+  { name: 'Hiking', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'hiking trail' },
+  { name: 'Adventure Zone', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'zip line' },
+];
+
+const culturalActivities = [
+  { name: 'Dance Show', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'traditional dance' },
+  { name: 'Village Food', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'sri lankan food' },
+];
+
 
 export default function PlanPage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -56,12 +68,21 @@ export default function PlanPage() {
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
 
   const toggleInterest = (interestName: string) => {
     setSelectedInterests(prev => 
       prev.includes(interestName) 
         ? prev.filter(item => item !== interestName)
         : [...prev, interestName]
+    );
+  };
+  
+  const toggleActivity = (activityName: string) => {
+    setSelectedActivities(prev =>
+      prev.includes(activityName)
+        ? prev.filter(item => item !== activityName)
+        : [...prev, activityName]
     );
   };
 
@@ -92,6 +113,26 @@ export default function PlanPage() {
             </Button>
         </div>
     </div>
+  );
+  
+  const ActivityCard = ({ name, location, image, aiHint, isSelected, onSelect }: { name: string, location: string, image: string, aiHint: string, isSelected: boolean, onSelect: () => void }) => (
+    <Card
+      className={cn(
+        "relative rounded-lg overflow-hidden cursor-pointer group border-2",
+        isSelected ? 'border-primary' : 'border-transparent'
+      )}
+      onClick={onSelect}
+    >
+      <Image src={image} alt={name} width={400} height={300} className="h-48 w-full object-cover group-hover:scale-105 transition-transform" data-ai-hint={aiHint} />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      <div className="absolute top-2 right-2 w-6 h-6 rounded-full border-2 border-white bg-white/30 flex items-center justify-center">
+        {isSelected && <Check className="h-4 w-4 text-white" />}
+      </div>
+      <div className="absolute bottom-0 left-0 p-4 text-white">
+        <h3 className="font-bold text-lg">{name}</h3>
+        <p className="text-sm flex items-center gap-1"><MapPin className="h-3 w-3" /> {location}</p>
+      </div>
+    </Card>
   );
 
   return (
@@ -131,15 +172,14 @@ export default function PlanPage() {
             ))}
           </div>
 
-          {(currentStep === 2 || currentStep === 3) && (
+          {(currentStep >= 2 && currentStep <= 4) && (
              <Card className="mb-8 bg-muted/30 border-dashed">
                 <CardContent className="p-4 flex items-center gap-4">
                     <DiamondIcon className="h-5 w-5" />
                     <p className="text-sm text-muted-foreground">
-                        {currentStep === 2 
-                            ? "Please note that it will take a minimum of 4 days for your selected options to be processed."
-                            : "Select any ind of activity category and then you can choose specific activities in Next Step."
-                        }
+                        {currentStep === 2 && "Please note that it will take a minimum of 4 days for your selected options to be processed."}
+                        {currentStep === 3 && "Select any ind of activity category and then you can choose specific activities in Next Step."}
+                        {currentStep === 4 && "Select any ind of activities you want to Experience. (This suggestions based on Previous categories you chosen)"}
                     </p>
                 </CardContent>
             </Card>
@@ -265,6 +305,56 @@ export default function PlanPage() {
                       </Card>
                     ))}
                   </div>
+
+                  <div className="flex justify-between mt-8">
+                    <Button variant="outline" onClick={handleBack}>
+                      <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                    </Button>
+                    <Button onClick={handleNext}>
+                      Continue <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+              {currentStep === 4 && (
+                <div>
+                  <h2 className="text-2xl font-headline font-semibold mb-2">What do you want to Experience?</h2>
+                  <p className="text-muted-foreground mb-6">Select the activities you're most interested in. This helps us tailor your trip to your preferences.</p>
+                  
+                  <div className="space-y-8">
+                    {selectedInterests.includes('Adventure') && (
+                        <div>
+                            <h3 className="text-xl font-semibold mb-4">Adventure Activities</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                {adventureActivities.map((activity) => (
+                                <ActivityCard 
+                                    key={activity.name}
+                                    {...activity}
+                                    isSelected={selectedActivities.includes(activity.name)}
+                                    onSelect={() => toggleActivity(activity.name)}
+                                />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    
+                    {selectedInterests.includes('Culture') && (
+                        <div>
+                            <h3 className="text-xl font-semibold mb-4">Cultural Activities</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                {culturalActivities.map((activity) => (
+                                <ActivityCard 
+                                    key={activity.name}
+                                    {...activity}
+                                    isSelected={selectedActivities.includes(activity.name)}
+                                    onSelect={() => toggleActivity(activity.name)}
+                                />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                  </div>
+
 
                   <div className="flex justify-between mt-8">
                     <Button variant="outline" onClick={handleBack}>
