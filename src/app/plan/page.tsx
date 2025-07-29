@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility, Edit, Send, Compass, MessageSquare, Diamond, X } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
-import { format } from 'date-fns';
+import { format, differenceInDays } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
@@ -104,6 +104,42 @@ export default function PlanPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDestinations, setFilteredDestinations] = useState<typeof destinations>([]);
   const [selectedDestinations, setSelectedDestinations] = useState<typeof destinations>([]);
+
+  const estimatedCost = useMemo(() => {
+    let totalCost = 0;
+    const numberOfTravelers = adults + children;
+    const tripDuration = (fromDate && toDate) ? differenceInDays(toDate, fromDate) + 1 : 1;
+
+    // Accommodation cost
+    if (selectedAccommodation && selectedBudget) {
+        const budgetMap: { [key: string]: number } = {
+            'Less than LKR 3000': 2000,
+            'LKR 3000-5000': 4000,
+            'LKR 5000-8000': 6500,
+            'LKR 8000-10,000': 9000,
+            'LKR 10,000 to Above': 12000,
+        };
+        totalCost += (budgetMap[selectedBudget] || 0) * tripDuration;
+    }
+
+    // Activities cost
+    totalCost += selectedActivities.length * 1500 * numberOfTravelers;
+
+    // Transportation cost
+    const transportCostMap: { [key: string]: number } = {
+        'Flights': 10000 * numberOfTravelers,
+        'Rental Car': 5000 * tripDuration,
+        'Public Transport': 500 * tripDuration * numberOfTravelers,
+        'Rental Bike': 1000 * tripDuration,
+        'Rental Van': 7000 * tripDuration,
+        'Rental Bus': 10000 * tripDuration,
+    };
+    selectedTransportation.forEach(transport => {
+        totalCost += transportCostMap[transport] || 0;
+    });
+
+    return totalCost;
+  }, [selectedAccommodation, selectedBudget, selectedActivities, selectedTransportation, adults, children, fromDate, toDate]);
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -743,7 +779,7 @@ export default function PlanPage() {
                     <div className="space-y-4 pt-8 border-t">
                         <h3 className="text-xl font-semibold">Estimated Cost</h3>
                         <p className="text-3xl font-bold">
-                            {(selectedAccommodation || selectedActivities.length > 0 || selectedTransportation.length > 0) ? 'Total LKR 7,250' : 'Total LKR 0'}
+                            Total LKR {estimatedCost.toLocaleString()}
                             <span className="text-sm font-normal text-muted-foreground"> (This is an estimate only based on final selections and availability.)</span>
                         </p>
                     </div>
@@ -766,3 +802,5 @@ export default function PlanPage() {
     </div>
   );
 }
+
+    
