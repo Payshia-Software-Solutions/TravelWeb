@@ -246,7 +246,7 @@ export default function DestinationDetailPage({ params }: { params: { id: string
                             <CardContent className="p-6 flex-grow flex flex-col bg-card">
                                 <div className="flex items-center gap-4">
                                     {item.icon}
-                                    <h3 className="font-headline text-xl font-bold flex-grow">{item.title}</h3>
+                                    <h3 className="font-headline text-xl font-bold flex-grow h-12 flex items-center">{item.title}</h3>
                                 </div>
                                 <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
                             </CardContent>
@@ -299,10 +299,10 @@ export default function DestinationDetailPage({ params }: { params: { id: string
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {travelTips.map((tip) => (
-                        <Card key={tip.title} className="text-center p-8 bg-green-50/50 shadow-lg border-green-200">
-                            <CardContent className="flex flex-col items-center justify-center gap-4">
+                        <Card key={tip.title} className="text-center p-8 bg-green-50/50 shadow-lg border-green-200 flex flex-col">
+                            <CardContent className="flex flex-col items-center justify-center gap-4 flex-grow">
                                 <div className="mb-4">{tip.icon}</div>
-                                <h3 className="font-headline text-xl font-bold">{tip.title}</h3>
+                                <h3 className="font-headline text-xl font-bold h-7 flex items-center justify-center">{tip.title}</h3>
                                 <p className="text-muted-foreground text-sm flex-grow">{tip.description}</p>
                             </CardContent>
                         </Card>
