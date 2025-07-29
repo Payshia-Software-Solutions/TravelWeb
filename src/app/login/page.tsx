@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -37,6 +37,11 @@ export default function LoginPage() {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
     console.log(values);
+    
+    // In a real app, you would get a token from your auth server.
+    // For now, we'll just set a flag in localStorage.
+    localStorage.setItem('isLoggedIn', 'true');
+    
     setIsSubmitting(false);
     
     toast({

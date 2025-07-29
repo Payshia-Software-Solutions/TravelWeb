@@ -41,12 +41,14 @@ export function Header() {
         setIsScrolled(false);
       }
     };
-
-    // Simulate login status change after login/signup
-    if (pathname === '/login' || pathname === '/signup') {
-        // A real app would have a proper auth flow.
-        // For now, let's pretend we logged in.
-        // This is a placeholder for real auth logic.
+    
+    // In a real app, you'd use a global state or context.
+    // For now, we'll check localStorage for a login flag.
+    const loggedInStatus = localStorage.getItem('isLoggedIn');
+    if (loggedInStatus === 'true') {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
 
 
@@ -58,13 +60,18 @@ export function Header() {
 
   const headerIsTransparent = hasTransparentHeader && !isScrolled && !isOpen;
   const planPageActive = pathname === '/plan';
+  
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+  };
 
   return (
     <header className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         headerIsTransparent ? 'bg-transparent text-white' : 'bg-secondary text-secondary-foreground shadow-md',
         isOpen && 'bg-secondary text-secondary-foreground shadow-md',
-        (planPageActive || pathname === '/login' || pathname === '/signup') && 'bg-secondary text-secondary-foreground shadow-md'
+        (planPageActive || pathname === '/login' || pathname === '/signup' || pathname === '/profile') && 'bg-secondary text-secondary-foreground shadow-md'
     )}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
@@ -109,7 +116,7 @@ export function Header() {
                         <DropdownMenuItem asChild><Link href="/profile">Profile</Link></DropdownMenuItem>
                         <DropdownMenuItem>Settings</DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => setIsLoggedIn(false)}>Log out</DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleLogout}><Link href="/login">Log out</Link></DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
@@ -157,7 +164,7 @@ export function Header() {
                         <Button variant="outline" asChild onClick={() => setIsOpen(false)}>
                             <Link href="/profile">Profile</Link>
                         </Button>
-                        <Button onClick={() => { setIsLoggedIn(false); setIsOpen(false); }}>Log Out</Button>
+                        <Button onClick={() => { handleLogout(); setIsOpen(false); }}><Link href="/login">Log Out</Link></Button>
                     </>
                 ) : (
                     <>

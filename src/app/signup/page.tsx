@@ -60,6 +60,11 @@ export default function SignupPage() {
     await new Promise(resolve => setTimeout(resolve, 1000));
     const fullPhoneNumber = `${values.countryCode}${values.phoneNumber}`;
     console.log({...values, phoneNumber: fullPhoneNumber});
+
+    // In a real app, you would get a token from your auth server.
+    // For now, we'll just set a flag in localStorage.
+    localStorage.setItem('isLoggedIn', 'true');
+
     setIsSubmitting(false);
     
     toast({
