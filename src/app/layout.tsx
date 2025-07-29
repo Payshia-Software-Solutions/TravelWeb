@@ -11,10 +11,10 @@ import { Suspense } from 'react';
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const hasTransparentHeader = ['/', '/things-to-do', '/culture', '/wildlife', '/ayurveda', '/destinations', '/blog', '/about'].includes(pathname);
+  const hasTransparentHeader = ['/', '/things-to-do', '/culture', '/wildlife', '/ayurveda', '/destinations', '/blog', '/about'].includes(pathname) || /^\/destinations\/[^/]+$/.test(pathname);
 
   return (
-    <body className={cn("font-body antialiased bg-background text-foreground", { 'bg-secondary': hasTransparentHeader })}>
+    <body className={cn("font-body antialiased bg-background text-foreground", { 'bg-secondary': hasTransparentHeader && !/^\/destinations\/[^/]+$/.test(pathname) })}>
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">
