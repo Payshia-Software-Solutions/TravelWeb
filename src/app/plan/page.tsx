@@ -13,6 +13,7 @@ import { format } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
+import { destinations } from '@/lib/destinations';
 
 const steps = [
   { id: 1, name: 'Destination & Dates' },
@@ -98,7 +99,35 @@ export default function PlanPage() {
   const [selectedTransportation, setSelectedTransportation] = useState<string[]>([]);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredDestinations, setFilteredDestinations] = useState<typeof destinations>([]);
+  const [selectedDestinations, setSelectedDestinations] = useState<typeof destinations>([]);
 
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    if (query.length > 0) {
+      const filtered = destinations.filter(dest =>
+        dest.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredDestinations(filtered);
+    } else {
+      setFilteredDestinations([]);
+    }
+  };
+
+  const handleSelectDestination = (destination: typeof destinations[0]) => {
+    if (!selectedDestinations.find(d => d.id === destination.id)) {
+        setSelectedDestinations([...selectedDestinations, destination]);
+    }
+    setSearchQuery('');
+    setFilteredDestinations([]);
+  };
+
+  const handleRemoveDestination = (destinationId: string) => {
+    setSelectedDestinations(selectedDestinations.filter(d => d.id !== destinationId));
+  }
 
   const toggleInterest = (interestName: string) => {
     setSelectedInterests(prev => 
@@ -322,15 +351,43 @@ export default function PlanPage() {
                       <MapPin className="text-primary" />
                       Where do you want to go?
                     </h2>
-                    <div className="relative">
+                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                       <Input
                         type="text"
                         placeholder="Search destinations (e.g., Kandy, Sigiriya)"
                         className="pl-10 text-base"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
                       />
+                      {filteredDestinations.length > 0 && (
+                        <Card className="absolute z-10 w-full mt-1 bg-background shadow-lg">
+                          <ul className="py-1">
+                            {filteredDestinations.map(dest => (
+                              <li
+                                key={dest.id}
+                                className="px-4 py-2 cursor-pointer hover:bg-muted"
+                                onClick={() => handleSelectDestination(dest)}
+                              >
+                                {dest.name}
+                              </li>
+                            ))}
+                          </ul>
+                        </Card>
+                      )}
                     </div>
-                    <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+
+                    <div className="mt-4 flex flex-wrap gap-2">
+                        {selectedDestinations.map(dest => (
+                            <Badge key={dest.id} variant="secondary" className="text-base py-1 pl-3 pr-2">
+                                {dest.name}
+                                <button onClick={() => handleRemoveDestination(dest.id)} className="ml-2 rounded-full hover:bg-background/50">
+                                    <X className="h-4 w-4" />
+                                </button>
+                            </Badge>
+                        ))}
+                    </div>
+                     <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
                       <Info className="h-4 w-4" />
                       <span>Start typing to see destination suggestions</span>
                     </div>
@@ -622,12 +679,16 @@ export default function PlanPage() {
                     </div>
 
                     <div className="space-y-6">
-                        <h3 className="text-xl font-semibold">Destinations</h3>
-                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            <SummaryItemCard name="Anuradapura" image="https://placehold.co/400x300.png" aiHint="sigiriya" onSelect={() => {}} />
-                            <SummaryItemCard name="Kandy" image="https://placehold.co/400x300.png" aiHint="kandy" onSelect={() => {}} />
-                            <SummaryItemCard name="Galle" image="https://placehold.co/400x300.png" aiHint="galle" onSelect={() => {}} />
-                        </div>
+                         {selectedDestinations.length > 0 && (
+                            <>
+                                <h3 className="text-xl font-semibold">Destinations</h3>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    {selectedDestinations.map(dest => (
+                                        <SummaryItemCard key={dest.id} name={dest.name} image={dest.image} aiHint={dest.name.toLowerCase()} onSelect={() => {}} />
+                                    ))}
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     {selectedAccommodation && (
