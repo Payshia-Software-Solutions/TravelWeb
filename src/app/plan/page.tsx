@@ -30,13 +30,12 @@ function DiamondIcon(props: React.SVGProps<SVGSVGElement>) {
 
 
 const steps = [
-  { id: 1, name: 'Destination' },
-  { id: 2, name: 'Dates' },
-  { id: 3, name: 'Interests' },
-  { id: 4, name: 'Pace' },
-  { id: 5, name: 'Accommodation' },
-  { id: 6, name: 'Transportation' },
-  { id: 7, name: 'Finish' },
+  { id: 1, name: 'Destination & Dates' },
+  { id: 2, name: 'Interests' },
+  { id: 3, name: 'Pace' },
+  { id: 4, name: 'Accommodation' },
+  { id: 5, name: 'Transportation' },
+  { id: 6, name: 'Finish' },
 ];
 
 const interests = [
@@ -303,16 +302,26 @@ export default function PlanPage() {
             ))}
           </div>
 
-          {(currentStep >= 2 && currentStep <= 6) && (
+          {(currentStep >= 2 && currentStep <= 5) && (
              <Card className="mb-8 bg-muted/30 border-dashed">
                 <CardContent className="p-4 flex items-center gap-4">
                     <DiamondIcon className="h-5 w-5" />
                     <p className="text-sm text-muted-foreground">
-                        {currentStep === 2 && "Please note that it will take a minimum of 4 days for your selected options to be processed."}
-                        {currentStep === 3 && "Select any ind of activity category and then you can choose specific activities in Next Step."}
-                        {currentStep === 4 && "Select any ind of activities you want to Experience. (This suggestions based on Previous categories you chosen)"}
-                        {currentStep === 5 && "Select any type accommodation and amenities."}
-                        {currentStep === 6 && "We’ll help you figure out the best way for you to get around your destination."}
+                        {currentStep === 2 && "Select any ind of activity category and then you can choose specific activities in Next Step."}
+                        {currentStep === 3 && "Select any ind of activities you want to Experience. (This suggestions based on Previous categories you chosen)"}
+                        {currentStep === 4 && "Select any type accommodation and amenities."}
+                        {currentStep === 5 && "We’ll help you figure out the best way for you to get around your destination."}
+                    </p>
+                </CardContent>
+            </Card>
+          )}
+           
+          {currentStep === 1 && (
+             <Card className="mb-8 bg-muted/30 border-dashed">
+                <CardContent className="p-4 flex items-center gap-4">
+                    <DiamondIcon className="h-5 w-5" />
+                    <p className="text-sm text-muted-foreground">
+                        Please note that it will take a minimum of 4 days for your selected options to be processed.
                     </p>
                 </CardContent>
             </Card>
@@ -322,23 +331,81 @@ export default function PlanPage() {
           <Card className="shadow-lg">
             <CardContent className="p-8">
               {currentStep === 1 && (
-                <div>
-                  <h2 className="text-2xl font-headline font-semibold flex items-center gap-2 mb-6">
-                    <MapPin className="text-primary" />
-                    Where do you want to go?
-                  </h2>
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                    <Input
-                      type="text"
-                      placeholder="Search destinations (e.g., Kandy, Sigiriya)"
-                      className="pl-10 text-base"
-                    />
+                <div className="space-y-8">
+                  <div>
+                    <h2 className="text-2xl font-headline font-semibold flex items-center gap-2 mb-6">
+                      <MapPin className="text-primary" />
+                      Where do you want to go?
+                    </h2>
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                      <Input
+                        type="text"
+                        placeholder="Search destinations (e.g., Kandy, Sigiriya)"
+                        className="pl-10 text-base"
+                      />
+                    </div>
+                    <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+                      <Info className="h-4 w-4" />
+                      <span>Start typing to see destination suggestions</span>
+                    </div>
                   </div>
-                  <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-                    <Info className="h-4 w-4" />
-                    <span>Start typing to see destination suggestions</span>
+
+                  <div>
+                      <h2 className="text-2xl font-headline font-semibold flex items-center gap-2 mb-6">
+                          <CalendarIcon className="text-primary" />
+                          When do you plan to travel?
+                      </h2>
+                      <div className="grid md:grid-cols-2 gap-6">
+                          <Popover>
+                              <PopoverTrigger asChild>
+                                  <Button variant="outline" className={cn("justify-start text-left font-normal h-12", !fromDate && "text-muted-foreground")}>
+                                      <CalendarIcon className="mr-2 h-4 w-4" />
+                                      {fromDate ? format(fromDate, "MM/dd/yyyy") : <span>From</span>}
+                                  </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0">
+                                  <Calendar mode="single" selected={fromDate} onSelect={setFromDate} initialFocus />
+                              </PopoverContent>
+                          </Popover>
+                          <Popover>
+                              <PopoverTrigger asChild>
+                                  <Button variant="outline" className={cn("justify-start text-left font-normal h-12", !toDate && "text-muted-foreground")}>
+                                      <CalendarIcon className="mr-2 h-4 w-4" />
+                                      {toDate ? format(toDate, "MM/dd/yyyy") : <span>To</span>}
+                                  </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0">
+                                  <Calendar mode="single" selected={toDate} onSelect={setToDate} disabled={(date) => date < (fromDate || new Date())} initialFocus />
+                              </PopoverContent>
+                          </Popover>
+                      </div>
                   </div>
+
+                  <div>
+                      <h2 className="text-2xl font-headline font-semibold flex items-center gap-2 mb-6">
+                          <Users className="text-primary" />
+                          Who are you traveling with?
+                          <TooltipProvider>
+                              <Tooltip>
+                                  <TooltipTrigger asChild>
+                                      <button className="p-1">
+                                          <Info className="h-4 w-4 text-muted-foreground" />
+                                      </button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                      <p>Specify the number of travelers.</p>
+                                  </TooltipContent>
+                              </Tooltip>
+                          </TooltipProvider>
+                      </h2>
+                      <div className="flex flex-col md:flex-row gap-4">
+                         <NumberInput label="Adults" description="18+ years" value={adults} onDecrement={() => setAdults(v => v > 1 ? v-1 : 1)} onIncrement={() => setAdults(v => v+1)} />
+                         <NumberInput label="Children" description="2-17 years" value={children} onDecrement={() => setChildren(v => v > 0 ? v - 1 : 0)} onIncrement={() => setChildren(v => v + 1)} />
+                         <NumberInput label="Infants" description="Under 2" value={infants} onDecrement={() => setInfants(v => v > 0 ? v - 1 : 0)} onIncrement={() => setInfants(v => v + 1)} />
+                      </div>
+                  </div>
+
                   <div className="flex justify-end mt-8">
                     <Button onClick={handleNext}>
                       Continue <ArrowRight className="ml-2 h-4 w-4" />
@@ -347,72 +414,6 @@ export default function PlanPage() {
                 </div>
               )}
                {currentStep === 2 && (
-                <div className="space-y-8">
-                    <div>
-                        <h2 className="text-2xl font-headline font-semibold flex items-center gap-2 mb-6">
-                            <CalendarIcon className="text-primary" />
-                            When do you plan to travel?
-                        </h2>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <Button variant="outline" className={cn("justify-start text-left font-normal h-12", !fromDate && "text-muted-foreground")}>
-                                        <CalendarIcon className="mr-2 h-4 w-4" />
-                                        {fromDate ? format(fromDate, "MM/dd/yyyy") : <span>From</span>}
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0">
-                                    <Calendar mode="single" selected={fromDate} onSelect={setFromDate} initialFocus />
-                                </PopoverContent>
-                            </Popover>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <Button variant="outline" className={cn("justify-start text-left font-normal h-12", !toDate && "text-muted-foreground")}>
-                                        <CalendarIcon className="mr-2 h-4 w-4" />
-                                        {toDate ? format(toDate, "MM/dd/yyyy") : <span>To</span>}
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0">
-                                    <Calendar mode="single" selected={toDate} onSelect={setToDate} disabled={(date) => date < (fromDate || new Date())} initialFocus />
-                                </PopoverContent>
-                            </Popover>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h2 className="text-2xl font-headline font-semibold flex items-center gap-2 mb-6">
-                            <Users className="text-primary" />
-                            Who are you traveling with?
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <button className="p-1">
-                                            <Info className="h-4 w-4 text-muted-foreground" />
-                                        </button>
-                                    </TooltipTrigger>
-                                    <TooltipContent>
-                                        <p>Specify the number of travelers.</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </h2>
-                        <div className="flex flex-col md:flex-row gap-4">
-                           <NumberInput label="Adults" description="18+ years" value={adults} onDecrement={() => setAdults(v => v > 1 ? v-1 : 1)} onIncrement={() => setAdults(v => v+1)} />
-                           <NumberInput label="Children" description="2-17 years" value={children} onDecrement={() => setChildren(v => v > 0 ? v - 1 : 0)} onIncrement={() => setChildren(v => v + 1)} />
-                           <NumberInput label="Infants" description="Under 2" value={infants} onDecrement={() => setInfants(v => v > 0 ? v - 1 : 0)} onIncrement={() => setInfants(v => v + 1)} />
-                        </div>
-                    </div>
-                     <div className="flex justify-between mt-8">
-                        <Button variant="outline" onClick={handleBack}>
-                            <ArrowLeft className="mr-2 h-4 w-4" /> Back
-                        </Button>
-                        <Button onClick={handleNext}>
-                            Continue <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                  </div>
-                </div>
-              )}
-               {currentStep === 3 && (
                 <div>
                   <h2 className="text-2xl font-headline font-semibold mb-2">What do you want to do?</h2>
                   <p className="text-muted-foreground mb-6">Select the activities you're most interested in. This helps us tailor your trip to your preferences.</p>
@@ -449,7 +450,7 @@ export default function PlanPage() {
                   </div>
                 </div>
               )}
-              {currentStep === 4 && (
+              {currentStep === 3 && (
                 <div>
                   <h2 className="text-2xl font-headline font-semibold mb-2">What do you want to Experience?</h2>
                   <p className="text-muted-foreground mb-6">Select the activities you're most interested in. This helps us tailor your trip to your preferences.</p>
@@ -499,7 +500,7 @@ export default function PlanPage() {
                   </div>
                 </div>
               )}
-              {currentStep === 5 && (
+              {currentStep === 4 && (
                 <div className="space-y-8">
                    <div>
                         <h2 className="text-2xl font-headline font-semibold mb-2">Where to Stay?</h2>
@@ -575,7 +576,7 @@ export default function PlanPage() {
                   </div>
                 </div>
               )}
-               {currentStep === 6 && (
+               {currentStep === 5 && (
                 <div className="space-y-8">
                     <div>
                         <h2 className="text-2xl font-headline font-semibold mb-2">How will you get around?</h2>
@@ -628,7 +629,7 @@ export default function PlanPage() {
                     </div>
                 </div>
               )}
-              {currentStep === 7 && (
+              {currentStep === 6 && (
                 <div className="space-y-8">
                     <div>
                         <h2 className="text-2xl font-headline font-semibold mb-2">Your Trip Summary</h2>
@@ -657,7 +658,7 @@ export default function PlanPage() {
                                         {selectedAmenities.map(amenity => <Badge key={amenity} variant="secondary">{amenity}</Badge>)}
                                     </div>
                                 </div>
-                                <Button variant="ghost" size="icon" onClick={() => setCurrentStep(5)}><Edit className="h-4 w-4" /></Button>
+                                <Button variant="ghost" size="icon" onClick={() => setCurrentStep(4)}><Edit className="h-4 w-4" /></Button>
                             </Card>
                         )}
                     </div>
@@ -680,7 +681,7 @@ export default function PlanPage() {
                                     <h4 className="font-semibold text-lg mt-2">Compact car, great for city navigation and flexibility during your trip</h4>
                                     <p className="text-sm font-semibold mt-1">Less than RON. 3000</p>
                                 </div>
-                                <Button variant="ghost" size="icon" onClick={() => setCurrentStep(6)}><Edit className="h-4 w-4" /></Button>
+                                <Button variant="ghost" size="icon" onClick={() => setCurrentStep(5)}><Edit className="h-4 w-4" /></Button>
                             </Card>
                         )}
                     </div>
