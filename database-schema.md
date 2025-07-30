@@ -4,6 +4,20 @@
 This document outlines the database schema required to support the backend functionality of the travel planning website.
 
 ---
+## 0. Company Management
+
+### `companies`
+
+Stores information about companies using the platform.
+
+| Column Name | Data Type | Constraints | Description |
+| --- | --- | --- | --- |
+| `id` | `UUID` | `PRIMARY KEY` | Unique identifier for each company. |
+| `name` | `VARCHAR(255)` | `NOT NULL` | Company's name. |
+| `created_at` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP` | Timestamp of account creation. |
+| `updated_at` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP` | Timestamp of the last profile update. |
+
+---
 
 ## 1. User Management
 
@@ -14,8 +28,10 @@ Stores information about registered users.
 | Column Name       | Data Type     | Constraints              | Description                               |
 | ----------------- | ------------- | ------------------------ | ----------------------------------------- |
 | `id`              | `UUID`        | `PRIMARY KEY`            | Unique identifier for each user.          |
+| `company_id`      | `UUID`        | `NOT NULL`, `FOREIGN KEY`| Links to the `companies` table (`companies.id`). |
 | `full_name`       | `VARCHAR(255)`| `NOT NULL`               | User's full name.                         |
 | `address`         | `TEXT`        | `NOT NULL`               | User's physical address.                  |
+| `country`         | `VARCHAR(100)`| `NOT NULL`               | User's country.                           |
 | `phone_number`    | `VARCHAR(20)` | `NOT NULL`, `UNIQUE`     | User's full phone number (with country code). |
 | `email`           | `VARCHAR(255)`| `NOT NULL`, `UNIQUE`     | User's email address for login.           |
 | `password_hash`   | `VARCHAR(255)`| `NOT NULL`               | Hashed password for security.             |
@@ -35,13 +51,15 @@ Stores the main details for each trip created by a user.
 | Column Name          | Data Type     | Constraints              | Description                               |
 | -------------------- | ------------- | ------------------------ | ----------------------------------------- |
 | `id`                 | `UUID`        | `PRIMARY KEY`            | Unique identifier for the trip plan.      |
+| `company_id`         | `UUID`        | `NOT NULL`, `FOREIGN KEY`| Links to the `companies` table.           |
 | `user_id`            | `UUID`        | `NOT NULL`, `FOREIGN KEY`| Links to the `users` table (`users.id`).  |
+| `plan_type_id`       | `UUID`        | `NOT NULL`, `FOREIGN KEY`| Links to the `plan_types` table.          |
 | `from_date`          | `DATE`        | `NOT NULL`               | Start date of the trip.                   |
 | `to_date`            | `DATE`        | `NOT NULL`               | End date of the trip.                     |
 | `adults`             | `INTEGER`     | `NOT NULL`, `DEFAULT 1`  | Number of adults traveling.               |
 | `children`           | `INTEGER`     | `DEFAULT 0`              | Number of children traveling.             |
 | `infants`            | `INTEGER`     | `DEFAULT 0`              | Number of infants traveling.              |
-| `accommodation_type` | `VARCHAR(50)` | -                        | e.g., 'Hotel', 'Resort', 'Camping'.       |
+| `accommodation_type_id` | `UUID`     | `FOREIGN KEY`            | Links to accommodation_types.id           |
 | `budget_range`       | `VARCHAR(50)` | -                        | The selected budget per night.            |
 | `estimated_cost`     | `DECIMAL(10,2)`| -                        | System-calculated estimated trip cost.    |
 | `status`             | `VARCHAR(20)` | `DEFAULT 'pending'`      | e.g., 'pending', 'confirmed', 'cancelled'.|
@@ -57,6 +75,7 @@ Links trip plans to the destinations selected for that trip.
 | ----------------- | --------- | ----------------------------------- | ----------------------------------------- |
 | `trip_id`         | `UUID`    | `PRIMARY KEY`, `FOREIGN KEY` (trip_plans.id) | Links to the trip plan.                   |
 | `destination_id`  | `UUID`    | `PRIMARY KEY`, `FOREIGN KEY` (destinations.id)| Links to the destination.                 |
+| `company_id`      | `UUID`    | `NOT NULL`, `FOREIGN KEY`           | Links to the `companies` table.           |
 
 ### `trip_activities` (Junction Table)
 
@@ -66,12 +85,23 @@ Links trip plans to the activities selected.
 | -------------- | ------------- | ------------------------------------- | ----------------------------------------- |
 | `trip_id`      | `UUID`        | `PRIMARY KEY`, `FOREIGN KEY` (trip_plans.id) | Links to the trip plan.                   |
 | `activity_id`  | `UUID`        | `PRIMARY KEY`, `FOREIGN KEY` (activities.id) | Links to the selected activity.           |
+| `company_id`   | `UUID`        | `NOT NULL`, `FOREIGN KEY`           | Links to the `companies` table.           |
+
+### `plan_types`
+
+Stores the type of trip plan (e.g., Free or Custom).
+
+| Column Name | Data Type | Constraints | Description |
+| --- | --- | --- | --- |
+| `id` | `UUID` | `PRIMARY KEY` | Unique ID for the plan type. |
+| `company_id` | `UUID` | `NOT NULL`, `FOREIGN KEY` | Links to the `companies` table. |
+| `name` | `VARCHAR(50)`| `NOT NULL` | 'Free Plan', 'Custom Plan' |
 
 ---
 
-## 3. Content Management
+## 3. Content & Resource Management
 
-These tables store the content for destinations, activities, and the blog.
+These tables store the content for destinations, activities, hotels, etc.
 
 ### `destinations`
 
@@ -80,6 +110,7 @@ Stores details for all travel destinations.
 | Column Name | Data Type     | Constraints   | Description                                     |
 | ----------- | ------------- | ------------- | ----------------------------------------------- |
 | `id`        | `UUID`        | `PRIMARY KEY` | Unique identifier for the destination.          |
+| `company_id` | `UUID`       | `NOT NULL`, `FOREIGN KEY` | Links to the `companies` table.      |
 | `name`      | `VARCHAR(255)`| `NOT NULL`    | Name of the destination (e.g., 'Sigiriya').     |
 | `location`  | `VARCHAR(255)`| `NOT NULL`    | Broader location (e.g., 'Matale').              |
 | `image_url` | `TEXT`        | `NOT NULL`    | URL for the main destination image.             |
@@ -94,11 +125,58 @@ Stores all available activities that users can add to their trips.
 | Column Name  | Data Type     | Constraints   | Description                                     |
 | ------------ | ------------- | ------------- | ----------------------------------------------- |
 | `id`         | `UUID`        | `PRIMARY KEY` | Unique identifier for the activity.             |
+| `company_id` | `UUID`        | `NOT NULL`, `FOREIGN KEY` | Links to the `companies` table.   |
 | `name`       | `VARCHAR(255)`| `NOT NULL`, `UNIQUE`| Name of the activity (e.g., 'Rafting').   |
 | `category`   | `VARCHAR(50)` | `NOT NULL`    | e.g., 'Adventure', 'Culture', 'Relaxation'.     |
 | `location`   | `VARCHAR(255)`| -             | Specific location where the activity is offered.|
 | `image_url`  | `TEXT`        | -             | URL for the activity's image.                   |
 
+
+### `accommodation_types`
+
+Stores types of accommodations.
+
+| Column Name | Data Type | Constraints | Description |
+| --- | --- | --- | --- |
+| `id` | `UUID` | `PRIMARY KEY` | Unique ID for the accommodation type. |
+| `company_id` | `UUID`| `NOT NULL`, `FOREIGN KEY` | Links to `companies` table. |
+| `name` | `VARCHAR(50)`| `NOT NULL` | e.g. 'Hotel', 'Resort' |
+
+### `hotels`
+
+Stores hotel information.
+
+| Column Name | Data Type | Constraints | Description |
+| --- | --- | --- | --- |
+| `id` | `UUID` | `PRIMARY KEY` | Unique ID for the hotel. |
+| `company_id` | `UUID`| `NOT NULL`, `FOREIGN KEY`| Links to `companies` table. |
+| `accommodation_type_id` | `UUID` | `NOT NULL`, `FOREIGN KEY` | Links to `accommodation_types` table. |
+| `name` | `VARCHAR(255)`|`NOT NULL` | Name of the hotel. |
+| `location` | `VARCHAR(255)`| `NOT NULL` | Location of the hotel. |
+
+### `vehicle_types`
+
+Stores types of vehicles.
+
+| Column Name | Data Type | Constraints | Description |
+| --- | --- | --- | --- |
+| `id` | `UUID` | `PRIMARY KEY` | Unique ID for the vehicle type. |
+| `company_id` | `UUID` | `NOT NULL`, `FOREIGN KEY`| Links to `companies` table. |
+| `name` | `VARCHAR(50)`| `NOT NULL` | e.g. 'Car', 'Van' |
+
+### `meal_types`
+
+Stores types of meals.
+
+| Column Name | Data Type | Constraints | Description |
+| --- | --- | --- | --- |
+| `id` | `UUID` | `PRIMARY KEY` | Unique ID for the meal type. |
+| `company_id` | `UUID` | `NOT NULL`, `FOREIGN KEY`| Links to `companies` table. |
+| `name` | `VARCHAR(50)` | `NOT NULL` | e.g. 'Breakfast', 'Dinner' |
+
+---
+
+## 4. Blog Management
 
 ### `blog_posts`
 
@@ -107,6 +185,7 @@ Stores all blog articles.
 | Column Name      | Data Type     | Constraints                   | Description                                  |
 | ---------------- | ------------- | ----------------------------- | -------------------------------------------- |
 | `id`             | `UUID`        | `PRIMARY KEY`                 | Unique identifier for the blog post.         |
+| `company_id`     | `UUID`        | `NOT NULL`, `FOREIGN KEY`     | Links to the `companies` table.              |
 | `title`          | `VARCHAR(255)`| `NOT NULL`                    | The title of the article.                    |
 | `content`        | `TEXT`        | `NOT NULL`                    | The full content of the blog post (HTML/Markdown). |
 | `image_url`      | `TEXT`        | -                             | URL for the post's feature image.            |
@@ -123,6 +202,7 @@ Stores categories for blog posts.
 | Column Name | Data Type     | Constraints   | Description                                     |
 | ----------- | ------------- | ------------- | ----------------------------------------------- |
 | `id`        | `UUID`        | `PRIMARY KEY` | Unique identifier for the category.             |
+| `company_id` | `UUID`       | `NOT NULL`, `FOREIGN KEY` | Links to the `companies` table.      |
 | `name`      | `VARCHAR(255)`| `NOT NULL`, `UNIQUE` | Name of the category (e.g., 'Wildlife'). |
 
 This schema provides a solid foundation for your application's backend. You can use a database management tool to create these tables and relationships.
