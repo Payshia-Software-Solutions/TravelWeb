@@ -1,5 +1,4 @@
 
-
 "use client";
 import './globals.css';
 import { Header } from '@/components/header';
@@ -40,7 +39,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=David+Libre:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <Suspense fallback={<body>{children}</body>}>
         <LayoutContent>{children}</LayoutContent>
