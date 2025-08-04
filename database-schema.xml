@@ -65,7 +65,7 @@
         <mxCell id="trip_plans_user_id" value="user_id (FK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="78" width="240" height="26" as="geometry" />
         </mxCell>
-         <mxCell id="trip_plans_plan_type_id" value="plan_type_id (FK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+         <mxCell id="trip_plans_plan_type" value="plan_type (ENUM)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="104" width="240" height="26" as="geometry" />
         </mxCell>
         <mxCell id="trip_plans_hotel_id" value="hotel_id (FK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
@@ -109,19 +109,6 @@
         </mxCell>
         <mxCell id="trip_plans_updated" value="updated_at (TIMESTAMP)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="468" width="240" height="26" as="geometry" />
-        </mxCell>
-
-        <mxCell id="plan_types" value="&lt;b&gt;plan_types&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-            <mxGeometry x="680" y="600" width="240" height="104" as="geometry" />
-        </mxCell>
-        <mxCell id="plan_types_id" value="id (PK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="plan_types" vertex="1">
-            <mxGeometry y="26" width="240" height="26" as="geometry" />
-        </mxCell>
-        <mxCell id="plan_types_company_id" value="company_id (FK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="plan_types" vertex="1">
-            <mxGeometry y="52" width="240" height="26" as="geometry"/>
-        </mxCell>
-        <mxCell id="plan_types_name" value="name (VARCHAR)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="plan_types" vertex="1">
-            <mxGeometry y="78" width="240" height="26" as="geometry" />
         </mxCell>
 
         <mxCell id="destinations" value="&lt;b&gt;destinations&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -351,10 +338,6 @@
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="rel_plan_types_trip_plans" style="edgeStyle=entityRelationEdgeStyle;endArrow=ERoneToMany;startArrow=ERone;endFill=1;startFill=0;" edge="1" parent="1" source="plan_types_id" target="trip_plans_plan_type_id">
-            <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
         <mxCell id="rel_accommodation_types_hotels" style="edgeStyle=entityRelationEdgeStyle;endArrow=ERoneToMany;startArrow=ERone;endFill=1;startFill=0;" edge="1" parent="1" source="accommodation_types_id" target="hotels_accommodation_type_id">
             <mxGeometry relative="1" as="geometry"/>
         </mxCell>
@@ -388,5 +371,3 @@
     </mxGraphModel>
   </diagram>
 </mxfile>
-
-    

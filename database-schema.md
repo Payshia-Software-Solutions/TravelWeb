@@ -53,7 +53,7 @@ Stores the main details for each trip created by a user.
 | `id`                 | `UUID`        | `PRIMARY KEY`            | Unique identifier for the trip plan.      |
 | `company_id`         | `UUID`        | `NOT NULL`, `FOREIGN KEY`| Links to the `companies` table.           |
 | `user_id`            | `UUID`        | `NOT NULL`, `FOREIGN KEY`| Links to the `users` table (`users.id`).  |
-| `plan_type_id`       | `UUID`        | `NOT NULL`, `FOREIGN KEY`| Links to the `plan_types` table.          |
+| `plan_type`          | `ENUM('free', 'custom')` | `NOT NULL`    | The type of the plan (Free or Custom).    |
 | `hotel_id`           | `UUID`        | `FOREIGN KEY`            | Links to the `hotels` table.              |
 | `meal_type_id`       | `UUID`        | `FOREIGN KEY`            | Links to the `meal_types` table.          |
 | `vehicle_type_id`    | `UUID`        | `FOREIGN KEY`            | Links to the `vehicle_types` table.       |
@@ -89,16 +89,6 @@ Links trip plans to the activities selected.
 | `trip_id`      | `UUID`        | `PRIMARY KEY`, `FOREIGN KEY` (trip_plans.id) | Links to the trip plan.                   |
 | `activity_id`  | `UUID`        | `PRIMARY KEY`, `FOREIGN KEY` (activities.id) | Links to the selected activity.           |
 | `company_id`   | `UUID`        | `NOT NULL`, `FOREIGN KEY`           | Links to the `companies` table.           |
-
-### `plan_types`
-
-Stores the type of trip plan (e.g., Free or Custom).
-
-| Column Name | Data Type | Constraints | Description |
-| --- | --- | --- | --- |
-| `id` | `UUID` | `PRIMARY KEY` | Unique ID for the plan type. |
-| `company_id` | `UUID` | `NOT NULL`, `FOREIGN KEY` | Links to the `companies` table. |
-| `name` | `VARCHAR(50)`| `NOT NULL` | 'Free Plan', 'Custom Plan' |
 
 ---
 
