@@ -54,7 +54,7 @@
         </mxCell>
         
         <mxCell id="trip_plans" value="&lt;b&gt;trip_plans&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="680" y="40" width="240" height="392" as="geometry" />
+          <mxGeometry x="680" y="40" width="240" height="496" as="geometry" />
         </mxCell>
         <mxCell id="trip_plans_id" value="id (PK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="26" width="240" height="26" as="geometry" />
@@ -68,45 +68,60 @@
          <mxCell id="trip_plans_plan_type_id" value="plan_type_id (FK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="104" width="240" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="trip_plans_from_date" value="from_date (DATE)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+        <mxCell id="trip_plans_hotel_id" value="hotel_id (FK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="130" width="240" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="trip_plans_to_date" value="to_date (DATE)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+        <mxCell id="trip_plans_meal_type_id" value="meal_type_id (FK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="156" width="240" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="trip_plans_adults" value="adults (INTEGER)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+        <mxCell id="trip_plans_vehicle_type_id" value="vehicle_type_id (FK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="182" width="240" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="trip_plans_children" value="children (INTEGER)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+        <mxCell id="trip_plans_from_date" value="from_date (DATE)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="208" width="240" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="trip_plans_infants" value="infants (INTEGER)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+        <mxCell id="trip_plans_to_date" value="to_date (DATE)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="234" width="240" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="trip_plans_accommodation_type" value="accommodation_type_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+        <mxCell id="trip_plans_adults" value="adults (INTEGER)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="260" width="240" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="trip_plans_budget" value="budget_range (VARCHAR)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+        <mxCell id="trip_plans_children" value="children (INTEGER)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="286" width="240" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="trip_plans_cost" value="estimated_cost (DECIMAL)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+        <mxCell id="trip_plans_infants" value="infants (INTEGER)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="312" width="240" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="trip_plans_status" value="status (VARCHAR)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+        <mxCell id="trip_plans_accommodation_type" value="accommodation_type_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="338" width="240" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="trip_plans_created" value="created_at (TIMESTAMP)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+        <mxCell id="trip_plans_budget" value="budget_range (VARCHAR)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
           <mxGeometry y="364" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="trip_plans_cost" value="estimated_cost (DECIMAL)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+          <mxGeometry y="390" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="trip_plans_status" value="status (VARCHAR)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+          <mxGeometry y="416" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="trip_plans_created" value="created_at (TIMESTAMP)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+          <mxGeometry y="442" width="240" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="trip_plans_updated" value="updated_at (TIMESTAMP)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_plans" vertex="1">
+          <mxGeometry y="468" width="240" height="26" as="geometry" />
         </mxCell>
 
         <mxCell id="plan_types" value="&lt;b&gt;plan_types&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-            <mxGeometry x="680" y="500" width="240" height="78" as="geometry" />
+            <mxGeometry x="680" y="600" width="240" height="104" as="geometry" />
         </mxCell>
         <mxCell id="plan_types_id" value="id (PK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="plan_types" vertex="1">
             <mxGeometry y="26" width="240" height="26" as="geometry" />
         </mxCell>
+        <mxCell id="plan_types_company_id" value="company_id (FK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="plan_types" vertex="1">
+            <mxGeometry y="52" width="240" height="26" as="geometry"/>
+        </mxCell>
         <mxCell id="plan_types_name" value="name (VARCHAR)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="plan_types" vertex="1">
-            <mxGeometry y="52" width="240" height="26" as="geometry" />
+            <mxGeometry y="78" width="240" height="26" as="geometry" />
         </mxCell>
 
         <mxCell id="destinations" value="&lt;b&gt;destinations&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -160,7 +175,7 @@
         </mxCell>
 
         <mxCell id="blog_posts" value="&lt;b&gt;blog_posts&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-            <mxGeometry x="360" y="700" width="240" height="256" as="geometry" />
+            <mxGeometry x="360" y="720" width="240" height="256" as="geometry" />
         </mxCell>
         <mxCell id="blog_posts_id" value="id (PK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="blog_posts" vertex="1">
             <mxGeometry y="26" width="240" height="26" as="geometry" />
@@ -191,7 +206,7 @@
         </mxCell>
 
         <mxCell id="blog_categories" value="&lt;b&gt;blog_categories&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-            <mxGeometry x="40" y="780" width="240" height="104" as="geometry" />
+            <mxGeometry x="40" y="800" width="240" height="104" as="geometry" />
         </mxCell>
         <mxCell id="blog_categories_id" value="id (PK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="blog_categories" vertex="1">
             <mxGeometry y="26" width="240" height="26" as="geometry" />
@@ -217,7 +232,7 @@
         </mxCell>
 
         <mxCell id="hotels" value="&lt;b&gt;hotels&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1320" y="220" width="240" height="130" as="geometry" />
+          <mxGeometry x="1320" y="220" width="240" height="156" as="geometry" />
         </mxCell>
         <mxCell id="hotels_id" value="id (PK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="hotels" vertex="1">
           <mxGeometry y="26" width="240" height="26" as="geometry" />
@@ -231,9 +246,12 @@
         <mxCell id="hotels_name" value="name (VARCHAR)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="hotels" vertex="1">
           <mxGeometry y="104" width="240" height="26" as="geometry" />
         </mxCell>
+        <mxCell id="hotels_location" value="location (VARCHAR)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="hotels" vertex="1">
+            <mxGeometry y="130" width="240" height="26" as="geometry"/>
+        </mxCell>
         
         <mxCell id="vehicle_types" value="&lt;b&gt;vehicle_types&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1320" y="420" width="240" height="104" as="geometry" />
+          <mxGeometry x="1320" y="450" width="240" height="104" as="geometry" />
         </mxCell>
         <mxCell id="vehicle_types_id" value="id (PK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="vehicle_types" vertex="1">
           <mxGeometry y="26" width="240" height="26" as="geometry" />
@@ -246,7 +264,7 @@
         </mxCell>
 
         <mxCell id="meal_types" value="&lt;b&gt;meal_types&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1320" y="600" width="240" height="104" as="geometry" />
+          <mxGeometry x="1320" y="630" width="240" height="104" as="geometry" />
         </mxCell>
         <mxCell id="meal_types_id" value="id (PK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="meal_types" vertex="1">
           <mxGeometry y="26" width="240" height="26" as="geometry" />
@@ -273,7 +291,7 @@
         </mxCell>
         
         <mxCell id="trip_activities" value="&lt;b&gt;trip_activities&lt;/b&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1000" y="700" width="220" height="104" as="geometry" />
+          <mxGeometry x="1000" y="720" width="220" height="104" as="geometry" />
         </mxCell>
         <mxCell id="trip_activities_trip_id" value="trip_id (FK, PK, UUID)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="trip_activities" vertex="1">
           <mxGeometry y="26" width="220" height="26" as="geometry" />
@@ -328,8 +346,8 @@
         </mxCell>
         <mxCell id="rel_blog_categories_blog_posts" style="edgeStyle=entityRelationEdgeStyle;endArrow=ERoneToMany;startArrow=ERone;endFill=1;startFill=0;" edge="1" parent="1" source="blog_categories_id" target="blog_posts_category_id">
           <mxGeometry relative="1" as="geometry">
-             <mxPoint x="160" y="760" as="sourcePoint" />
-             <mxPoint x="480" y="680" as="targetPoint" />
+             <mxPoint x="160" y="780" as="sourcePoint" />
+             <mxPoint x="480" y="700" as="targetPoint" />
           </mxGeometry>
         </mxCell>
 
@@ -338,6 +356,18 @@
         </mxCell>
 
         <mxCell id="rel_accommodation_types_hotels" style="edgeStyle=entityRelationEdgeStyle;endArrow=ERoneToMany;startArrow=ERone;endFill=1;startFill=0;" edge="1" parent="1" source="accommodation_types_id" target="hotels_accommodation_type_id">
+            <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rel_hotels_trip_plans" style="edgeStyle=entityRelationEdgeStyle;endArrow=ERoneToMany;startArrow=ERone;endFill=1;startFill=0;" edge="1" parent="1" source="hotels_id" target="trip_plans_hotel_id">
+            <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rel_meal_types_trip_plans" style="edgeStyle=entityRelationEdgeStyle;endArrow=ERoneToMany;startArrow=ERone;endFill=1;startFill=0;" edge="1" parent="1" source="meal_types_id" target="trip_plans_meal_type_id">
+            <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rel_vehicle_types_trip_plans" style="edgeStyle=entityRelationEdgeStyle;endArrow=ERoneToMany;startArrow=ERone;endFill=1;startFill=0;" edge="1" parent="1" source="vehicle_types_id" target="trip_plans_vehicle_type_id">
             <mxGeometry relative="1" as="geometry"/>
         </mxCell>
         
@@ -358,3 +388,5 @@
     </mxGraphModel>
   </diagram>
 </mxfile>
+
+    

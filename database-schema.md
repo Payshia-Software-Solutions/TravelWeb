@@ -54,6 +54,9 @@ Stores the main details for each trip created by a user.
 | `company_id`         | `UUID`        | `NOT NULL`, `FOREIGN KEY`| Links to the `companies` table.           |
 | `user_id`            | `UUID`        | `NOT NULL`, `FOREIGN KEY`| Links to the `users` table (`users.id`).  |
 | `plan_type_id`       | `UUID`        | `NOT NULL`, `FOREIGN KEY`| Links to the `plan_types` table.          |
+| `hotel_id`           | `UUID`        | `FOREIGN KEY`            | Links to the `hotels` table.              |
+| `meal_type_id`       | `UUID`        | `FOREIGN KEY`            | Links to the `meal_types` table.          |
+| `vehicle_type_id`    | `UUID`        | `FOREIGN KEY`            | Links to the `vehicle_types` table.       |
 | `from_date`          | `DATE`        | `NOT NULL`               | Start date of the trip.                   |
 | `to_date`            | `DATE`        | `NOT NULL`               | End date of the trip.                     |
 | `adults`             | `INTEGER`     | `NOT NULL`, `DEFAULT 1`  | Number of adults traveling.               |
@@ -206,3 +209,5 @@ Stores categories for blog posts.
 | `name`      | `VARCHAR(255)`| `NOT NULL`, `UNIQUE` | Name of the category (e.g., 'Wildlife'). |
 
 This schema provides a solid foundation for your application's backend. You can use a database management tool to create these tables and relationships.
+
+    
