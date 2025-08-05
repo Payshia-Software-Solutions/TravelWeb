@@ -10,19 +10,19 @@ export default function CulturePage() {
     {
       name: 'Vesak Festival',
       description: "The most sacred Buddhist festival celebrating the birth, enlightenment, and death of Buddha with thousands of colorful lanterns lighting up the night sky.",
-      image: 'https://placehold.co/800x600.png',
+      image: 'https://images.unsplash.com/photo-1678108865532-c41ccd262e8a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx2ZXNhayUyMGxhbnRlcm5zfGVufDB8fHx8MTc1NDQxMzYxN3ww&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'vesak lanterns'
     },
     {
       name: 'Poson Festival',
       description: "Commemorates the arrival of Buddhism in Sri Lanka. The day is celebrated with religious activities, decorations, and the lighting of paper lanterns.",
-      image: 'https://placehold.co/800x600.png',
+      image: 'https://images.unsplash.com/photo-1693823029549-50286c4a5ff6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxidWRkaGlzdCUyMGZlc3RpdmFsfGVufDB8fHx8MTc1NDQxMzYxN3ww&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'buddhist festival'
     },
     {
       name: 'Esala Perahera',
       description: "A grand festival of dance, music, and decorated elephants held in Kandy to pay homage to the Sacred Tooth Relic of Lord Buddha.",
-      image: 'https://placehold.co/800x600.png',
+      image: 'https://images.unsplash.com/photo-1711014778307-3fd549f523f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxmZXN0aXZhbCUyMHBhcmFkZXxlbnwwfHx8fDE3NTQ0MTM2MTd8MA&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'festival parade'
     }
   ]
