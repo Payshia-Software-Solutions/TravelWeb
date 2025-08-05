@@ -49,7 +49,7 @@ export default function WildlifePage() {
     {
       name: 'Yala National Park',
       description: 'Highest leopard density in the world',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1536539754812-56b166f0e89b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx5YWxhJTIwc2FmYXJpfGVufDB8fHx8MTc1NDQxNDcxOXww&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'yala safari',
       tags: ['Safari', 'Birds'],
       bestTime: 'May - September'
@@ -57,7 +57,7 @@ export default function WildlifePage() {
     {
       name: 'Wilpattu National Park',
       description: 'Natural lakes and dense forest cover',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1730828567781-eb513570e689?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3aWxwYXR0dSUyMHNhZmFyaXxlbnwwfHx8fDE3NTQ0MTQ3MTl8MA&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'wilpattu safari',
       tags: ['Safari', 'Lakes'],
       bestTime: 'May - September'
@@ -65,7 +65,7 @@ export default function WildlifePage() {
     {
       name: 'Udawalawe National Park',
       description: 'Premier elephant watching destination',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1559038209-9bc3455c7612?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx1ZGF3YWxhd2UlMjBlbGVwaGFudHN8ZW58MHx8fHwxNzU0NDE0NzE5fDA&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'udawalawe elephants',
       tags: ['Safari', 'Elephants'],
       bestTime: 'Year Round'
@@ -73,7 +73,7 @@ export default function WildlifePage() {
     {
       name: 'Minneriya National Park',
       description: 'Famous for elephant gathering',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1659731650022-d9aad2412098?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtaW5uZXJpeWElMjBlbGVwaGFudHN8ZW58MHx8fHwxNzU0NDE0NzE5fDA&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'minneriya elephants',
       tags: ['Safari', 'Elephants'],
       bestTime: 'August - September'
