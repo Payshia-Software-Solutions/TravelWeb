@@ -58,37 +58,37 @@ export default function CulturePage() {
     {
       name: 'Anuradhapura Ancient City',
       description: 'Explore the ruins of the first capital of Sri Lanka, a UNESCO World Heritage site filled with stupas and monasteries.',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1654529652927-30e91120c42f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxhbnVyYWRoYXB1cmElMjBjaXR5fGVufDB8fHx8MTc1NDQxNDk2OHww&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'anuradhapura city'
     },
     {
       name: 'Polonnaruwa Ancient City',
       description: 'Discover the well-preserved ruins of the second ancient capital, known for its impressive statues and temples.',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1646568109169-8eb3af71f308?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cG9sb25uYXJ1d2ElMjBydWluc3xlbnwwfHx8fDE3NTQ0MTQ5Njh8MA&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'polonnaruwa ruins'
     },
     {
         name: 'Temple of the Tooth',
         description: 'Visit the sacred temple in Kandy that houses the relic of the tooth of the Buddha, a major pilgrimage site.',
-        image: 'https://placehold.co/600x400.png',
+        image: 'https://images.unsplash.com/photo-1722358699177-2522cc2306df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8a2FuZHklMjB0ZW1wbGV8ZW58MHx8fHwxNzU0NDE0OTY4fDA&ixlib=rb-4.1.0&q=80&w=1080',
         aiHint: 'kandy temple'
     },
     {
       name: 'Katharagama',
       description: 'A multi-religious sacred city, a pilgrimage site for Buddhists, Hindus, and the indigenous Vedda people.',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1714459481307-f45bf179435d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxrYXRoYXJhZ2FtYSUyMHRlbXBsZXxlbnwwfHx8fDE3NTQ0MTQ5Njh8MA&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'katharagama temple'
     },
     {
       name: 'Aluwiharaya',
       description: 'A rock monastery with ancient caves where the Buddhist scriptures were first written down on palm leaves.',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1655289112263-edd3bf75bbdd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXZlJTIwdGVtcGxlfGVufDB8fHx8MTc1NDQxNDk2OHww&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'cave temple'
     },
     {
         name: 'Dambulla Cave Temple',
         description: 'The largest and best-preserved cave temple complex in Sri Lanka, with stunning murals and statues.',
-        image: 'https://placehold.co/600x400.png',
+        image: 'https://images.unsplash.com/photo-1704797390894-9feb440adf91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkYW1idWxsYSUyMHRlbXBsZXxlbnwwfHx8fDE3NTQ0MTQ5Njh8MA&ixlib=rb-4.1.0&q=80&w=1080',
         aiHint: 'dambulla temple'
     }
   ];
