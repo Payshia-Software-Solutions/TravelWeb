@@ -84,7 +84,7 @@ export default function AyurvedaPage() {
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x1080.png"
+              src="https://content-provider.payshia.com/travel-web/category/aryveda.jpg"
               alt="Ayurveda setup with oils and herbs"
               fill
               className="z-0 object-cover"

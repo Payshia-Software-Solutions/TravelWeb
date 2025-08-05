@@ -103,7 +103,7 @@ export default function ThingsToDoPage() {
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x1080.png"
+              src="https://content-provider.payshia.com/travel-web/category/adven.jpg"
               alt="Surfer on a wave"
               fill
               className="z-0 object-cover"
