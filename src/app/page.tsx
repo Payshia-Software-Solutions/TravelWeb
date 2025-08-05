@@ -205,7 +205,7 @@ export default function Home() {
       <section className="relative py-24 lg:py-32">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x1080.png"
+              src="https://content-provider.payshia.com/travel-web/category/wild.jpg"
               alt="Elephants in a field in Sri Lanka"
               fill
               className="z-0 object-cover"
