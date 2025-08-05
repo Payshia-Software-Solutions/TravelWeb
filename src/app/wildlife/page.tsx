@@ -267,10 +267,10 @@ export default function WildlifePage() {
                 </div>
                 <div className="relative">
                     <div className="grid grid-cols-2 gap-4">
-                        <Image src="https://placehold.co/400x300.png" width={400} height={300} alt="Kingfisher bird" className="rounded-lg shadow-lg" data-ai-hint="kingfisher bird" />
-                        <Image src="https://placehold.co/400x300.png" width={400} height={300} alt="Dolphins jumping" className="rounded-lg shadow-lg" data-ai-hint="dolphins jumping" />
-                        <Image src="https://placehold.co/400x300.png" width={400} height={300} alt="Peacock" className="rounded-lg shadow-lg" data-ai-hint="peacock closeup" />
-                        <Image src="https://placehold.co/400x300.png" width={400} height={300} alt="Whale tail" className="rounded-lg shadow-lg" data-ai-hint="whale tail" />
+                        <Image src="https://images.unsplash.com/photo-1628350439121-f21d12a7006a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxraW5nZmlzaGVyJTIwYmlyZHxlbnwwfHx8fDE3NTQ0MTQ4MzR8MA&ixlib=rb-4.1.0&q=80&w=1080" width={400} height={300} alt="Kingfisher bird" className="rounded-lg shadow-lg" data-ai-hint="kingfisher bird" />
+                        <Image src="https://images.unsplash.com/photo-1723741003462-c6f100395b7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkb2xwaGlucyUyMGp1bXBpbmd8ZW58MHx8fHwxNzU0NDE0ODM0fDA&ixlib=rb-4.1.0&q=80&w=1080" width={400} height={300} alt="Dolphins jumping" className="rounded-lg shadow-lg" data-ai-hint="dolphins jumping" />
+                        <Image src="https://images.unsplash.com/photo-1749070134691-676df3cbd770?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwZWFjb2NrJTIwY2xvc2V1cHxlbnwwfHx8fDE3NTQ0MTQ4MzR8MA&ixlib=rb-4.1.0&q=80&w=1080" width={400} height={300} alt="Peacock" className="rounded-lg shadow-lg" data-ai-hint="peacock closeup" />
+                        <Image src="https://images.unsplash.com/photo-1654629915409-cccce41b985a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8d2hhbGUlMjB0YWlsfGVufDB8fHx8MTc1NDQxNDgzNHww&ixlib=rb-4.1.0&q=80&w=1080" width={400} height={300} alt="Whale tail" className="rounded-lg shadow-lg" data-ai-hint="whale tail" />
                     </div>
                     <div className="absolute bottom-4 right-4 bg-white p-3 rounded-full shadow-lg">
                         <PawPrint className="h-6 w-6 text-primary" />
