@@ -36,7 +36,7 @@ export default function AyurvedaPage() {
     {
         name: 'Barberyn Ayurveda Resort',
         location: 'Beruwala, Sri Lanka',
-        image: 'https://placehold.co/600x400.png',
+        image: 'https://images.unsplash.com/photo-1628870776167-b4b684441e10?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxheXVydmVkYSUyMHJlc29ydHxlbnwwfHx8fDE3NTQ0MTUxOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080',
         aiHint: 'ayurveda resort',
         tags: [
             { icon: <Tag className="h-4 w-4" />, label: 'Spa' },
@@ -47,7 +47,7 @@ export default function AyurvedaPage() {
     {
         name: 'Siddhalepa Ayurveda Health Resort',
         location: 'Wadduwa, Sri Lanka',
-        image: 'https://placehold.co/600x400.png',
+        image: 'https://images.unsplash.com/photo-1695694443208-3caf39edfd63?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxheXVydmVkYSUyMHJlc29ydHxlbnwwfHx8fDE3NTQ0MTUxOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080',
         aiHint: 'ayurveda resort',
         tags: [
             { icon: <Tag className="h-4 w-4" />, label: 'Spa' },
@@ -58,7 +58,7 @@ export default function AyurvedaPage() {
     {
         name: 'Jetwing Ayurveda Pavilions',
         location: 'Negombo, Sri Lanka',
-        image: 'https://placehold.co/600x400.png',
+        image: 'https://images.unsplash.com/photo-1606749831463-23939b0313fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxheXVydmVkYSUyMHJlc29ydCUyMGJlYWNofGVufDB8fHx8MTc1NDQxNTE5Nnww&ixlib=rb-4.1.0&q=80&w=1080',
         aiHint: 'ayurveda resort beach',
         tags: [
             { icon: <Tag className="h-4 w-4" />, label: 'Spa' },
@@ -69,7 +69,7 @@ export default function AyurvedaPage() {
     {
         name: 'Jetwing Ayurveda Pavilions',
         location: 'Negombo, Sri Lanka',
-        image: 'https://placehold.co/600x400.png',
+        image: 'https://images.unsplash.com/photo-1575669629426-cea7489ba1e5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxheXVydmVkYSUyMHJlc29ydCUyMGJlYWNofGVufDB8fHx8MTc1NDQxNTE5Nnww&ixlib=rb-4.1.0&q=80&w=1080',
         aiHint: 'ayurveda resort beach',
         tags: [
             { icon: <Tag className="h-4 w-4" />, label: 'Spa' },
