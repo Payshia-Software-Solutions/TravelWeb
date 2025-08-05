@@ -54,12 +54,12 @@ export default function Home() {
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x1080.png"
-              alt="Tropical beach at sunset"
+              src="https://content-provider.payshia.com/travel-web/hero.jpg"
+              alt="Scenic view of a travel destination"
               fill
               className="z-0 object-cover"
               priority
-              data-ai-hint="tropical beach"
+              data-ai-hint="travel landscape"
             />
             <div className="absolute inset-0 bg-black/50 z-10" />
         </div>
@@ -444,3 +444,5 @@ export default function Home() {
     </>
   );
 }
+
+    
