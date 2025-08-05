@@ -16,7 +16,7 @@ export const destinations: Destination[] = [
     id: "sigiriya-matale",
     name: "Sigiriya, Matale",
     continent: "Asia",
-    image: "https://placehold.co/600x800.png",
+    image: "https://images.unsplash.com/photo-1580803834205-0e64baf9d13d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzaWdpcml5YXxlbnwwfHx8fDE3NTQ0MTU0MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
     gallery: [
       "https://placehold.co/800x600.png",
       "https://placehold.co/800x600.png",
@@ -35,7 +35,7 @@ export const destinations: Destination[] = [
     id: "ruwanvalisaya-anuradhapura",
     name: "Ruwanvalisaya, Anuradapura",
     continent: "Asia",
-    image: "https://placehold.co/600x800.png",
+    image: "https://images.unsplash.com/photo-1621439719573-1cb632e212c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxydXdhbnZhbGlzYXlhfGVufDB8fHx8MTc1NDQxNTQzMHww&ixlib=rb-4.1.0&q=80&w=1080",
     gallery: [
       "https://placehold.co/800x600.png",
       "https://placehold.co/800x600.png",
@@ -54,7 +54,7 @@ export const destinations: Destination[] = [
     id: "galle-fort-galle",
     name: "Galle Fort, Galle",
     continent: "Asia",
-    image: "https://placehold.co/600x800.png",
+    image: "https://images.unsplash.com/photo-1668751903961-05d3276fcf69?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z2FsbGUlMjBmb3J0fGVufDB8fHx8MTc1NDQxNTQzMHww&ixlib=rb-4.1.0&q=80&w=1080",
     gallery: [
       "https://placehold.co/800x600.png",
       "https://placehold.co/800x600.png",
@@ -73,7 +73,7 @@ export const destinations: Destination[] = [
     id: "yala-hambanthota",
     name: "Yala, Hambanthota",
     continent: "Asia",
-    image: "https://placehold.co/600x800.png",
+    image: "https://images.unsplash.com/photo-1705936981588-a4192f66fcfb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx5YWxhfGVufDB8fHx8MTc1NDQxNTQzMHww&ixlib=rb-4.1.0&q=80&w=1080",
     gallery: [
       "https://placehold.co/800x600.png",
       "https://placehold.co/800x600.png",
