@@ -98,7 +98,7 @@ export default function CulturePage() {
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x1080.png"
+              src="https://content-provider.payshia.com/travel-web/category/culture.jpg"
               alt="Traditional Sri Lankan dancers"
               fill
               className="z-0 object-cover"
