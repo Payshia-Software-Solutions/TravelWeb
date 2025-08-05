@@ -12,35 +12,35 @@ export default function WildlifePage() {
       name: 'Asian Elephant',
       description: 'Largest land mammal in Asia, highly intelligent and social',
       location: 'Udawalawe, Minneriya',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhc2lhbiUyMGVsZXBoYW50fGVufDB8fHx8MTc1NDQxNDU2MHww&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'asian elephant'
     },
     {
       name: 'Sri Lankan Leopard',
       description: 'Endemic subspecies, apex predator of the island',
       location: 'Yala, Wilpattu',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1675534496223-51a77d58be40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzcmklMjBsYW5rYW4lMjBsZW9wYXJkfGVufDB8fHx8MTc1NDQxNDU2MHww&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'sri lankan leopard'
     },
     {
       name: 'Sloth Bear',
       description: 'Shaggy-coated bear with distinctive white chest patch',
       location: 'Yala, Wasgamuwa',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1711797523588-e54a2a409def?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzbG90aCUyMGJlYXJ8ZW58MHx8fHwxNzU0NDE0NTU5fDA&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'sloth bear'
     },
     {
       name: 'Blue Whale',
       description: 'Largest animal on Earth, frequent visitor to Sri Lankan sea area',
       location: 'Mirissa, Trincomalee',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1540202404-b2979d19ed37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxibHVlJTIwd2hhbGV8ZW58MHx8fHwxNzU0NDE0NTU5fDA&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'blue whale'
     },
     {
       name: 'Dolphin',
       description: 'Cute animal on Earth, frequent visitor to Sri Lankan Sea area',
       location: 'Kalpitiya, Dondra',
-      image: 'https://placehold.co/600x400.png',
+      image: 'https://images.unsplash.com/photo-1723741003462-c6f100395b7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkb2xwaGluJTIwanVtcGluZ3xlbnwwfHx8fDE3NTQ0MTQ1NTl8MA&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'dolphin jumping'
     }
   ];
