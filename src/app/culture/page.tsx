@@ -31,25 +31,25 @@ export default function CulturePage() {
     {
       name: 'Kandyan Dance',
       description: 'Graceful classical dance form with elaborate costumes and precise movements',
-      image: 'https://placehold.co/600x800.png',
+      image: 'https://images.unsplash.com/photo-1603909477416-3fc943f3e4d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxrYW5keWFuJTIwZGFuY2V8ZW58MHx8fHwxNzU0NDE0OTE5fDA&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'kandyan dance'
     },
     {
       name: 'Traditional Masks',
       description: 'Intricately carved wooden masks used in devil dancing and folk performances',
-      image: 'https://placehold.co/600x800.png',
+      image: 'https://images.unsplash.com/photo-1707922340846-2dcbdf954dc8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx0cmFkaXRpb25hbCUyMG1hc2tzfGVufDB8fHx8MTc1NDQxNDkxOXww&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'traditional masks'
     },
     {
       name: 'Percussion Ensemble',
       description: 'Hypnotic rhythms created by geta bera, yak bera, and other traditional drums',
-      image: 'https://placehold.co/600x800.png',
+      image: 'https://images.unsplash.com/photo-1565103001988-2de7a0a7c7f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx0cmFkaXRpb25hbCUyMGRydW1zfGVufDB8fHx8MTc1NDQxNDkxOXww&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'traditional drums'
     },
     {
       name: 'Devil Dance',
       description: 'Hypnotic rhythms created by geta bera, yak bera, and other traditional drums',
-      image: 'https://placehold.co/600x800.png',
+      image: 'https://images.unsplash.com/photo-1653067415490-e83562337955?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZGV2aWwlMjBkYW5jZXxlbnwwfHx8fDE3NTQ0MTQ5MTl8MA&ixlib=rb-4.1.0&q=80&w=1080',
       aiHint: 'devil dance'
     }
   ];
