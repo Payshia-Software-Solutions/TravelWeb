@@ -22,10 +22,6 @@ export default function ProfilePage() {
       <div className="max-w-2xl mx-auto bg-white">
         <Card className="shadow-lg bg-white">
           <CardHeader className="text-center">
-            <Avatar className="mx-auto h-24 w-24 mb-4 border-4 border-primary">
-              <AvatarImage src="https://placehold.co/100x100.png" alt="User avatar" data-ai-hint="person portrait" />
-              <AvatarFallback>JD</AvatarFallback>
-            </Avatar>
             <CardTitle className="font-headline text-4xl">John Doe</CardTitle>
             <CardDescription className="text-lg">
               Welcome to your profile

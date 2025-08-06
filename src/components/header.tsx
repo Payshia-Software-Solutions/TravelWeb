@@ -2,7 +2,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, Mountain, X } from 'lucide-react';
+import { Menu, Mountain, X, User } from 'lucide-react';
 import { Button } from './ui/button';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -105,10 +105,9 @@ export function Header() {
               {isLoggedIn ? (
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Avatar className="cursor-pointer h-9 w-9">
-                            <AvatarImage src="https://placehold.co/100x100.png" alt="User" />
-                            <AvatarFallback>U</AvatarFallback>
-                        </Avatar>
+                       <Button variant="ghost" size="icon" className="rounded-full">
+                            <User className="h-6 w-6" />
+                        </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
