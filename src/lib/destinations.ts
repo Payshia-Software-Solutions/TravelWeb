@@ -35,7 +35,7 @@ export const destinations: Destination[] = [
     id: "ruwanvalisaya-anuradhapura",
     name: "Ruwanvalisaya, Anuradapura",
     continent: "Asia",
-    image: "https://images.unsplash.com/photo-1621439719573-1cb632e212c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxydXdhbnZhbGlzYXlhfGVufDB8fHx8MTc1NDQxNTQzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+    image: "https://content-provider.payshia.com/travel-web/ruwanwalisaya.jpg",
     gallery: [
       "https://placehold.co/800x600.png",
       "https://placehold.co/800x600.png",
