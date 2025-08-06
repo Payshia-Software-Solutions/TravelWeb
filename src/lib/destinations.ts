@@ -54,7 +54,7 @@ export const destinations: Destination[] = [
     id: "galle-fort-galle",
     name: "Galle Fort, Galle",
     continent: "Asia",
-    image: "https://images.unsplash.com/photo-1668751903961-05d3276fcf69?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z2FsbGUlMjBmb3J0fGVufDB8fHx8MTc1NDQxNTQzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+    image: "https://content-provider.payshia.com/travel-web/galle.jpg",
     gallery: [
       "https://placehold.co/800x600.png",
       "https://placehold.co/800x600.png",
