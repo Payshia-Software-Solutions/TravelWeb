@@ -69,12 +69,12 @@ export default function BlogPage() {
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x1080.png"
-              alt="Woman leading someone towards Sigiriya rock"
+              src="https://content-provider.payshia.com/travel-web/unawatuna.webp"
+              alt="Scenic view of Unawatuna beach"
               fill
               className="z-0 object-cover"
               priority
-              data-ai-hint="follow me sigiriya"
+              data-ai-hint="unawatuna beach"
             />
             <div className="absolute inset-0 bg-black/50 z-10" />
         </div>
