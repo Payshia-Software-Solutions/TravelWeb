@@ -56,23 +56,55 @@ export default function SignupPage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const fullPhoneNumber = `${values.countryCode}${values.phoneNumber}`;
-    console.log({...values, phoneNumber: fullPhoneNumber});
-
-    // In a real app, you would get a token from your auth server.
-    // For now, we'll just set a flag in localStorage.
-    localStorage.setItem('isLoggedIn', 'true');
-
-    setIsSubmitting(false);
     
-    toast({
-      title: "Account Created!",
-      description: "You have successfully signed up. Redirecting to your profile...",
-    });
+    try {
+      const response = await fetch('http://localhost/travel_web_server/users/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          company_id: 1, // Assuming a default company_id as it's required by the backend
+          full_name: values.fullName,
+          address: values.address,
+          country: values.countryCode, // You might want to send the country name instead of code
+          phone_number: `${values.countryCode}${values.phoneNumber}`,
+          email: values.email,
+          password: values.password,
+        }),
+      });
 
-    router.push('/profile');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+      }
+
+      const newUser = await response.json();
+      console.log('User created:', newUser);
+
+      // In a real app, you would get a token from your auth server.
+      // For now, we'll just set a flag in localStorage.
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('user', JSON.stringify(newUser));
+
+
+      toast({
+        title: "Account Created!",
+        description: "You have successfully signed up. Redirecting to your profile...",
+      });
+
+      router.push('/profile');
+    } catch (error) {
+      console.error('Signup failed:', error);
+      const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
+      toast({
+        variant: "destructive",
+        title: "Signup Failed",
+        description: errorMessage,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
