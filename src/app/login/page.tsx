@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -34,23 +34,42 @@ export default function LoginPage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log(values);
-    
-    // In a real app, you would get a token from your auth server.
-    // For now, we'll just set a flag in localStorage.
-    localStorage.setItem('isLoggedIn', 'true');
-    
-    setIsSubmitting(false);
-    
-    toast({
-      title: "Logged In!",
-      description: "Welcome back!",
-    });
+    try {
+        const response = await fetch('http://localhost/travel_web_server/users/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+        });
 
-    form.reset();
-    router.push('/profile');
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+        }
+
+        const user = await response.json();
+        
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('user', JSON.stringify(user));
+        
+        toast({
+            title: "Logged In!",
+            description: "Welcome back!",
+        });
+
+        router.push('/profile');
+
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
+        toast({
+            variant: "destructive",
+            title: "Login Failed",
+            description: errorMessage,
+        });
+    } finally {
+        setIsSubmitting(false);
+    }
   }
 
   return (

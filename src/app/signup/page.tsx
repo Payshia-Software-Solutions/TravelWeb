@@ -64,13 +64,13 @@ export default function SignupPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          company_id: 1, // Assuming a default company_id as it's required by the backend
           full_name: values.fullName,
           address: values.address,
-          country: values.countryCode, // You might want to send the country name instead of code
+          country: values.countryCode,
           phone_number: `${values.countryCode}${values.phoneNumber}`,
           email: values.email,
           password: values.password,
+          role: 'client', // Add role as client
         }),
       });
 
@@ -82,8 +82,6 @@ export default function SignupPage() {
       const newUser = await response.json();
       console.log('User created:', newUser);
 
-      // In a real app, you would get a token from your auth server.
-      // For now, we'll just set a flag in localStorage.
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('user', JSON.stringify(newUser));
 
