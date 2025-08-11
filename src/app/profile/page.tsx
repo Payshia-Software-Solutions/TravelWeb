@@ -1,28 +1,61 @@
 
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Mail, Phone, Home, Edit } from "lucide-react";
-import { useRouter } from 'next/navigation';
+
+type UserProfile = {
+  full_name: string;
+  email: string;
+  phone_number: string;
+  address: string;
+};
 
 export default function ProfilePage() {
   const router = useRouter();
+  const [user, setUser] = useState<UserProfile | null>(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+    if (isLoggedIn === 'true' && storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error("Failed to parse user data from localStorage", error);
+        handleLogout();
+      }
+    } else {
+      router.push('/login');
+    }
+  }, [router]);
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('user');
     router.push('/login');
   };
+
+  if (!user) {
+    return (
+        <div className="flex items-center justify-center h-screen">
+            <p>Loading...</p>
+        </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-white">
       <div className="max-w-2xl mx-auto bg-white">
         <Card className="shadow-lg bg-white">
           <CardHeader className="text-center">
-            <CardTitle className="font-headline text-4xl">John Doe</CardTitle>
+            <CardTitle className="font-headline text-4xl">{user.full_name}</CardTitle>
             <CardDescription className="text-lg">
               Welcome to your profile
             </CardDescription>
@@ -39,28 +72,28 @@ export default function ProfilePage() {
                 <User className="h-5 w-5 text-muted-foreground" />
                 <div className="w-full">
                   <Label htmlFor="fullName">Full Name</Label>
-                  <Input id="fullName" defaultValue="John Doe" readOnly />
+                  <Input id="fullName" value={user.full_name} readOnly />
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <Mail className="h-5 w-5 text-muted-foreground" />
                 <div className="w-full">
                   <Label htmlFor="email">Email Address</Label>
-                  <Input id="email" type="email" defaultValue="john.doe@example.com" readOnly />
+                  <Input id="email" type="email" value={user.email} readOnly />
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <Phone className="h-5 w-5 text-muted-foreground" />
                 <div className="w-full">
                   <Label htmlFor="phone">Phone Number</Label>
-                  <Input id="phone" defaultValue="+1234567890" readOnly />
+                  <Input id="phone" value={user.phone_number} readOnly />
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <Home className="h-5 w-5 text-muted-foreground" />
                 <div className="w-full">
                   <Label htmlFor="address">Address</Label>
-                  <Input id="address" defaultValue="123 Main St, Anytown" readOnly />
+                  <Input id="address" value={user.address} readOnly />
                 </div>
               </div>
             </div>
