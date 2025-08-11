@@ -64,7 +64,13 @@ export default function SignupPage() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorText = await response.text();
+        let errorData;
+        try {
+          errorData = JSON.parse(errorText);
+        } catch (e) {
+          throw new Error(errorText || `HTTP error! status: ${response.status}`);
+        }
         throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
       }
 
