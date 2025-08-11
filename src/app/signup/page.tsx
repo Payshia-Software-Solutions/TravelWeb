@@ -54,6 +54,7 @@ export default function SignupPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          company_id: 1, // Temporarily hardcode company_id to fix the error
           full_name: values.fullName,
           address: values.address,
           phone_number: values.phoneNumber,
@@ -211,3 +212,4 @@ export default function SignupPage() {
     </div>
   );
 }
+
