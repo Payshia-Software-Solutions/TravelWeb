@@ -12,13 +12,11 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useToast } from "@/hooks/use-toast";
 import { UserPlus } from 'lucide-react';
 import Link from 'next/link';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   fullName: z.string().min(2, { message: "Name must be at least 2 characters." }),
   address: z.string().min(5, { message: "Address must be at least 5 characters." }),
-  countryCode: z.string(),
   phoneNumber: z.string().regex(/^\d{7,15}$/, { message: "Please enter a valid phone number." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   password: z.string().min(8, { message: "Password must be at least 8 characters." }),
@@ -28,13 +26,6 @@ const formSchema = z.object({
   path: ["confirmPassword"],
 });
 
-const countryCodes = [
-  { code: '+94', country: 'LK' },
-  { code: '+1', country: 'US' },
-  { code: '+44', country: 'GB' },
-  { code: '+91', country: 'IN' },
-  { code: '+61', country: 'AU' },
-];
 
 export default function SignupPage() {
   const { toast } = useToast();
@@ -46,7 +37,6 @@ export default function SignupPage() {
     defaultValues: {
       fullName: "",
       address: "",
-      countryCode: "+94",
       phoneNumber: "",
       email: "",
       password: "",
@@ -66,11 +56,10 @@ export default function SignupPage() {
         body: JSON.stringify({
           full_name: values.fullName,
           address: values.address,
-          country: values.countryCode,
-          phone_number: `${values.countryCode}${values.phoneNumber}`,
+          phone_number: values.phoneNumber,
           email: values.email,
           password: values.password,
-          role: 'client', // Add role as client
+          role: 'client',
         }),
       });
 
@@ -145,39 +134,19 @@ export default function SignupPage() {
                     </FormItem>
                   )}
                 />
-                <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
-                  <div className="flex gap-2">
-                     <FormField
-                        control={form.control}
-                        name="countryCode"
-                        render={({ field }) => (
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <FormControl className="w-28 bg-white">
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Code" />
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                    {countryCodes.map(c => (
-                                        <SelectItem key={c.code} value={c.code}>{c.country} ({c.code})</SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        )}
-                        />
-                    <FormField
-                      control={form.control}
-                      name="phoneNumber"
-                      render={({ field }) => (
-                          <FormControl className='bg-white'>
-                            <Input placeholder="71 123 4567" {...field} />
-                          </FormControl>
-                      )}
-                    />
-                  </div>
-                  <FormMessage />
-                </FormItem>
+                <FormField
+                  control={form.control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone Number</FormLabel>
+                      <FormControl className='bg-white'>
+                        <Input placeholder="711234567" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="email"
