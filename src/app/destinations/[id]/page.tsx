@@ -2,7 +2,7 @@
 "use client"
 
 import { destinations, ApiDestination } from '@/lib/destinations';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { SigiriyaPage } from './sigiriya';
 import { RuwanvalisayaPage } from './ruwanvalisaya';
 import Image from 'next/image';
@@ -29,18 +29,21 @@ function DynamicIcon({ name, ...props }: { name: string, [key: string]: any }) {
 }
 
 
-export default function DestinationDetailPage({ params }: { params: { id: string } }) {
+export default function DestinationDetailPage() {
+  const params = useParams();
+  const id = typeof params.id === 'string' ? params.id : '';
+
   const [destination, setDestination] = useState<ApiDestination | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Hardcoded destinations check
-  const hardcodedDestination = destinations.find(d => d.id === params.id);
+  const hardcodedDestination = destinations.find(d => d.id === id);
 
   useEffect(() => {
-    if (!hardcodedDestination && params.id) {
+    if (!hardcodedDestination && id) {
       const fetchDestination = async () => {
         try {
-          const res = await fetch(`http://localhost/travel_web_server/destinations/${params.id}`);
+          const res = await fetch(`http://localhost/travel_web_server/destinations/${id}`);
           if (!res.ok) {
             throw new Error('Failed to fetch destination');
           }
@@ -57,23 +60,23 @@ export default function DestinationDetailPage({ params }: { params: { id: string
     } else {
       setLoading(false);
     }
-  }, [params.id, hardcodedDestination]);
+  }, [id, hardcodedDestination]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
   
   if (hardcodedDestination) {
-    if (params.id === 'sigiriya-matale') {
+    if (id === 'sigiriya-matale') {
       return <SigiriyaPage />;
     }
-    if (params.id === 'ruwanvalisaya-anuradhapura') {
+    if (id === 'ruwanvalisaya-anuradhapura') {
       return <RuwanvalisayaPage />;
     }
-    if (params.id === 'galle-fort-galle') {
+    if (id === 'galle-fort-galle') {
       return <GalleFortPage />;
     }
-    if (params.id === 'yala-hambanthota') {
+    if (id === 'yala-hambanthota') {
       return <YalaPage />;
     }
   }
@@ -311,3 +314,5 @@ export default function DestinationDetailPage({ params }: { params: { id: string
     </div>
   );
 }
+
+    
