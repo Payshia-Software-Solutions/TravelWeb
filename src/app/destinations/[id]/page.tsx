@@ -145,13 +145,3 @@ export default function DestinationDetailPage({ params }: { params: { id: string
     </div>
   );
 }
-
-export async function generateStaticParams() {
-    // This can be improved by fetching all destination ids from the API
-    // For now, we only pre-render hardcoded ones
-    return hardcodedDestinations.map((destination) => ({
-      id: destination.id,
-    }))
-}
-
-    
