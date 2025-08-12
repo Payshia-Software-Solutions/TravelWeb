@@ -13,17 +13,18 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function DestinationDetailPage({ params }: { params: { id: string } }) {
+  const { id } = params;
   const [destination, setDestination] = useState<ApiDestination | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Hardcoded destinations check
-  const hardcodedDestination = destinations.find(d => d.id === params.id);
+  const hardcodedDestination = destinations.find(d => d.id === id);
 
   useEffect(() => {
-    if (!hardcodedDestination && params.id) {
+    if (!hardcodedDestination && id) {
       const fetchDestination = async () => {
         try {
-          const res = await fetch(`http://localhost/travel_web_server/destinations/${params.id}`);
+          const res = await fetch(`http://localhost/travel_web_server/destinations/${id}`);
           if (!res.ok) {
             throw new Error('Failed to fetch destination');
           }
@@ -40,23 +41,23 @@ export default function DestinationDetailPage({ params }: { params: { id: string
     } else {
       setLoading(false);
     }
-  }, [params.id, hardcodedDestination]);
+  }, [id, hardcodedDestination]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
   
   if (hardcodedDestination) {
-    if (params.id === 'sigiriya-matale') {
+    if (id === 'sigiriya-matale') {
       return <SigiriyaPage />;
     }
-    if (params.id === 'ruwanvalisaya-anuradhapura') {
+    if (id === 'ruwanvalisaya-anuradhapura') {
       return <RuwanvalisayaPage />;
     }
-    if (params.id === 'galle-fort-galle') {
+    if (id === 'galle-fort-galle') {
       return <GalleFortPage />;
     }
-    if (params.id === 'yala-hambanthota') {
+    if (id === 'yala-hambanthota') {
       return <YalaPage />;
     }
   }
