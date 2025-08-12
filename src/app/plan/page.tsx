@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -14,6 +14,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { destinations } from '@/lib/destinations';
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from 'next/navigation';
+
 
 const steps = [
   { id: 1, name: 'Destination & Dates' },
@@ -100,10 +103,30 @@ export default function PlanPage() {
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [selectedTransportation, setSelectedTransportation] = useState<string[]>([]);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDestinations, setFilteredDestinations] = useState<typeof destinations>([]);
   const [selectedDestinations, setSelectedDestinations] = useState<typeof destinations>([]);
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const [user, setUser] = useState<{ id: string, company_id: string } | null>(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+    if (isLoggedIn === 'true' && storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error("Failed to parse user data from localStorage", error);
+        router.push('/login');
+      }
+    } else {
+      router.push('/login');
+    }
+  }, [router]);
 
   const estimatedCost = useMemo(() => {
     let totalCost = 0;
@@ -211,7 +234,7 @@ export default function PlanPage() {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1);
     } else if (currentStep === steps.length) {
-      setIsSubmitted(true);
+      handleFinalizeTrip();
     }
   };
 
@@ -220,6 +243,73 @@ export default function PlanPage() {
       setCurrentStep(currentStep - 1);
     }
   };
+
+  const handleFinalizeTrip = async () => {
+    if (!user) {
+        toast({
+            variant: "destructive",
+            title: "Not Logged In",
+            description: "You must be logged in to create a trip plan.",
+        });
+        router.push('/login');
+        return;
+    }
+
+    setIsSubmitting(true);
+
+    const tripPlanData = {
+        company_id: user.company_id, 
+        user_id: user.id,
+        plan_type: 'custom',
+        hotel_id: null,
+        meal_type_id: null,
+        vehicle_type_id: null,
+        from_date: fromDate ? format(fromDate, 'yyyy-MM-dd') : null,
+        to_date: toDate ? format(toDate, 'yyyy-MM-dd') : null,
+        adults: adults,
+        children: children,
+        infants: infants,
+        accommodation_type_id: null, 
+        budget_range: selectedBudget,
+        status: 'pending',
+        estimated_cost: estimatedCost,
+        destinations: selectedDestinations.map(d => d.name),
+        interests: selectedInterests,
+        activities: selectedActivities,
+        accommodation_type: selectedAccommodation,
+        amenities: selectedAmenities,
+        transportation: selectedTransportation,
+        addons: selectedAddons,
+    };
+
+    try {
+        const response = await fetch('http://localhost/travel_web_server/trip_plans/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(tripPlanData)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Trip plan created:', result);
+
+        // Success state
+        setIsSubmitting(false);
+
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
+        toast({
+            variant: "destructive",
+            title: "Submission Failed",
+            description: errorMessage,
+        });
+        setIsSubmitting(false);
+    }
+};
 
   const NumberInput = ({ label, value, onDecrement, onIncrement, description }: { label: string, value: number, onDecrement: () => void, onIncrement: () => void, description: string }) => (
     <div className="bg-muted/50 p-4 rounded-lg flex-1">
@@ -273,7 +363,7 @@ export default function PlanPage() {
     </Card>
   );
 
-  if (isSubmitted) {
+  if (isSubmitting) {
     return (
       <div className="relative min-h-screen flex flex-col items-center justify-center text-center text-white p-4">
         <div className="absolute inset-0">
@@ -789,8 +879,8 @@ export default function PlanPage() {
                         <Button variant="outline" onClick={handleBack}>
                             <ArrowLeft className="mr-2 h-4 w-4" /> Back
                         </Button>
-                        <Button onClick={handleNext}>
-                            Finalize Trip
+                        <Button onClick={handleNext} disabled={isSubmitting}>
+                            {isSubmitting ? 'Finalizing...' : 'Finalize Trip'}
                         </Button>
                     </div>
                 </div>
