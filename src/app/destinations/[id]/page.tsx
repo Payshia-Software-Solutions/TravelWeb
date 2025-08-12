@@ -30,18 +30,17 @@ function DynamicIcon({ name, ...props }: { name: string, [key: string]: any }) {
 
 
 export default function DestinationDetailPage({ params }: { params: { id: string } }) {
-  const { id } = params;
   const [destination, setDestination] = useState<ApiDestination | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Hardcoded destinations check
-  const hardcodedDestination = destinations.find(d => d.id === id);
+  const hardcodedDestination = destinations.find(d => d.id === params.id);
 
   useEffect(() => {
-    if (!hardcodedDestination && id) {
+    if (!hardcodedDestination && params.id) {
       const fetchDestination = async () => {
         try {
-          const res = await fetch(`http://localhost/travel_web_server/destinations/${id}`);
+          const res = await fetch(`http://localhost/travel_web_server/destinations/${params.id}`);
           if (!res.ok) {
             throw new Error('Failed to fetch destination');
           }
@@ -58,23 +57,23 @@ export default function DestinationDetailPage({ params }: { params: { id: string
     } else {
       setLoading(false);
     }
-  }, [id, hardcodedDestination]);
+  }, [params.id, hardcodedDestination]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
   
   if (hardcodedDestination) {
-    if (id === 'sigiriya-matale') {
+    if (params.id === 'sigiriya-matale') {
       return <SigiriyaPage />;
     }
-    if (id === 'ruwanvalisaya-anuradhapura') {
+    if (params.id === 'ruwanvalisaya-anuradhapura') {
       return <RuwanvalisayaPage />;
     }
-    if (id === 'galle-fort-galle') {
+    if (params.id === 'galle-fort-galle') {
       return <GalleFortPage />;
     }
-    if (id === 'yala-hambanthota') {
+    if (params.id === 'yala-hambanthota') {
       return <YalaPage />;
     }
   }
