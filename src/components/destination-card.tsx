@@ -1,20 +1,25 @@
 
-import { Destination } from "@/lib/destinations";
+import { Destination, ApiDestination } from "@/lib/destinations";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
 interface DestinationCardProps {
-    destination: Destination;
+    destination: Destination | ApiDestination;
 }
 
 export function DestinationCard({ destination }: DestinationCardProps) {
-    const [name, location] = destination.name.split(', ');
+    const isApiDestination = 'hero_bg_image_url' in destination;
+
+    const name = isApiDestination ? destination.name : destination.name.split(', ')[0];
+    const location = isApiDestination ? destination.location : destination.name.split(', ')[1];
+    const imageUrl = isApiDestination ? destination.hero_bg_image_url : destination.image;
+    const linkId = isApiDestination ? destination.id : destination.id;
 
     return (
         <div className="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out h-full flex flex-col">
             <Image 
-                src={destination.image} 
+                src={imageUrl} 
                 alt={destination.name}
                 width={600}
                 height={800}
@@ -28,7 +33,7 @@ export function DestinationCard({ destination }: DestinationCardProps) {
                     <p className="text-sm opacity-90">{location}</p>
                  </div>
                  <Button asChild className="mt-4 bg-accent/80 hover:bg-accent text-accent-foreground w-full">
-                    <Link href={`/destinations/${destination.id}`}>
+                    <Link href={`/destinations/${linkId}`}>
                         See More
                     </Link>
                  </Button>
@@ -36,3 +41,5 @@ export function DestinationCard({ destination }: DestinationCardProps) {
         </div>
     );
 }
+
+    

@@ -3,16 +3,34 @@
 
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { destinations } from '@/lib/destinations';
+import { destinations as hardcodedDestinations, ApiDestination } from '@/lib/destinations';
 import { DestinationCard } from '@/components/destination-card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function ExplorePage() {
-  const featuredDestinations = destinations.filter(d => d.popular);
-  const allDestinations = destinations;
+  const featuredDestinations = hardcodedDestinations.filter(d => d.popular);
+  const [apiDestinations, setApiDestinations] = useState<ApiDestination[]>([]);
   const [visibleDestinations, setVisibleDestinations] = useState(8);
+
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const res = await fetch('http://localhost/travel_web_server/destinations');
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          setApiDestinations(data);
+        } else {
+            console.error("Fetched data is not an array:", data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch destinations:", error);
+      }
+    };
+
+    fetchDestinations();
+  }, []);
 
   const loadMore = () => {
     setVisibleDestinations(prev => prev + 4);
@@ -90,11 +108,11 @@ export default function ExplorePage() {
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {allDestinations.slice(0, visibleDestinations).map(dest => (
+            {apiDestinations.slice(0, visibleDestinations).map(dest => (
                 <DestinationCard key={dest.id} destination={dest} />
             ))}
           </div>
-          {visibleDestinations < allDestinations.length && (
+          {visibleDestinations < apiDestinations.length && (
             <div className="text-center mt-12">
                 <Button size="lg" onClick={loadMore}>
                     Load More
@@ -106,3 +124,5 @@ export default function ExplorePage() {
     </>
   );
 }
+
+    

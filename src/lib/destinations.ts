@@ -11,6 +11,35 @@ export type Destination = {
   popular: boolean;
 };
 
+export type ApiDestination = {
+  id: number;
+  company_id: number;
+  name: string;
+  hero_heading: string;
+  hero_subheading: string;
+  hero_bg_image_url: string;
+  intro_heading: string;
+  intro_image_url: string;
+  location: string;
+  image_url: string | null;
+  description: string;
+  gallery_image_urls: string[];
+  things_to_do: {
+    title: string;
+    description: string;
+    imageUrl: string;
+    icon: string;
+  }[];
+  nearby_attractions: string[];
+  travel_tip_heading: string;
+  travel_tip_icon: string;
+  travel_tip_description: string;
+  is_popular: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+
 export const destinations: Destination[] = [
   {
     id: "sigiriya-matale",
