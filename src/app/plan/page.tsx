@@ -13,7 +13,7 @@ import { format, differenceInDays } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
-import { destinations } from '@/lib/destinations';
+import { destinations as hardcodedDestinations, ApiDestination, Destination } from '@/lib/destinations';
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from 'next/navigation';
 
@@ -87,6 +87,8 @@ const optionalAddons = [
     { name: 'Accessibility Needs', icon: <Accessibility /> },
 ]
 
+type CombinedDestination = Destination | ApiDestination;
+
 export default function PlanPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [fromDate, setFromDate] = useState<Date>();
@@ -105,12 +107,39 @@ export default function PlanPage() {
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredDestinations, setFilteredDestinations] = useState<typeof destinations>([]);
-  const [selectedDestinations, setSelectedDestinations] = useState<typeof destinations>([]);
+  const [filteredDestinations, setFilteredDestinations] = useState<CombinedDestination[]>([]);
+  const [selectedDestinations, setSelectedDestinations] = useState<CombinedDestination[]>([]);
+  const [allDestinations, setAllDestinations] = useState<CombinedDestination[]>([]);
+  const [isDestinationListOpen, setIsDestinationListOpen] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
   const [user, setUser] = useState<{ id: string, company_id: string } | null>(null);
+
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const res = await fetch('http://localhost/travel_web_server/destinations');
+        const apiData = await res.json();
+        const combined: CombinedDestination[] = [...hardcodedDestinations];
+        if (Array.isArray(apiData)) {
+            // Add only those API destinations that are not already in the hardcoded list
+            apiData.forEach((apiDest: ApiDestination) => {
+                if (!hardcodedDestinations.some(hd => hd.id === apiDest.id.toString())) {
+                    combined.push(apiDest);
+                }
+            });
+        }
+        setAllDestinations(combined);
+        setFilteredDestinations(combined); // Initially show all
+      } catch (error) {
+        console.error("Failed to fetch destinations:", error);
+        setAllDestinations(hardcodedDestinations); // Fallback to hardcoded
+        setFilteredDestinations(hardcodedDestinations);
+      }
+    };
+    fetchDestinations();
+  }, []);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -169,25 +198,28 @@ export default function PlanPage() {
     const query = e.target.value;
     setSearchQuery(query);
     if (query.length > 0) {
-      const filtered = destinations.filter(dest =>
+      const filtered = allDestinations.filter(dest =>
         dest.name.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredDestinations(filtered);
     } else {
-      setFilteredDestinations([]);
+      setFilteredDestinations(allDestinations);
     }
+    setIsDestinationListOpen(true);
   };
 
-  const handleSelectDestination = (destination: typeof destinations[0]) => {
-    if (!selectedDestinations.find(d => d.id === destination.id)) {
+  const handleSelectDestination = (destination: CombinedDestination) => {
+    const destId = 'hero_bg_image_url' in destination ? destination.id.toString() : destination.id;
+    if (!selectedDestinations.find(d => ('hero_bg_image_url' in d ? d.id.toString() : d.id) === destId)) {
         setSelectedDestinations([...selectedDestinations, destination]);
     }
     setSearchQuery('');
-    setFilteredDestinations([]);
+    setFilteredDestinations(allDestinations);
+    setIsDestinationListOpen(false);
   };
 
-  const handleRemoveDestination = (destinationId: string) => {
-    setSelectedDestinations(selectedDestinations.filter(d => d.id !== destinationId));
+  const handleRemoveDestination = (destinationId: string | number) => {
+    setSelectedDestinations(selectedDestinations.filter(d => ('hero_bg_image_url' in d ? d.id.toString() : d.id) !== destinationId.toString()));
   }
 
   const toggleInterest = (interestName: string) => {
@@ -487,15 +519,17 @@ export default function PlanPage() {
                         className="pl-10 text-base"
                         value={searchQuery}
                         onChange={handleSearchChange}
+                        onFocus={() => setIsDestinationListOpen(true)}
+                        onBlur={() => setTimeout(() => setIsDestinationListOpen(false), 200)}
                       />
-                      {filteredDestinations.length > 0 && (
-                        <Card className="absolute z-10 w-full mt-1 bg-white shadow-lg">
+                      {isDestinationListOpen && (
+                        <Card className="absolute z-10 w-full mt-1 bg-white shadow-lg max-h-60 overflow-y-auto">
                           <ul className="py-1">
                             {filteredDestinations.map(dest => (
                               <li
-                                key={dest.id}
+                                key={'hero_bg_image_url' in dest ? dest.id : dest.id}
                                 className="px-4 py-2 cursor-pointer hover:bg-muted"
-                                onClick={() => handleSelectDestination(dest)}
+                                onMouseDown={() => handleSelectDestination(dest)}
                               >
                                 {dest.name}
                               </li>
@@ -507,9 +541,9 @@ export default function PlanPage() {
 
                     <div className="mt-4 flex flex-wrap gap-2">
                         {selectedDestinations.map(dest => (
-                            <Badge key={dest.id} variant="secondary" className="text-base py-1 pl-3 pr-2">
+                            <Badge key={'hero_bg_image_url' in dest ? dest.id : dest.id} variant="secondary" className="text-base py-1 pl-3 pr-2">
                                 {dest.name}
-                                <button onClick={() => handleRemoveDestination(dest.id)} className="ml-2 rounded-full hover:bg-background/50">
+                                <button onClick={() => handleRemoveDestination('hero_bg_image_url' in dest ? dest.id : dest.id)} className="ml-2 rounded-full hover:bg-background/50">
                                     <X className="h-4 w-4" />
                                 </button>
                             </Badge>
@@ -517,7 +551,7 @@ export default function PlanPage() {
                     </div>
                      <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
                       <Info className="h-4 w-4" />
-                      <span>Start typing to see destination suggestions</span>
+                      <span>Click or start typing to see destination suggestions</span>
                     </div>
                   </div>
 
@@ -812,7 +846,7 @@ export default function PlanPage() {
                                 <h3 className="text-xl font-semibold">Destinations</h3>
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                     {selectedDestinations.map(dest => (
-                                        <SummaryItemCard key={dest.id} name={dest.name} image={dest.image} aiHint={dest.name.toLowerCase()} onSelect={() => {}} />
+                                        <SummaryItemCard key={'hero_bg_image_url' in dest ? dest.id : dest.id} name={dest.name} image={'hero_bg_image_url' in dest ? dest.hero_bg_image_url : dest.image} aiHint={dest.name.toLowerCase()} onSelect={() => {}} />
                                     ))}
                                 </div>
                             </>
