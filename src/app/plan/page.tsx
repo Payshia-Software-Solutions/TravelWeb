@@ -33,13 +33,12 @@ type ApiActivity = {
   location: string; // Assuming the API provides a location
 };
 
-const accommodationTypes = [
-  { name: 'Hotel', image: 'https://placehold.co/400x300.png', aiHint: 'luxury hotel' },
-  { name: 'Resort', image: 'https://placehold.co/400x300.png', aiHint: 'beach resort' },
-  { name: 'Rental', image: 'https://placehold.co/400x300.png', aiHint: 'vacation rental' },
-  { name: 'Village Home', image: 'https://placehold.co/400x300.png', aiHint: 'village house' },
-  { name: 'Camping', image: 'https://placehold.co/400x300.png', aiHint: 'camping tent' },
-];
+type Hotel = {
+  id: number;
+  name: string;
+  image_url: string;
+  destination_id: number;
+};
 
 const budgetRanges = [
     'Less than LKR 3000',
@@ -84,7 +83,7 @@ export default function PlanPage() {
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
   const [selectedActivities, setSelectedActivities] = useState<number[]>([]);
-  const [selectedAccommodation, setSelectedAccommodation] = useState<string | null>(null);
+  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [selectedTransportation, setSelectedTransportation] = useState<string[]>([]);
@@ -95,6 +94,7 @@ export default function PlanPage() {
   const [selectedDestinations, setSelectedDestinations] = useState<CombinedDestination[]>([]);
   const [allDestinations, setAllDestinations] = useState<CombinedDestination[]>([]);
   const [apiActivities, setApiActivities] = useState<ApiActivity[]>([]);
+  const [allHotels, setAllHotels] = useState<Hotel[]>([]);
   const [isDestinationListOpen, setIsDestinationListOpen] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
@@ -135,9 +135,30 @@ export default function PlanPage() {
         }
     };
     
+    const fetchHotels = async () => {
+      try {
+        const res = await fetch('http://localhost/travel_web_server/hotels');
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          setAllHotels(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch hotels:", error);
+      }
+    };
+
     fetchDestinations();
     fetchActivities();
+    fetchHotels();
   }, []);
+
+  const filteredHotels = useMemo(() => {
+    if (selectedDestinations.length === 0) {
+      return allHotels;
+    }
+    const selectedDestinationIds = selectedDestinations.map(d => 'hero_bg_image_url' in d ? d.id : parseInt(d.id.split('-')[0], 10)).filter(id => !isNaN(id));
+    return allHotels.filter(hotel => selectedDestinationIds.includes(hotel.destination_id));
+  }, [allHotels, selectedDestinations]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -160,7 +181,7 @@ export default function PlanPage() {
     const numberOfTravelers = adults + children;
     const tripDuration = (fromDate && toDate) ? differenceInDays(toDate, fromDate) + 1 : 1;
 
-    if (selectedAccommodation && selectedBudget) {
+    if (selectedHotel && selectedBudget) {
         const budgetMap: { [key: string]: number } = {
             'Less than LKR 3000': 2000,
             'LKR 3000-5000': 4000,
@@ -186,7 +207,7 @@ export default function PlanPage() {
     });
 
     return totalCost;
-  }, [selectedAccommodation, selectedBudget, selectedActivities, selectedTransportation, adults, children, fromDate, toDate]);
+  }, [selectedHotel, selectedBudget, selectedActivities, selectedTransportation, adults, children, fromDate, toDate]);
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -283,7 +304,7 @@ export default function PlanPage() {
         company_id: user.company_id, 
         user_id: user.id,
         plan_type: 'custom',
-        hotel_id: null,
+        hotel_id: selectedHotel?.id || null,
         meal_type_id: null,
         vehicle_type_id: null,
         from_date: fromDate ? format(fromDate, 'yyyy-MM-dd') : null,
@@ -291,14 +312,13 @@ export default function PlanPage() {
         adults: adults,
         children: children,
         infants: infants,
-        accommodation_type_id: null, 
+        accommodation_type: selectedHotel?.name || null,
         budget_range: selectedBudget,
         status: 'pending',
         estimated_cost: estimatedCost,
         destinations: selectedDestinations.map(d => d.name),
         interests: [], // This is now handled by activities
         activities: selectedActivityNames,
-        accommodation_type: selectedAccommodation,
         amenities: selectedAmenities,
         transportation: selectedTransportation,
         addons: selectedAddons,
@@ -647,23 +667,23 @@ export default function PlanPage() {
                    <div>
                         <h2 className="text-2xl font-headline font-semibold mb-2">Where to Stay?</h2>
                         <p className="text-muted-foreground mb-6">Select what kind of accommodation do you want.</p>
-                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                            {accommodationTypes.map((type) => (
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            {filteredHotels.map((hotel) => (
                                 <Card 
-                                    key={type.name} 
+                                    key={hotel.id} 
                                     className={cn(
                                         "relative rounded-lg overflow-hidden cursor-pointer group border-2",
-                                        selectedAccommodation === type.name ? 'border-primary' : 'border-transparent'
+                                        selectedHotel?.id === hotel.id ? 'border-primary' : 'border-transparent'
                                     )}
-                                    onClick={() => setSelectedAccommodation(type.name)}
+                                    onClick={() => setSelectedHotel(hotel)}
                                 >
-                                    <Image src={type.image} alt={type.name} width={400} height={300} className="h-32 w-full object-cover group-hover:scale-105 transition-transform" data-ai-hint={type.aiHint} />
+                                    <Image src={hotel.image_url || 'https://placehold.co/400x300.png'} alt={hotel.name} width={400} height={300} className="h-32 w-full object-cover group-hover:scale-105 transition-transform" data-ai-hint={hotel.name.toLowerCase()} />
                                     <div className="absolute inset-0 bg-black/40" />
                                      <div className="absolute top-2 right-2 w-6 h-6 rounded-full border-2 border-white bg-white/30 flex items-center justify-center">
-                                        {selectedAccommodation === type.name && <Check className="h-4 w-4 text-white" />}
+                                        {selectedHotel?.id === hotel.id && <Check className="h-4 w-4 text-white" />}
                                     </div>
                                     <div className="absolute bottom-0 left-0 p-2">
-                                        <h3 className="text-white font-bold text-base">{type.name}</h3>
+                                        <h3 className="text-white font-bold text-base">{hotel.name}</h3>
                                     </div>
                                 </Card>
                             ))}
@@ -791,13 +811,13 @@ export default function PlanPage() {
                         )}
                     </div>
 
-                    {selectedAccommodation && (
+                    {selectedHotel && (
                         <div className="space-y-6">
                             <h3 className="text-xl font-semibold">Accommodation</h3>
                             <Card className="flex flex-col md:flex-row items-center gap-6 p-4">
-                                <Image src="https://placehold.co/400x300.png" alt={selectedAccommodation} width={200} height={150} className="rounded-lg object-cover w-full md:w-1/4" data-ai-hint="hotel room" />
+                                <Image src={selectedHotel.image_url || "https://placehold.co/400x300.png"} alt={selectedHotel.name} width={200} height={150} className="rounded-lg object-cover w-full md:w-1/4" data-ai-hint="hotel room" />
                                 <div className="flex-grow">
-                                    <Badge>{selectedAccommodation}</Badge>
+                                    <Badge>{selectedHotel.name}</Badge>
                                     <h4 className="font-semibold text-lg mt-2">Hotel with stunning mountain views, perfect for a peaceful getaway</h4>
                                     {selectedBudget && <p className="text-sm font-semibold mt-1">{selectedBudget}</p>}
                                     {selectedAmenities.length > 0 && (
