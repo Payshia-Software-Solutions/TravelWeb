@@ -20,33 +20,18 @@ import { useRouter } from 'next/navigation';
 
 const steps = [
   { id: 1, name: 'Destination & Dates' },
-  { id: 2, name: 'Interests' },
-  { id: 3, name: 'Pace' },
-  { id: 4, name: 'Accommodation' },
-  { id: 5, name: 'Transportation' },
-  { id: 6, name: 'Finish' },
+  { id: 2, name: 'Activities' },
+  { id: 3, name: 'Accommodation' },
+  { id: 4, name: 'Transportation' },
+  { id: 5, name: 'Finish' },
 ];
 
-const interests = [
-    { name: 'Adventure', image: 'https://placehold.co/400x500.png', aiHint: 'river rafting' },
-    { name: 'Culture', image: 'https://placehold.co/400x500.png', aiHint: 'traditional dancer' },
-    { name: 'Relaxation', image: 'https://placehold.co/400x500.png', aiHint: 'woman relaxing' },
-    { name: 'Food', image: 'https://placehold.co/400x500.png', aiHint: 'food platter' },
-    { name: 'City Exploration', image: 'https://placehold.co/400x500.png', aiHint: 'city skyline' },
-    { name: 'Nature', image: 'https://placehold.co/400x500.png', aiHint: 'mountain landscape' },
-];
-
-const adventureActivities = [
-  { name: 'Rafting', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'river rafting' },
-  { name: 'Surfing', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'surfing wave' },
-  { name: 'Hiking', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'hiking trail' },
-  { name: 'Adventure Zone', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'zip line' },
-];
-
-const culturalActivities = [
-  { name: 'Dance Show', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'traditional dance' },
-  { name: 'Village Food', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'sri lankan food' },
-];
+type ApiActivity = {
+  id: number;
+  name: string;
+  image: string; // Assuming the API provides an image URL
+  location: string; // Assuming the API provides a location
+};
 
 const accommodationTypes = [
   { name: 'Hotel', image: 'https://placehold.co/400x300.png', aiHint: 'luxury hotel' },
@@ -98,8 +83,7 @@ export default function PlanPage() {
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-  const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
+  const [selectedActivities, setSelectedActivities] = useState<number[]>([]);
   const [selectedAccommodation, setSelectedAccommodation] = useState<string | null>(null);
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
@@ -110,6 +94,7 @@ export default function PlanPage() {
   const [filteredDestinations, setFilteredDestinations] = useState<CombinedDestination[]>([]);
   const [selectedDestinations, setSelectedDestinations] = useState<CombinedDestination[]>([]);
   const [allDestinations, setAllDestinations] = useState<CombinedDestination[]>([]);
+  const [apiActivities, setApiActivities] = useState<ApiActivity[]>([]);
   const [isDestinationListOpen, setIsDestinationListOpen] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
@@ -123,7 +108,6 @@ export default function PlanPage() {
         const apiData = await res.json();
         const combined: CombinedDestination[] = [...hardcodedDestinations];
         if (Array.isArray(apiData)) {
-            // Add only those API destinations that are not already in the hardcoded list
             apiData.forEach((apiDest: ApiDestination) => {
                 if (!hardcodedDestinations.some(hd => hd.id === apiDest.id.toString())) {
                     combined.push(apiDest);
@@ -131,14 +115,28 @@ export default function PlanPage() {
             });
         }
         setAllDestinations(combined);
-        setFilteredDestinations(combined); // Initially show all
+        setFilteredDestinations(combined);
       } catch (error) {
         console.error("Failed to fetch destinations:", error);
-        setAllDestinations(hardcodedDestinations); // Fallback to hardcoded
+        setAllDestinations(hardcodedDestinations);
         setFilteredDestinations(hardcodedDestinations);
       }
     };
+
+    const fetchActivities = async () => {
+        try {
+            const res = await fetch('http://localhost/travel_web_server/activities');
+            const data = await res.json();
+            if (Array.isArray(data)) {
+                setApiActivities(data);
+            }
+        } catch (error) {
+            console.error("Failed to fetch activities:", error);
+        }
+    };
+    
     fetchDestinations();
+    fetchActivities();
   }, []);
 
   useEffect(() => {
@@ -162,7 +160,6 @@ export default function PlanPage() {
     const numberOfTravelers = adults + children;
     const tripDuration = (fromDate && toDate) ? differenceInDays(toDate, fromDate) + 1 : 1;
 
-    // Accommodation cost
     if (selectedAccommodation && selectedBudget) {
         const budgetMap: { [key: string]: number } = {
             'Less than LKR 3000': 2000,
@@ -174,10 +171,8 @@ export default function PlanPage() {
         totalCost += (budgetMap[selectedBudget] || 0) * tripDuration;
     }
 
-    // Activities cost
     totalCost += selectedActivities.length * 1500 * numberOfTravelers;
 
-    // Transportation cost
     const transportCostMap: { [key: string]: number } = {
         'Flights': 10000 * numberOfTravelers,
         'Rental Car': 5000 * tripDuration,
@@ -221,20 +216,12 @@ export default function PlanPage() {
   const handleRemoveDestination = (destinationId: string | number) => {
     setSelectedDestinations(selectedDestinations.filter(d => ('hero_bg_image_url' in d ? d.id.toString() : d.id) !== destinationId.toString()));
   }
-
-  const toggleInterest = (interestName: string) => {
-    setSelectedInterests(prev => 
-      prev.includes(interestName) 
-        ? prev.filter(item => item !== interestName)
-        : [...prev, interestName]
-    );
-  };
   
-  const toggleActivity = (activityName: string) => {
+  const toggleActivity = (activityId: number) => {
     setSelectedActivities(prev =>
-      prev.includes(activityName)
-        ? prev.filter(item => item !== activityName)
-        : [...prev, activityName]
+      prev.includes(activityId)
+        ? prev.filter(item => item !== activityId)
+        : [...prev, activityId]
     );
   };
 
@@ -288,6 +275,9 @@ export default function PlanPage() {
     }
 
     setIsSubmitting(true);
+    
+    const selectedActivityNames = apiActivities.filter(a => selectedActivities.includes(a.id)).map(a => a.name);
+
 
     const tripPlanData = {
         company_id: user.company_id, 
@@ -306,8 +296,8 @@ export default function PlanPage() {
         status: 'pending',
         estimated_cost: estimatedCost,
         destinations: selectedDestinations.map(d => d.name),
-        interests: selectedInterests,
-        activities: selectedActivities,
+        interests: [], // This is now handled by activities
+        activities: selectedActivityNames,
         accommodation_type: selectedAccommodation,
         amenities: selectedAmenities,
         transportation: selectedTransportation,
@@ -329,7 +319,6 @@ export default function PlanPage() {
         const result = await response.json();
         console.log('Trip plan created:', result);
 
-        // Success state
         setIsSubmitting(false);
 
     } catch (error) {
@@ -476,15 +465,14 @@ export default function PlanPage() {
             ))}
           </div>
 
-          {(currentStep >= 2 && currentStep <= 5) && (
+          {(currentStep >= 2 && currentStep <= 4) && (
              <Card className="mb-8 bg-muted/30 border-dashed">
                 <CardContent className="p-4 flex items-center gap-4">
                     <Diamond className="h-5 w-5 text-primary" />
                     <p className="text-sm text-muted-foreground">
                         {currentStep === 2 && "Select any ind of activity category and then you can choose specific activities in Next Step."}
-                        {currentStep === 3 && "Select any ind of activities you want to Experience. (This suggestions based on Previous categories you chosen)"}
-                        {currentStep === 4 && "Select any type accommodation and amenities."}
-                        {currentStep === 5 && "We’ll help you figure out the best way for you to get around your destination."}
+                        {currentStep === 3 && "Select any type accommodation and amenities."}
+                        {currentStep === 4 && "We’ll help you figure out the best way for you to get around your destination."}
                     </p>
                 </CardContent>
             </Card>
@@ -623,22 +611,22 @@ export default function PlanPage() {
                   <p className="text-muted-foreground mb-6">Select the activities you're most interested in. This helps us tailor your trip to your preferences.</p>
                   
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {interests.map((interest) => (
+                    {apiActivities.map((activity) => (
                       <Card 
-                        key={interest.name} 
+                        key={activity.id} 
                         className={cn(
                           "relative rounded-lg overflow-hidden cursor-pointer group border-2",
-                          selectedInterests.includes(interest.name) ? 'border-primary' : 'border-transparent'
+                          selectedActivities.includes(activity.id) ? 'border-primary' : 'border-transparent'
                         )}
-                        onClick={() => toggleInterest(interest.name)}
+                        onClick={() => toggleActivity(activity.id)}
                       >
-                        <Image src={interest.image} alt={interest.name} width={400} height={500} className="h-48 w-full object-cover group-hover:scale-105 transition-transform" data-ai-hint={interest.aiHint} />
+                        <Image src={activity.image || 'https://placehold.co/400x500.png'} alt={activity.name} width={400} height={500} className="h-48 w-full object-cover group-hover:scale-105 transition-transform" data-ai-hint={activity.name.toLowerCase()} />
                         <div className="absolute inset-0 bg-black/40" />
                         <div className="absolute top-2 right-2 w-6 h-6 rounded-full border-2 border-white bg-white/30 flex items-center justify-center">
-                          {selectedInterests.includes(interest.name) && <Check className="h-4 w-4 text-white" />}
+                          {selectedActivities.includes(activity.id) && <Check className="h-4 w-4 text-white" />}
                         </div>
                         <div className="absolute bottom-0 left-0 p-4">
-                          <h3 className="text-white font-bold text-lg">{interest.name}</h3>
+                          <h3 className="text-white font-bold text-lg">{activity.name}</h3>
                         </div>
                       </Card>
                     ))}
@@ -655,56 +643,6 @@ export default function PlanPage() {
                 </div>
               )}
               {currentStep === 3 && (
-                <div>
-                  <h2 className="text-2xl font-headline font-semibold mb-2">What do you want to Experience?</h2>
-                  <p className="text-muted-foreground mb-6">Select the activities you're most interested in. This helps us tailor your trip to your preferences.</p>
-                  
-                  <div className="space-y-8">
-                    {selectedInterests.includes('Adventure') && (
-                        <div>
-                            <h3 className="text-xl font-semibold mb-4">Adventure Activities</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {adventureActivities.map((activity) => (
-                                <ActivityCard 
-                                    key={activity.name}
-                                    {...activity}
-                                    isSelected={selectedActivities.includes(activity.name)}
-                                    onSelect={() => toggleActivity(activity.name)}
-                                />
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                    
-                    {selectedInterests.includes('Culture') && (
-                        <div>
-                            <h3 className="text-xl font-semibold mb-4">Cultural Activities</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {culturalActivities.map((activity) => (
-                                <ActivityCard 
-                                    key={activity.name}
-                                    {...activity}
-                                    isSelected={selectedActivities.includes(activity.name)}
-                                    onSelect={() => toggleActivity(activity.name)}
-                                />
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                  </div>
-
-
-                  <div className="flex justify-between mt-8">
-                    <Button variant="outline" onClick={handleBack}>
-                      <ArrowLeft className="mr-2 h-4 w-4" /> Back
-                    </Button>
-                    <Button onClick={handleNext}>
-                      Continue <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              )}
-              {currentStep === 4 && (
                 <div className="space-y-8">
                    <div>
                         <h2 className="text-2xl font-headline font-semibold mb-2">Where to Stay?</h2>
@@ -780,7 +718,7 @@ export default function PlanPage() {
                   </div>
                 </div>
               )}
-               {currentStep === 5 && (
+               {currentStep === 4 && (
                 <div className="space-y-8">
                     <div>
                         <h2 className="text-2xl font-headline font-semibold mb-2">How will you get around?</h2>
@@ -833,7 +771,7 @@ export default function PlanPage() {
                     </div>
                 </div>
               )}
-              {currentStep === 6 && (
+              {currentStep === 5 && (
                 <div className="space-y-8">
                     <div>
                         <h2 className="text-2xl font-headline font-semibold mb-2">Your Trip Summary</h2>
@@ -868,7 +806,7 @@ export default function PlanPage() {
                                     </div>
                                     )}
                                 </div>
-                                <Button variant="ghost" size="icon" onClick={() => setCurrentStep(4)}><Edit className="h-4 w-4" /></Button>
+                                <Button variant="ghost" size="icon" onClick={() => setCurrentStep(3)}><Edit className="h-4 w-4" /></Button>
                             </Card>
                         </div>
                     )}
@@ -877,9 +815,8 @@ export default function PlanPage() {
                         <div className="space-y-6">
                             <h3 className="text-xl font-semibold">Activities</h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                {selectedActivities.map(activityName => {
-                                    const activity = [...adventureActivities, ...culturalActivities].find(a => a.name === activityName);
-                                    return activity ? <ActivityCard key={activity.name} {...activity} isSelected={true} onSelect={() => {}} /> : null;
+                                {apiActivities.filter(a => selectedActivities.includes(a.id)).map(activity => {
+                                    return <ActivityCard key={activity.id} name={activity.name} location={activity.location} image={activity.image || 'https://placehold.co/400x300.png'} aiHint={activity.name.toLowerCase()} isSelected={true} onSelect={() => {}} />;
                                 })}
                             </div>
                         </div>
@@ -895,7 +832,7 @@ export default function PlanPage() {
                                     <h4 className="font-semibold text-lg mt-2">Compact car, great for city navigation and flexibility during your trip</h4>
                                     <p className="text-sm font-semibold mt-1">Less than LKR 3000</p>
                                 </div>
-                                <Button variant="ghost" size="icon" onClick={() => setCurrentStep(5)}><Edit className="h-4 w-4" /></Button>
+                                <Button variant="ghost" size="icon" onClick={() => setCurrentStep(4)}><Edit className="h-4 w-4" /></Button>
                             </Card>
                         </div>
                     )}
@@ -926,5 +863,3 @@ export default function PlanPage() {
     </div>
   );
 }
-
-    
