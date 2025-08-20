@@ -148,8 +148,12 @@ export default function PlanPage() {
     if (isLoggedIn === 'true' && storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        // Ensure user object has id and company_id before setting
-        if (parsedUser && parsedUser.id && parsedUser.company_id) {
+        if (parsedUser && parsedUser.id) {
+           // If company_id is missing, use a default value to prevent crash
+           if (!parsedUser.company_id) {
+             console.warn("User data is missing company_id, using default value.");
+             parsedUser.company_id = 18; // Default company_id
+           }
            setUser(parsedUser);
         } else {
            throw new Error("User data is incomplete.");
