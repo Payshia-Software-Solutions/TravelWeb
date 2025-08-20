@@ -147,15 +147,31 @@ export default function PlanPage() {
 
     if (isLoggedIn === 'true' && storedUser) {
       try {
-        setUser(JSON.parse(storedUser));
+        const parsedUser = JSON.parse(storedUser);
+        // Ensure user object has id and company_id before setting
+        if (parsedUser && parsedUser.id && parsedUser.company_id) {
+           setUser(parsedUser);
+        } else {
+           throw new Error("User data is incomplete.");
+        }
       } catch (error) {
         console.error("Failed to parse user data from localStorage", error);
+        toast({
+            variant: "destructive",
+            title: "Session Error",
+            description: "Your session is invalid. Please log in again.",
+        });
         router.push('/login');
       }
     } else {
+      toast({
+        variant: "destructive",
+        title: "Authentication Required",
+        description: "Please log in to create a trip plan.",
+      });
       router.push('/login');
     }
-  }, [router]);
+  }, [router, toast]);
 
   const estimatedCost = useMemo(() => {
     let totalCost = 0;
@@ -292,30 +308,28 @@ export default function PlanPage() {
     const tripPlanData = {
         company_id: user.company_id, 
         user_id: user.id,
-        plan_type: 'custom',
-        hotel_id: null,
-        meal_type_id: null,
-        vehicle_type_id: null,
         from_date: fromDate ? format(fromDate, 'yyyy-MM-dd') : null,
         to_date: toDate ? format(toDate, 'yyyy-MM-dd') : null,
         adults: adults,
         children: children,
         infants: infants,
-        accommodation_type_id: null, 
+        accommodation_type: selectedAccommodation,
         budget_range: selectedBudget,
         status: 'pending',
         estimated_cost: estimatedCost,
-        destinations: selectedDestinations.map(d => d.name),
+        destinations: selectedDestinations.map(dest => {
+            const id = 'hero_bg_image_url' in dest ? dest.id : parseInt(dest.id.split('-')[1], 10);
+            return { id: id, name: dest.name.split(',')[0].trim() };
+        }),
         interests: selectedInterests,
-        activities: selectedActivities,
-        accommodation_type: selectedAccommodation,
+        activities: selectedActivities.map(activity => ({ name: activity })),
         amenities: selectedAmenities,
-        transportation: selectedTransportation,
         addons: selectedAddons,
+        transportation: selectedTransportation,
     };
 
     try {
-        const response = await fetch('http://localhost/travel_web_server/trip_plans/', {
+        const response = await fetch('http://localhost/travel_web_server/trip_plans', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(tripPlanData)
@@ -326,12 +340,9 @@ export default function PlanPage() {
             throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
         }
 
-        const result = await response.json();
-        console.log('Trip plan created:', result);
-
-        // Success state
-        setIsSubmitting(false);
-
+        await response.json();
+        // Success state is now handled by the UI change
+        // No need to set another state variable, isSubmitting becoming `true` is enough
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
         toast({
@@ -339,9 +350,13 @@ export default function PlanPage() {
             title: "Submission Failed",
             description: errorMessage,
         });
-        setIsSubmitting(false);
+        setIsSubmitting(false); // Set back to false on error to allow retry
+        return; // Stop execution on error
     }
-};
+
+    // This will only be reached on success
+    // The UI will change based on isSubmitting being true
+  };
 
   const NumberInput = ({ label, value, onDecrement, onIncrement, description }: { label: string, value: number, onDecrement: () => void, onIncrement: () => void, description: string }) => (
     <div className="bg-muted/50 p-4 rounded-lg flex-1">
@@ -926,5 +941,3 @@ export default function PlanPage() {
     </div>
   );
 }
-
-    
