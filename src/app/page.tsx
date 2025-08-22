@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { PopularDestinations } from "@/components/home/popular-destinations";
 import { DestinationGallery } from "@/components/home/destination-gallery";
 import { TravelersExperiences } from "@/components/home/travelers-experiences";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import Fade from "embla-carousel-fade";
 
@@ -30,6 +30,8 @@ const heroImages = [
 export default function Home() {
     const [checkInDate, setCheckInDate] = React.useState<Date>()
     const [checkOutDate, setCheckOutDate] = React.useState<Date>()
+    const [api, setApi] = React.useState<CarouselApi>()
+    const [current, setCurrent] = React.useState(0)
     
     const fadePlugin = React.useRef(
         Fade({
@@ -40,11 +42,34 @@ export default function Home() {
         Autoplay({ delay: 5000, stopOnInteraction: false })
     );
 
+    React.useEffect(() => {
+        if (!api) {
+          return
+        }
+    
+        setCurrent(api.selectedScrollSnap())
+    
+        const handleSelect = () => {
+          setCurrent(api.selectedScrollSnap())
+        }
+    
+        api.on("select", handleSelect)
+    
+        return () => {
+          api.off("select", handleSelect)
+        }
+    }, [api])
+
+    const handleDotClick = (index: number) => {
+        api?.scrollTo(index)
+    }
+
   return (
     <>
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
         <div className="absolute inset-0">
              <Carousel
+                setApi={setApi}
                 opts={{ loop: true }}
                 plugins={[fadePlugin.current, autoplayPlugin.current]}
                 className="w-full h-full"
@@ -63,10 +88,22 @@ export default function Home() {
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
-                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
+                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:flex" />
+                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:flex" />
             </Carousel>
             <div className="absolute inset-0 bg-black/50 z-10" />
+            <div className="absolute z-30 left-4 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+                {heroImages.map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => handleDotClick(index)}
+                        className={cn(
+                            "w-3 h-3 rounded-full transition-colors",
+                            current === index ? 'bg-accent' : 'bg-white/50'
+                        )}
+                    />
+                ))}
+            </div>
         </div>
         <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
           <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight">
