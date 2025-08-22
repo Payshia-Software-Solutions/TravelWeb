@@ -8,6 +8,8 @@ import {
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Image from "next/image"
+import { Button } from "../ui/button"
+import Link from "next/link"
 
 const testimonials = [
     {
@@ -41,7 +43,12 @@ export function TravelersExperiences() {
         <section className="py-16 lg:py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-headline text-4xl md:text-5xl">Traveler's Experiences</h2>
+            <div className="flex justify-center items-center gap-4 mb-4">
+                <h2 className="font-headline text-4xl md:text-5xl">Traveler's Experiences</h2>
+                <Button asChild>
+                    <Link href="/feedback">Give Feedback</Link>
+                </Button>
+            </div>
             <p className="mt-4 text-lg text-muted- max-w-2xl mx-auto">
               Here some awesome feedback from our travelers
             </p>
