@@ -22,27 +22,6 @@ type Testimonial = {
   is_approved: number;
 };
 
-const defaultTestimonials = [
-    {
-        id: 1,
-        name: "John Doe",
-        travel_date: "2023-10-15",
-        description: "An absolutely unforgettable journey! The landscapes were breathtaking and the guides were incredibly knowledgeable. Highly recommended!",
-        profile_image_url: "/profile-placeholder-1.png",
-        background_image_url: "/bg-placeholder-1.jpg",
-        is_approved: 1,
-    },
-    {
-        id: 2,
-        name: "Jane Smith",
-        travel_date: "2023-11-20",
-        description: "The cultural experiences were so rich and authentic. I learned so much and created memories that will last a lifetime. Thank you for a wonderful trip.",
-        profile_image_url: "/profile-placeholder-2.png",
-        background_image_url: "/bg-placeholder-2.jpg",
-        is_approved: 1,
-    }
-];
-
 export function TravelersExperiences() {
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
     const ftpBaseUrl = 'https://content-provider.payshia.com';
@@ -61,21 +40,18 @@ export function TravelersExperiences() {
                   data = JSON.parse(text);
                 } catch (e) {
                   console.error("Failed to parse JSON, server returned non-JSON response:", text);
-                  setTestimonials(defaultTestimonials); // Fallback to default
+                  setTestimonials([]); // Set to empty on parse error
                   return;
                 }
-
-                const approvedTestimonials = data.filter(t => t.is_approved && t.profile_image_url && t.background_image_url);
                 
-                if (approvedTestimonials.length > 0) {
-                    setTestimonials(approvedTestimonials);
-                } else {
-                    setTestimonials(defaultTestimonials); // Fallback if no approved testimonials
-                }
+                // Assuming is_approved is handled by the backend or we show all for now
+                const validTestimonials = data.filter(t => t.profile_image_url && t.background_image_url);
+                
+                setTestimonials(validTestimonials);
 
             } catch (error) {
                 console.error('Error fetching testimonials:', error);
-                setTestimonials(defaultTestimonials); // Fallback on error
+                setTestimonials([]); // Set to empty on fetch error
             }
         };
 
