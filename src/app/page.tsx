@@ -15,24 +15,55 @@ import { Input } from "@/components/ui/input";
 import { PopularDestinations } from "@/components/home/popular-destinations";
 import { DestinationGallery } from "@/components/home/destination-gallery";
 import { TravelersExperiences } from "@/components/home/travelers-experiences";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import Fade from "embla-carousel-fade";
 
+
+const heroImages = [
+    { src: 'https://content-provider.payshia.com/travel-web/hero.jpg', alt: 'Scenic view of a tropical beach', hint: 'tropical beach' },
+    { src: 'https://placehold.co/1920x1080.png', alt: 'Train moving over a bridge in a lush landscape', hint: 'train bridge' },
+    { src: 'https://placehold.co/1920x1080.png', alt: 'A majestic mountain range at sunrise', hint: 'mountain sunrise' },
+    { src: 'https://placehold.co/1920x1080.png', alt: 'Ancient temple ruins in a forest', hint: 'temple ruins' },
+];
 
 export default function Home() {
     const [checkInDate, setCheckInDate] = React.useState<Date>()
     const [checkOutDate, setCheckOutDate] = React.useState<Date>()
+    
+    const fadePlugin = React.useRef(
+        Fade({
+            crossfade: true,
+        })
+    )
+    const autoplayPlugin = React.useRef(
+        Autoplay({ delay: 5000, stopOnInteraction: false })
+    );
 
   return (
     <>
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
         <div className="absolute inset-0">
-            <Image
-              src="https://content-provider.payshia.com/travel-web/hero.jpg"
-              alt="Scenic view of a travel destination"
-              fill
-              className="z-0 object-cover"
-              priority
-              data-ai-hint="travel landscape"
-            />
+             <Carousel
+                opts={{ loop: true }}
+                plugins={[fadePlugin.current, autoplayPlugin.current]}
+                className="w-full h-full"
+            >
+                <CarouselContent className="h-full">
+                    {heroImages.map((image, index) => (
+                        <CarouselItem key={index} className="h-full">
+                            <Image
+                              src={image.src}
+                              alt={image.alt}
+                              fill
+                              className="z-0 object-cover"
+                              priority={index === 0}
+                              data-ai-hint={image.hint}
+                            />
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+            </Carousel>
             <div className="absolute inset-0 bg-black/50 z-10" />
         </div>
         <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
