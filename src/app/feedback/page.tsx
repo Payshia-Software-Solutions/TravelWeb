@@ -41,17 +41,48 @@ export default function FeedbackPage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log(values);
-    setIsSubmitting(false);
     
-    toast({
-      title: "Feedback Sent!",
-      description: "Thank you for your valuable feedback.",
-    });
+    const formData = new FormData();
+    formData.append('name', values.name);
+    formData.append('travel_date', format(values.date, 'yyyy-MM-dd'));
+    formData.append('description', values.description);
+    
+    if (values.profileImage) {
+      formData.append('profile_image', values.profileImage);
+    }
+    if (values.backgroundImage) {
+      formData.append('background_image', values.backgroundImage);
+    }
 
-    form.reset();
+    try {
+      const response = await fetch('http://localhost/travel_web_server/feedback', {
+        method: 'POST',
+        body: formData,
+        // Do not set Content-Type header, the browser will do it for you with the correct boundary
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+      }
+      
+      toast({
+        title: "Feedback Sent!",
+        description: "Thank you for your valuable feedback.",
+      });
+
+      form.reset();
+
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
+      toast({
+        variant: "destructive",
+        title: "Submission Failed",
+        description: errorMessage,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
