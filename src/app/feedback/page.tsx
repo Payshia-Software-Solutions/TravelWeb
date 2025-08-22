@@ -23,8 +23,8 @@ const formSchema = z.object({
     required_error: "A date is required.",
   }),
   description: z.string().min(10, { message: "Description must be at least 10 characters." }).max(500, { message: "Description cannot exceed 500 characters." }),
-  profileImage: z.any().optional(),
-  backgroundImage: z.any().optional(),
+  profileImage: z.instanceof(File).optional(),
+  backgroundImage: z.instanceof(File).optional(),
 });
 
 export default function FeedbackPage() {
@@ -58,17 +58,24 @@ export default function FeedbackPage() {
       const response = await fetch('http://localhost/travel_web_server/feedback', {
         method: 'POST',
         body: formData,
-        // Do not set Content-Type header, the browser will do it for you with the correct boundary
+        // Do not set Content-Type header for multipart/form-data, the browser will do it.
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
+        let errorData;
+        try {
+            errorData = await response.json();
+        } catch (e) {
+            // If response is not JSON, use the raw text
+            const textError = await response.text();
+            throw new Error(textError || `HTTP error! status: ${response.status}`);
+        }
         throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
       }
       
       toast({
         title: "Feedback Sent!",
-        description: "Thank you for your valuable feedback.",
+        description: "Thank you for your valuable feedback. It will appear on the site after approval.",
       });
 
       form.reset();
@@ -173,13 +180,18 @@ export default function FeedbackPage() {
                     <FormField
                     control={form.control}
                     name="profileImage"
-                    render={({ field }) => (
+                    render={({ field: { onChange, value, ...rest } }) => (
                         <FormItem>
                         <FormLabel>Your Profile Image</FormLabel>
                         <FormControl>
                             <div className="flex items-center gap-2">
                                 <ImageIcon className="h-5 w-5 text-muted-foreground" />
-                                <Input type="file" accept="image/*" onChange={(e) => field.onChange(e.target.files?.[0])} />
+                                <Input 
+                                  type="file" 
+                                  accept="image/*" 
+                                  onChange={(e) => onChange(e.target.files?.[0])}
+                                  {...rest}
+                                />
                             </div>
                         </FormControl>
                         <FormMessage />
@@ -189,13 +201,18 @@ export default function FeedbackPage() {
                     <FormField
                     control={form.control}
                     name="backgroundImage"
-                    render={({ field }) => (
+                    render={({ field: { onChange, value, ...rest } }) => (
                         <FormItem>
                         <FormLabel>A Background Image</FormLabel>
                         <FormControl>
                             <div className="flex items-center gap-2">
                                 <ImageIcon className="h-5 w-5 text-muted-foreground" />
-                                <Input type="file" accept="image/*" onChange={(e) => field.onChange(e.target.files?.[0])} />
+                                <Input 
+                                  type="file" 
+                                  accept="image/*" 
+                                  onChange={(e) => onChange(e.target.files?.[0])} 
+                                  {...rest}
+                                />
                             </div>
                         </FormControl>
                         <FormMessage />
@@ -203,7 +220,6 @@ export default function FeedbackPage() {
                     )}
                     />
                 </div>
-
 
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? (
