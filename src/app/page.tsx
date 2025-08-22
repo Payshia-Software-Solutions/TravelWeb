@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { PopularDestinations } from "@/components/home/popular-destinations";
 import { DestinationGallery } from "@/components/home/destination-gallery";
 import { TravelersExperiences } from "@/components/home/travelers-experiences";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import Fade from "embla-carousel-fade";
 
@@ -63,6 +63,8 @@ export default function Home() {
                         </CarouselItem>
                     ))}
                 </CarouselContent>
+                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
+                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
             </Carousel>
             <div className="absolute inset-0 bg-black/50 z-10" />
         </div>
