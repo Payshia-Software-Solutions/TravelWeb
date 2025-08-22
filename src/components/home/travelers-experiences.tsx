@@ -83,19 +83,32 @@ export function TravelersExperiences() {
     }, []);
     
     const getImageUrl = (url: string | null) => {
-        if (!url) return 'https://placehold.co/100x100.png'; // Default placeholder
-        if (url.startsWith('/')) { // This handles the defaultTestimonials paths
-            return `https://placehold.co/1000x500.png?text=${url.split('/')[1].split('.')[0]}`;
+        if (!url) return 'https://placehold.co/1000x500.png'; // Default placeholder
+        try {
+            // Check if it's already a full URL
+            new URL(url);
+            return url;
+        } catch (_) {
+            // If not, treat it as a relative path
+             if (url.startsWith('/')) {
+                return `${ftpBaseUrl}${url}`;
+            }
+            // Fallback for paths without a leading slash, just in case
+            return `${ftpBaseUrl}/${url}`;
         }
-        return `${ftpBaseUrl}${url}`;
     };
     
     const getProfileImageUrl = (url: string | null) => {
         if (!url) return 'https://placehold.co/100x100.png';
-        if (url.startsWith('/')) {
-             return `https://placehold.co/100x100.png?text=${url.split('/')[1].charAt(0)}`;
+         try {
+            new URL(url);
+            return url;
+        } catch (_) {
+            if (url.startsWith('/')) {
+                return `${ftpBaseUrl}${url}`;
+            }
+            return `${ftpBaseUrl}/${url}`;
         }
-        return `${ftpBaseUrl}${url}`;
     }
 
 
@@ -117,7 +130,7 @@ export function TravelersExperiences() {
           {testimonials.length > 0 && (
             <Carousel
                 opts={{
-                loop: true,
+                loop: testimonials.length > 1, // Only loop if there's more than one item
                 }}
                 className="w-full"
             >
