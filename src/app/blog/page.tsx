@@ -17,7 +17,6 @@ type BlogPost = {
   content: string;
   image_url: string;
   category: string;
-  is_featured: boolean;
   is_published: boolean;
   created_at: string;
 };
@@ -43,20 +42,16 @@ export default function BlogPage() {
         const data: BlogPost[] = await res.json();
         const publishedPosts = data.filter(post => post.is_published);
         setAllPosts(publishedPosts);
-        setFilteredPosts(publishedPosts.filter(p => !p.is_featured)); // Initially show non-featured
       } catch (error) {
         console.error("Failed to fetch blogs:", error);
         setAllPosts([]);
-        setFilteredPosts([]);
       }
     };
     fetchBlogs();
   }, []);
 
-  const featuredPost = useMemo(() => allPosts.find(p => p.is_featured), [allPosts]);
-
   useEffect(() => {
-    let posts = allPosts.filter(p => !p.is_featured);
+    let posts = allPosts;
 
     if (selectedCategory !== 'all') {
       posts = posts.filter(post => post.category.toLowerCase() === selectedCategory.toLowerCase());
@@ -141,40 +136,6 @@ export default function BlogPage() {
             </div>
           </div>
 
-          {featuredPost && (
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <h2 className="font-headline text-4xl md:text-5xl relative">
-                  {featuredPost.title}
-                  <span className="block w-2/3 h-1 bg-accent mt-2"></span>
-                </h2>
-                <p className="text-lg text-muted- leading-relaxed">
-                  {featuredPost.description}
-                </p>
-                <Button asChild size="lg" className="rounded-3xl">
-                  <Link href={`/blog/${featuredPost.slug}`}>Read more</Link>
-                </Button>
-                <div className="flex items-center gap-2 text-muted-foreground pt-4">
-                  <span>Experience authentic traditions passed down through generations</span>
-                </div>
-              </div>
-              <div className="relative">
-                  <Image
-                      src={getImageUrl(featuredPost.image_url)}
-                      alt={featuredPost.title}
-                      width={800}
-                      height={600}
-                      className="rounded-lg shadow-lg"
-                      data-ai-hint="sigiriya fortress"
-                  />
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
-      <section className="py-16 lg:py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
               Our Blogs
