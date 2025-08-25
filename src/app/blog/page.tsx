@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { useState, useEffect, useMemo } from 'react';
@@ -39,7 +39,9 @@ export default function BlogPage() {
           throw new Error('Failed to fetch blogs');
         }
         const data: BlogPost[] = await res.json();
-        setAllPosts(data);
+        // Sort posts by creation date, newest first
+        const sortedData = data.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        setAllPosts(sortedData);
       } catch (error) {
         console.error("Failed to fetch blogs:", error);
         setAllPosts([]);
@@ -48,8 +50,14 @@ export default function BlogPage() {
     fetchBlogs();
   }, []);
 
+  const mostRecentPost = useMemo(() => {
+    if (allPosts.length === 0) return null;
+    return allPosts[0];
+  }, [allPosts]);
+
   useEffect(() => {
-    let posts = allPosts;
+    // Exclude the most recent post from the main grid
+    let posts = mostRecentPost ? allPosts.slice(1) : allPosts;
 
     if (selectedCategory !== 'all') {
       posts = posts.filter(post => post.category.toLowerCase() === selectedCategory.toLowerCase());
@@ -64,7 +72,7 @@ export default function BlogPage() {
     
     setFilteredPosts(posts);
     setVisiblePostsCount(POSTS_PER_PAGE); // Reset pagination on filter change
-  }, [selectedCategory, searchTerm, allPosts]);
+  }, [selectedCategory, searchTerm, allPosts, mostRecentPost]);
 
 
   const loadMore = () => {
@@ -112,6 +120,36 @@ export default function BlogPage() {
 
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {mostRecentPost && (
+            <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+              <div className="space-y-6">
+                <h2 className="font-headline text-4xl md:text-5xl relative">
+                  {mostRecentPost.title}
+                  <span className="block w-2/3 h-1 bg-accent mt-2"></span>
+                </h2>
+                <p className="text-lg text-muted- leading-relaxed">
+                  {mostRecentPost.description}
+                </p>
+                <div className="flex items-center gap-3 text-primary">
+                  <Sparkles className="h-6 w-6" />
+                  <span className="font-semibold">Experience authentic traditions passed down through generations</span>
+                </div>
+                <Button asChild>
+                  <Link href={`/blog/${mostRecentPost.slug}`}>Read More</Link>
+                </Button>
+              </div>
+              <div className="relative h-96">
+                <Image
+                  src={getImageUrl(mostRecentPost.image_url)}
+                  alt={mostRecentPost.title}
+                  fill
+                  className="rounded-lg shadow-lg object-cover"
+                  data-ai-hint={mostRecentPost.category.toLowerCase()}
+                />
+              </div>
+            </div>
+          )}
+
           <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-12">
             <div className="w-full md:max-w-xs">
               <Input 
