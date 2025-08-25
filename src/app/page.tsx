@@ -22,9 +22,9 @@ import Fade from "embla-carousel-fade";
 
 const heroImages = [
     { src: 'https://content-provider.payshia.com/travel-web/hero.jpg', alt: 'Scenic view of a tropical beach', hint: 'tropical beach' },
-    { src: 'https://placehold.co/1920x1080.png', alt: 'Train moving over a bridge in a lush landscape', hint: 'train bridge' },
-    { src: 'https://placehold.co/1920x1080.png', alt: 'A majestic mountain range at sunrise', hint: 'mountain sunrise' },
-    { src: 'https://placehold.co/1920x1080.png', alt: 'Ancient temple ruins in a forest', hint: 'temple ruins' },
+    { src: 'https://content-provider.payshia.com/travel-web/hero-section/img1.webp', alt: 'Train moving over a bridge in a lush landscape', hint: 'train bridge' },
+    { src: 'https://content-provider.payshia.com/travel-web/hero-section/img2.webp', alt: 'A majestic mountain range at sunrise', hint: 'mountain sunrise' },
+    { src: 'https://content-provider.payshia.com/travel-web/hero-section/img3.webp', alt: 'Ancient temple ruins in a forest', hint: 'temple ruins' },
 ];
 
 export default function Home() {
@@ -374,3 +374,5 @@ export default function Home() {
     </>
   );
 }
+
+    
