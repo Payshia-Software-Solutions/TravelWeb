@@ -18,6 +18,7 @@ import { TravelersExperiences } from "@/components/home/travelers-experiences";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import Fade from "embla-carousel-fade";
+import { HomeBlogSection } from "@/components/home/home-blog-section";
 
 
 const heroImages = [
@@ -301,38 +302,7 @@ export default function Home() {
             </div>
         </div>
       </section>
-      <section className="py-16 lg:py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-headline text-4xl md:text-5xl">Our Blog</h2>
-            <p className="mt-4 text-lg text-muted- max-w-2xl mx-auto">
-              An insight the incredible experience in the world
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <Image
-                src="https://placehold.co/800x600.png"
-                alt="Beautiful Sri Lanka illustration"
-                width={800}
-                height={600}
-                className="rounded-lg shadow-lg"
-                data-ai-hint="sri lanka illustration"
-              />
-            </div>
-            <div>
-              <h3 className="font-headline text-3xl">Beautiful Sri Lanka</h3>
-              <p className="font-headline text-2xl text-muted-foreground mb-4">Let's travel</p>
-              <p className="mb-8 text-/80 leading-relaxed">
-                Beautiful Sri Lanka is a tropical paradise brimming with lush landscapes, golden beaches, ancient ruins, and vibrant culture. From the misty mountains of Ella to the sun-kissed shores of Mirissa, every corner offers a new adventure. Wander through the sacred city of Kandy, explore the wildlife of Yala National Park, or sip world-renowned Ceylon tea in Nuwara Eliya. Let's travel to Sri Lanka and discover its rich heritage, warm hospitality, and breathtaking natural beauty—it's a journey you'll never forget!
-              </p>
-              <Button size="lg" asChild>
-                <Link href="/destinations">SeeAll Destinations</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomeBlogSection />
       <section className="relative py-24 lg:py-32">
         <div className="absolute inset-0">
             <Image
@@ -374,5 +344,3 @@ export default function Home() {
     </>
   );
 }
-
-    
