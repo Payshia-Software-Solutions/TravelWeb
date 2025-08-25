@@ -17,7 +17,6 @@ type BlogPost = {
   content: string;
   image_url: string;
   category: string;
-  is_published: boolean;
   created_at: string;
 };
 
@@ -40,8 +39,7 @@ export default function BlogPage() {
           throw new Error('Failed to fetch blogs');
         }
         const data: BlogPost[] = await res.json();
-        const publishedPosts = data.filter(post => post.is_published);
-        setAllPosts(publishedPosts);
+        setAllPosts(data);
       } catch (error) {
         console.error("Failed to fetch blogs:", error);
         setAllPosts([]);
@@ -80,6 +78,7 @@ export default function BlogPage() {
   };
   
   const categories = useMemo(() => {
+    if (!allPosts) return [];
     const cats = new Set(allPosts.map(p => p.category));
     return Array.from(cats);
   }, [allPosts]);
