@@ -91,7 +91,7 @@ export function HomeBlogSection() {
                 {latestPost.description}
               </p>
               <Button size="lg" asChild>
-                <Link href={`/blog/${latestPost.slug}`}>Read More</Link>
+                <Link href="/blog">Read More</Link>
               </Button>
             </div>
           </div>
