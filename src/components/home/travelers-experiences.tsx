@@ -24,7 +24,7 @@ type Testimonial = {
 
 export function TravelersExperiences() {
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-    const ftpBaseUrl = 'https://content-provider.payshia.com';
+    const ftpBaseUrl = 'https://content-provider.payshia.com/travel-web';
 
     useEffect(() => {
         const fetchTestimonials = async () => {
@@ -60,32 +60,17 @@ export function TravelersExperiences() {
     
     const getImageUrl = (url: string | null) => {
         if (!url) return 'https://placehold.co/1000x500.png'; // Default placeholder
-        try {
-            // Check if it's already a full URL
-            new URL(url);
-            return url;
-        } catch (_) {
-            // If not, treat it as a relative path
-             if (url.startsWith('/')) {
-                return `${ftpBaseUrl}${url}`;
-            }
-            // Fallback for paths without a leading slash, just in case
-            return `${ftpBaseUrl}/${url}`;
-        }
+        if (url.startsWith('http')) return url;
+        return `${ftpBaseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
     };
     
     const getProfileImageUrl = (url: string | null) => {
         if (!url) return 'https://placehold.co/100x100.png';
-         try {
-            new URL(url);
-            return url;
-        } catch (_) {
-            if (url.startsWith('/')) {
-                return `${ftpBaseUrl}${url}`;
-            }
-            return `${ftpBaseUrl}/${url}`;
-        }
+        if (url.startsWith('http')) return url;
+        return `${ftpBaseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
     }
+
+
 
 
     return (
