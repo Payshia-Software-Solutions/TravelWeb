@@ -4,65 +4,90 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ArrowRight, Info } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
-const blogPosts = [
-    {
-      title: 'Street Food Guide: Must-Try Local Delicacies',
-      description: 'From hoppers to kottu roti, explore the vibrant street food scene...',
-      image: 'https://placehold.co/600x400.png',
-      aiHint: 'vesak lanterns',
-      href: '#',
-    },
-    {
-      title: 'Best Beaches for Digital Nomads',
-      description: 'Work remotely from paradise with reliable wifi and stunning views...',
-      image: 'https://placehold.co/600x400.png',
-      aiHint: 'beach sunset',
-      href: '#',
-    },
-    {
-      title: "Traditional Festivals You Can't Miss",
-      description: 'Experience the vibrant cultural celebrations throughout the year...',
-      image: 'https://placehold.co/600x400.png',
-      aiHint: 'festival parade',
-      href: '#',
-    },
-    {
-      title: 'Street Food Guide: Must-Try Local Delicacies',
-      description: 'From hoppers to kottu roti, explore the vibrant street food scene...',
-      image: 'https://placehold.co/600x400.png',
-      aiHint: 'vesak lanterns',
-      href: '#',
-    },
-    {
-      title: 'Best Beaches for Digital Nomads',
-      description: 'Work remotely from paradise with reliable wifi and stunning views...',
-      image: 'https://placehold.co/600x400.png',
-      aiHint: 'beach sunset',
-      href: '#',
-    },
-    {
-      title: "Traditional Festivals You Can't Miss",
-      description: 'Experience the vibrant cultural celebrations throughout the year...',
-      image: 'https://placehold.co/600x400.png',
-      aiHint: 'festival parade',
-      href: '#',
-    },
-  ];
+type BlogPost = {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  content: string;
+  image_url: string;
+  category: string;
+  is_featured: boolean;
+  is_published: boolean;
+  created_at: string;
+};
+
+const POSTS_PER_PAGE = 6;
 
 export default function BlogPage() {
-  const [visiblePosts, setVisiblePosts] = useState(6);
+  const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
+  const [visiblePostsCount, setVisiblePostsCount] = useState(POSTS_PER_PAGE);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const ftpBaseUrl = 'https://content-provider.payshia.com/travel-web';
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await fetch('http://localhost/travel_web_server/blogs');
+        if (!res.ok) {
+          throw new Error('Failed to fetch blogs');
+        }
+        const data: BlogPost[] = await res.json();
+        const publishedPosts = data.filter(post => post.is_published);
+        setAllPosts(publishedPosts);
+        setFilteredPosts(publishedPosts.filter(p => !p.is_featured)); // Initially show non-featured
+      } catch (error) {
+        console.error("Failed to fetch blogs:", error);
+        setAllPosts([]);
+        setFilteredPosts([]);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  const featuredPost = useMemo(() => allPosts.find(p => p.is_featured), [allPosts]);
+
+  useEffect(() => {
+    let posts = allPosts.filter(p => !p.is_featured);
+
+    if (selectedCategory !== 'all') {
+      posts = posts.filter(post => post.category.toLowerCase() === selectedCategory.toLowerCase());
+    }
+
+    if (searchTerm) {
+      posts = posts.filter(post =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    
+    setFilteredPosts(posts);
+    setVisiblePostsCount(POSTS_PER_PAGE); // Reset pagination on filter change
+  }, [selectedCategory, searchTerm, allPosts]);
+
 
   const loadMore = () => {
-    // In a real app, you would fetch more posts here.
-    // For this example, we'll just show more of the existing posts.
-    setVisiblePosts(prev => prev + 3);
+    setVisiblePostsCount(prev => prev + 3);
   }
-
+  
+  const getImageUrl = (url: string | null) => {
+    if (!url) return 'https://placehold.co/600x400.png';
+    if (url.startsWith('http')) return url;
+    return `${ftpBaseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+  };
+  
+  const categories = useMemo(() => {
+    const cats = new Set(allPosts.map(p => p.category));
+    return Array.from(cats);
+  }, [allPosts]);
 
   return (
     <>
@@ -95,62 +120,56 @@ export default function BlogPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-12">
             <div className="w-full md:max-w-xs">
-              <Input placeholder="Search blog articles..." />
+              <Input 
+                placeholder="Search blog articles..." 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
             <div className="flex gap-4">
-              <Select defaultValue="all">
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                 <SelectTrigger className="w-full sm:w-[180px]">
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Categories</SelectItem>
-                  <SelectItem value="culture">Culture</SelectItem>
-                  <SelectItem value="wildlife">Wildlife</SelectItem>
-                  <SelectItem value="adventure">Adventure</SelectItem>
-                  <SelectItem value="food">Food</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select defaultValue="newest">
-                <SelectTrigger className="w-full sm:w-[180px]">
-                  <SelectValue placeholder="Sort by Newest" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="newest">Sort by Newest</SelectItem>
-                  <SelectItem value="oldest">Sort by Oldest</SelectItem>
-                  <SelectItem value="popular">Sort by Popularity</SelectItem>
+                  {categories.map(cat => (
+                    <SelectItem key={cat} value={cat.toLowerCase()}>{cat}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h2 className="font-headline text-4xl md:text-5xl relative">
-                Climbing Sigiriya: A Journey Through Ancient Sri Lankan History
-                <span className="block w-2/3 h-1 bg-accent mt-2"></span>
-              </h2>
-              <p className="text-lg text-muted- leading-relaxed">
-                Discover the breathtaking ancient rock fortress of Sigiriya, one of Sri Lanka's most iconic landmarks. From its fascinating history to practical climbing tips...
-              </p>
-              <Button asChild size="lg" className="rounded-3xl">
-                <Link href="#">Read more</Link>
-              </Button>
-              <div className="flex items-center gap-2 text-muted-foreground pt-4">
-                
-                <span>Experience authentic traditions passed down through generations</span>
+          {featuredPost && (
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <h2 className="font-headline text-4xl md:text-5xl relative">
+                  {featuredPost.title}
+                  <span className="block w-2/3 h-1 bg-accent mt-2"></span>
+                </h2>
+                <p className="text-lg text-muted- leading-relaxed">
+                  {featuredPost.description}
+                </p>
+                <Button asChild size="lg" className="rounded-3xl">
+                  <Link href={`/blog/${featuredPost.slug}`}>Read more</Link>
+                </Button>
+                <div className="flex items-center gap-2 text-muted-foreground pt-4">
+                  <span>Experience authentic traditions passed down through generations</span>
+                </div>
+              </div>
+              <div className="relative">
+                  <Image
+                      src={getImageUrl(featuredPost.image_url)}
+                      alt={featuredPost.title}
+                      width={800}
+                      height={600}
+                      className="rounded-lg shadow-lg"
+                      data-ai-hint="sigiriya fortress"
+                  />
               </div>
             </div>
-             <div className="relative">
-                <Image
-                    src="https://placehold.co/800x600.png"
-                    alt="Sigiriya Rock Fortress"
-                    width={800}
-                    height={600}
-                    className="rounded-lg shadow-lg"
-                    data-ai-hint="sigiriya fortress"
-                />
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -163,27 +182,27 @@ export default function BlogPage() {
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.slice(0, visiblePosts).map((post, index) => (
-              <Card key={index} className="overflow-hidden shadow-lg rounded-lg flex flex-col group">
+            {filteredPosts.slice(0, visiblePostsCount).map((post) => (
+              <Card key={post.id} className="overflow-hidden shadow-lg rounded-lg flex flex-col group">
                  <Image
-                    src={post.image}
+                    src={getImageUrl(post.image_url)}
                     alt={post.title}
                     width={600}
                     height={400}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                    data-ai-hint={post.aiHint}
+                    data-ai-hint={post.category.toLowerCase()}
                 />
                 <CardContent className="p-6 flex-grow flex flex-col bg-card">
                   <h3 className="font-headline text-xl font-bold h-16">{post.title}</h3>
                   <p className="text-muted-foreground mt-2 flex-grow">{post.description}</p>
-                   <Link href={post.href} className="flex items-center justify-end text-primary mt-4 font-semibold group-hover:translate-x-1 transition-transform">
+                   <Link href={`/blog/${post.slug}`} className="flex items-center justify-end text-primary mt-4 font-semibold group-hover:translate-x-1 transition-transform">
                       Read More <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                 </CardContent>
               </Card>
             ))}
           </div>
-          {visiblePosts < blogPosts.length && (
+          {visiblePostsCount < filteredPosts.length && (
             <div className="text-center mt-12">
                 <Button size="lg" onClick={loadMore}>
                     Load More Articles
