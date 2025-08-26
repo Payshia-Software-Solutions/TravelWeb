@@ -438,12 +438,12 @@ export default function PlanPage() {
       <div className="relative min-h-screen flex flex-col items-center justify-center text-center text-white p-4">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x1080.png"
-              alt="Lush green mountains"
+              src="https://content-provider.payshia.com/travel-web/trip/img10.webp"
+              alt="Travel planning"
               fill
               className="z-0 object-cover"
               priority
-              data-ai-hint="mountain landscape"
+              data-ai-hint="travel planning"
             />
             <div className="absolute inset-0 bg-black/50 z-10" />
         </div>
