@@ -342,6 +342,26 @@ export default function PlanPage() {
       setCurrentStep(currentStep - 1);
     }
   };
+  
+  const resetForm = () => {
+    setCurrentStep(1);
+    setFromDate(undefined);
+    setToDate(undefined);
+    setAdults(2);
+    setChildren(0);
+    setInfants(0);
+    setSelectedInterests([]);
+    setSelectedActivities([]);
+    setSelectedAccommodation(null);
+    setSelectedBudget(null);
+    setSelectedAmenities([]);
+    setSelectedTransportation([]);
+    setSelectedAddons([]);
+    setSearchQuery('');
+    setSelectedDestinations([]);
+    setSubmittedPlan(null);
+    setSubmissionState('form');
+  };
 
   const handleFinalizeTrip = async () => {
     if (!user) {
@@ -569,7 +589,7 @@ export default function PlanPage() {
                 </div>
             </div>
              <div className="text-center mt-10">
-                <Button onClick={() => setSubmissionState('form')}>Plan Another Trip</Button>
+                <Button onClick={resetForm}>Plan Another Trip</Button>
             </div>
         </div>
 
@@ -972,7 +992,7 @@ export default function PlanPage() {
                                 <h3 className="text-xl font-semibold">Destinations</h3>
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                     {selectedDestinations.map(dest => (
-                                        <SummaryItemCard key={'hero_bg_image_url' in dest ? dest.id : dest.id} name={dest.name} image={'hero_bg_image_url' in dest ? dest.hero_bg_image_url : dest.image} aiHint={dest.name.toLowerCase()} onSelect={() => {}} />
+                                        <SummaryItemCard key={'hero_bg_image_url' in dest ? dest.id : dest.id} name={dest.name} image={'hero_bg_image_url' in dest ? getImageUrl(dest.hero_bg_image_url) : dest.image} aiHint={dest.name.toLowerCase()} onSelect={() => {}} />
                                     ))}
                                 </div>
                             </>
