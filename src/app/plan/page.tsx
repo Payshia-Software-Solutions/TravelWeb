@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility, Edit, Send, Compass, MessageSquare, Diamond, X } from 'lucide-react';
+import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility, Edit, Send, Compass, MessageSquare, Diamond, X, Star, Heart, Mountain, Leaf, Palmtree, Eye } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { format, differenceInDays } from 'date-fns';
@@ -85,6 +85,27 @@ type Activity = {
     category: string;
 };
 
+type TripPlanData = {
+    company_id: string;
+    user_id: string;
+    from_date: string | null;
+    to_date: string | null;
+    adults: number;
+    children: number;
+    infants: number;
+    accommodation_type: string | null;
+    budget_range: string | null;
+    status: string;
+    estimated_cost: number;
+    destinations: { id: number | string; name: string; }[];
+    interests: string[];
+    activities: { name: string; }[];
+    amenities: string[];
+    addons: string[];
+    transportation: string[];
+};
+
+
 export default function PlanPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [fromDate, setFromDate] = useState<Date>();
@@ -101,7 +122,7 @@ export default function PlanPage() {
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [selectedTransportation, setSelectedTransportation] = useState<string[]>([]);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionState, setSubmissionState] = useState<'form' | 'submitting' | 'submitted'>('form');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDestinations, setFilteredDestinations] = useState<CombinedDestination[]>([]);
   const [selectedDestinations, setSelectedDestinations] = useState<CombinedDestination[]>([]);
@@ -112,6 +133,8 @@ export default function PlanPage() {
   const router = useRouter();
 
   const [user, setUser] = useState<{ id: string, company_id: string } | null>(null);
+  const [submittedPlan, setSubmittedPlan] = useState<TripPlanData | null>(null);
+
 
   useEffect(() => {
     const fetchDestinations = async () => {
@@ -331,9 +354,9 @@ export default function PlanPage() {
         return;
     }
 
-    setIsSubmitting(true);
+    setSubmissionState('submitting');
 
-    const tripPlanData = {
+    const tripPlanData: TripPlanData = {
         company_id: user.company_id, 
         user_id: user.id,
         from_date: fromDate ? format(fromDate, 'yyyy-MM-dd') : null,
@@ -346,7 +369,7 @@ export default function PlanPage() {
         status: 'pending',
         estimated_cost: estimatedCost,
         destinations: selectedDestinations.map(dest => {
-            const id = 'hero_bg_image_url' in dest ? dest.id : parseInt(dest.id.split('-')[1], 10);
+            const id = 'hero_bg_image_url' in dest ? dest.id : dest.id;
             return { id: id, name: dest.name.split(',')[0].trim() };
         }),
         interests: selectedInterests,
@@ -355,6 +378,7 @@ export default function PlanPage() {
         addons: selectedAddons,
         transportation: selectedTransportation,
     };
+    setSubmittedPlan(tripPlanData);
 
     try {
         const response = await fetch('http://localhost/travel_web_server/trip_plans', {
@@ -369,6 +393,8 @@ export default function PlanPage() {
         }
 
         await response.json();
+        setSubmissionState('submitted');
+
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
         toast({
@@ -376,8 +402,7 @@ export default function PlanPage() {
             title: "Submission Failed",
             description: errorMessage,
         });
-        setIsSubmitting(false);
-        return;
+        setSubmissionState('form');
     }
   };
 
@@ -432,8 +457,17 @@ export default function PlanPage() {
       </div>
     </Card>
   );
+  
+  const iconMapping: { [key: string]: React.ElementType } = {
+    'Adventure': Mountain,
+    'Culture': Eye,
+    'Relaxation': Leaf,
+    'Food': Star,
+    'City Exploration': Palmtree,
+    'Nature': Heart,
+  };
 
-  if (isSubmitting) {
+  if (submissionState === 'submitted' && submittedPlan) {
     return (
       <div className="relative min-h-screen flex flex-col items-center justify-center text-center text-white p-4">
         <div className="absolute inset-0">
@@ -455,27 +489,94 @@ export default function PlanPage() {
             Our team of travel experts will review your plan and get back to you within 24 hours with a detailed itinerary and cost estimate.
           </p>
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-4xl">
-            <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow">
+            <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow cursor-pointer">
                 <MapPin className="h-12 w-12 text-primary"/>
                 <h3 className="text-xl font-bold text-foreground">View Plan</h3>
             </Card>
-             <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow">
+             <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow cursor-pointer">
                 <Send className="h-12 w-12 text-primary"/>
                 <h3 className="text-xl font-bold text-foreground">Share Plan</h3>
             </Card>
-             <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow">
+             <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow cursor-pointer">
                 <MessageSquare className="h-12 w-12 text-primary"/>
                 <h3 className="text-xl font-bold text-foreground">Contact Expert</h3>
             </Card>
-             <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow">
+             <Card className="bg-white/90 backdrop-blur-sm p-6 flex flex-col items-center justify-center gap-4 hover:shadow-xl transition-shadow cursor-pointer">
                 <Compass className="h-12 w-12 text-primary"/>
                 <h3 className="text-xl font-bold text-foreground">Explore Destinations</h3>
             </Card>
           </div>
         </div>
+
+        <div className="relative z-20 mt-16 w-full max-w-5xl text-left bg-white/95 text-foreground p-8 rounded-lg shadow-2xl backdrop-blur-md">
+            <h2 className="font-headline text-3xl md:text-4xl text-center mb-8 text-primary">Your Trip Summary</h2>
+
+            <div className="grid md:grid-cols-2 gap-8">
+                {/* Left Column */}
+                <div className="space-y-6">
+                    <div>
+                        <h3 className="font-semibold text-lg border-b pb-2 mb-3">Trip Details</h3>
+                        <div className="space-y-2 text-sm">
+                            <p><strong>Dates:</strong> {submittedPlan.from_date && submittedPlan.to_date ? `${format(new Date(submittedPlan.from_date), 'MMM dd, yyyy')} - ${format(new Date(submittedPlan.to_date), 'MMM dd, yyyy')}` : 'Not specified'}</p>
+                            <p><strong>Travelers:</strong> {submittedPlan.adults} Adults, {submittedPlan.children} Children, {submittedPlan.infants} Infants</p>
+                            <p><strong>Accommodation:</strong> {submittedPlan.accommodation_type || 'Not specified'}</p>
+                            <p><strong>Budget:</strong> {submittedPlan.budget_range || 'Not specified'}</p>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 className="font-semibold text-lg border-b pb-2 mb-3">Destinations</h3>
+                        <div className="flex flex-wrap gap-2">
+                           {submittedPlan.destinations.map(d => <Badge key={d.id}>{d.name}</Badge>)}
+                        </div>
+                    </div>
+                     <div>
+                        <h3 className="font-semibold text-lg border-b pb-2 mb-3">Interests</h3>
+                        <div className="flex flex-wrap gap-2">
+                           {submittedPlan.interests.map(interest => {
+                                const Icon = iconMapping[interest] || Star;
+                                return <Badge key={interest} variant="secondary" className="flex items-center gap-1"><Icon className="h-3 w-3" /> {interest}</Badge>
+                           })}
+                        </div>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-lg border-b pb-2 mb-3">Estimated Cost</h3>
+                        <p className="text-2xl font-bold text-primary">Total LKR {submittedPlan.estimated_cost.toLocaleString()}</p>
+                        <p className="text-xs text-muted-foreground mt-1">This is an estimate only based on final selections and availability.</p>
+                    </div>
+                </div>
+
+                {/* Right Column */}
+                <div className="space-y-6">
+                    <div>
+                        <h3 className="font-semibold text-lg border-b pb-2 mb-3">Selected Activities</h3>
+                        <ul className="space-y-1 list-disc list-inside text-sm">
+                            {submittedPlan.activities.map(a => <li key={a.name}>{a.name}</li>)}
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-lg border-b pb-2 mb-3">Transport & Add-ons</h3>
+                         <div className="flex flex-wrap gap-2 text-sm">
+                            {submittedPlan.transportation.map(t => <Badge key={t} variant="outline">{t}</Badge>)}
+                            {submittedPlan.addons.map(a => <Badge key={a} variant="outline">{a}</Badge>)}
+                         </div>
+                    </div>
+                     <div>
+                        <h3 className="font-semibold text-lg border-b pb-2 mb-3">Amenities</h3>
+                         <div className="flex flex-wrap gap-2 text-sm">
+                            {submittedPlan.amenities.map(am => <Badge key={am} variant="outline">{am}</Badge>)}
+                         </div>
+                    </div>
+                </div>
+            </div>
+             <div className="text-center mt-10">
+                <Button onClick={() => setSubmissionState('form')}>Plan Another Trip</Button>
+            </div>
+        </div>
+
       </div>
     );
   }
+
 
   return (
     <div className="min-h-screen bg-white text-foreground">
@@ -938,8 +1039,8 @@ export default function PlanPage() {
                         <Button variant="outline" onClick={handleBack}>
                             <ArrowLeft className="mr-2 h-4 w-4" /> Back
                         </Button>
-                        <Button onClick={handleNext} disabled={isSubmitting}>
-                            {isSubmitting ? 'Finalizing...' : 'Finalize Trip'}
+                        <Button onClick={handleNext} disabled={submissionState === 'submitting'}>
+                            {submissionState === 'submitting' ? 'Finalizing...' : 'Finalize Trip'}
                         </Button>
                     </div>
                 </div>
