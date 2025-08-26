@@ -699,7 +699,6 @@ export default function PlanPage() {
                   
                   <div className="space-y-8">
                     {Object.entries(groupedActivities)
-                      .filter(([category]) => selectedInterests.length === 0 || selectedInterests.includes(category))
                       .map(([category, activities]) => (
                         <div key={category}>
                             <h3 className="text-xl font-semibold mb-4">{category} Activities</h3>
