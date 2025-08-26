@@ -36,18 +36,6 @@ const interests = [
     { name: 'Nature', image: 'https://placehold.co/400x500.png', aiHint: 'mountain landscape' },
 ];
 
-const adventureActivities = [
-  { name: 'Rafting', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'river rafting' },
-  { name: 'Surfing', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'surfing wave' },
-  { name: 'Hiking', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'hiking trail' },
-  { name: 'Adventure Zone', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'zip line' },
-];
-
-const culturalActivities = [
-  { name: 'Dance Show', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'traditional dance' },
-  { name: 'Village Food', location: 'Anuradapura', image: 'https://placehold.co/400x300.png', aiHint: 'sri lankan food' },
-];
-
 const accommodationTypes = [
   { name: 'Hotel', image: 'https://placehold.co/400x300.png', aiHint: 'luxury hotel' },
   { name: 'Resort', image: 'https://placehold.co/400x300.png', aiHint: 'beach resort' },
@@ -89,6 +77,14 @@ const optionalAddons = [
 
 type CombinedDestination = Destination | ApiDestination;
 
+type Activity = {
+    id: number;
+    name: string;
+    location: string;
+    image_url: string;
+    category: string;
+};
+
 export default function PlanPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [fromDate, setFromDate] = useState<Date>();
@@ -111,6 +107,7 @@ export default function PlanPage() {
   const [selectedDestinations, setSelectedDestinations] = useState<CombinedDestination[]>([]);
   const [allDestinations, setAllDestinations] = useState<CombinedDestination[]>([]);
   const [isDestinationListOpen, setIsDestinationListOpen] = useState(false);
+  const [allActivities, setAllActivities] = useState<Activity[]>([]);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -123,7 +120,6 @@ export default function PlanPage() {
         const apiData = await res.json();
         const combined: CombinedDestination[] = [...hardcodedDestinations];
         if (Array.isArray(apiData)) {
-            // Add only those API destinations that are not already in the hardcoded list
             apiData.forEach((apiDest: ApiDestination) => {
                 if (!hardcodedDestinations.some(hd => hd.id === apiDest.id.toString())) {
                     combined.push(apiDest);
@@ -131,15 +127,47 @@ export default function PlanPage() {
             });
         }
         setAllDestinations(combined);
-        setFilteredDestinations(combined); // Initially show all
+        setFilteredDestinations(combined);
       } catch (error) {
         console.error("Failed to fetch destinations:", error);
-        setAllDestinations(hardcodedDestinations); // Fallback to hardcoded
+        setAllDestinations(hardcodedDestinations);
         setFilteredDestinations(hardcodedDestinations);
       }
     };
+    
+    const fetchActivities = async () => {
+        try {
+            const res = await fetch('http://localhost/travel_web_server/activities');
+            const data = await res.json();
+            if(Array.isArray(data)) {
+                setAllActivities(data);
+            }
+        } catch (error) {
+            console.error("Failed to fetch activities:", error);
+        }
+    };
+
     fetchDestinations();
+    fetchActivities();
   }, []);
+
+  const groupedActivities = useMemo(() => {
+    return allActivities.reduce((acc, activity) => {
+        const category = activity.category || 'Other';
+        if (!acc[category]) {
+            acc[category] = [];
+        }
+        acc[category].push(activity);
+        return acc;
+    }, {} as Record<string, Activity[]>);
+  }, [allActivities]);
+
+  const getImageUrl = (url: string | null) => {
+    const baseUrl = 'https://content-provider.payshia.com/travel-web';
+    if (!url) return 'https://placehold.co/400x300.png';
+    if (url.startsWith('http')) return url;
+    return `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+  };
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -149,10 +177,9 @@ export default function PlanPage() {
       try {
         const parsedUser = JSON.parse(storedUser);
         if (parsedUser && parsedUser.id) {
-           // If company_id is missing, use a default value to prevent crash
            if (!parsedUser.company_id) {
              console.warn("User data is missing company_id, using default value.");
-             parsedUser.company_id = 18; // Default company_id
+             parsedUser.company_id = 18;
            }
            setUser(parsedUser);
         } else {
@@ -182,7 +209,6 @@ export default function PlanPage() {
     const numberOfTravelers = adults + children;
     const tripDuration = (fromDate && toDate) ? differenceInDays(toDate, fromDate) + 1 : 1;
 
-    // Accommodation cost
     if (selectedAccommodation && selectedBudget) {
         const budgetMap: { [key: string]: number } = {
             'Less than LKR 3000': 2000,
@@ -194,10 +220,8 @@ export default function PlanPage() {
         totalCost += (budgetMap[selectedBudget] || 0) * tripDuration;
     }
 
-    // Activities cost
     totalCost += selectedActivities.length * 1500 * numberOfTravelers;
 
-    // Transportation cost
     const transportCostMap: { [key: string]: number } = {
         'Flights': 10000 * numberOfTravelers,
         'Rental Car': 5000 * tripDuration,
@@ -345,8 +369,6 @@ export default function PlanPage() {
         }
 
         await response.json();
-        // Success state is now handled by the UI change
-        // No need to set another state variable, isSubmitting becoming `true` is enough
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : "An unknown error occurred.";
         toast({
@@ -354,12 +376,9 @@ export default function PlanPage() {
             title: "Submission Failed",
             description: errorMessage,
         });
-        setIsSubmitting(false); // Set back to false on error to allow retry
-        return; // Stop execution on error
+        setIsSubmitting(false);
+        return;
     }
-
-    // This will only be reached on success
-    // The UI will change based on isSubmitting being true
   };
 
   const NumberInput = ({ label, value, onDecrement, onIncrement, description }: { label: string, value: number, onDecrement: () => void, onIncrement: () => void, description: string }) => (
@@ -679,39 +698,27 @@ export default function PlanPage() {
                   <p className="text-muted-foreground mb-6">Select the activities you're most interested in. This helps us tailor your trip to your preferences.</p>
                   
                   <div className="space-y-8">
-                    {selectedInterests.includes('Adventure') && (
-                        <div>
-                            <h3 className="text-xl font-semibold mb-4">Adventure Activities</h3>
+                    {Object.entries(groupedActivities)
+                      .filter(([category]) => selectedInterests.length === 0 || selectedInterests.includes(category))
+                      .map(([category, activities]) => (
+                        <div key={category}>
+                            <h3 className="text-xl font-semibold mb-4">{category} Activities</h3>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {adventureActivities.map((activity) => (
+                                {activities.map((activity) => (
                                 <ActivityCard 
-                                    key={activity.name}
-                                    {...activity}
+                                    key={activity.id}
+                                    name={activity.name}
+                                    location={activity.location}
+                                    image={getImageUrl(activity.image_url)}
+                                    aiHint={activity.name.toLowerCase()}
                                     isSelected={selectedActivities.includes(activity.name)}
                                     onSelect={() => toggleActivity(activity.name)}
                                 />
                                 ))}
                             </div>
                         </div>
-                    )}
-                    
-                    {selectedInterests.includes('Culture') && (
-                        <div>
-                            <h3 className="text-xl font-semibold mb-4">Cultural Activities</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {culturalActivities.map((activity) => (
-                                <ActivityCard 
-                                    key={activity.name}
-                                    {...activity}
-                                    isSelected={selectedActivities.includes(activity.name)}
-                                    onSelect={() => toggleActivity(activity.name)}
-                                />
-                                ))}
-                            </div>
-                        </div>
-                    )}
+                    ))}
                   </div>
-
 
                   <div className="flex justify-between mt-8">
                     <Button variant="outline" onClick={handleBack}>
@@ -897,8 +904,8 @@ export default function PlanPage() {
                             <h3 className="text-xl font-semibold">Activities</h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                 {selectedActivities.map(activityName => {
-                                    const activity = [...adventureActivities, ...culturalActivities].find(a => a.name === activityName);
-                                    return activity ? <ActivityCard key={activity.name} {...activity} isSelected={true} onSelect={() => {}} /> : null;
+                                    const activity = allActivities.find(a => a.name === activityName);
+                                    return activity ? <ActivityCard key={activity.id} name={activity.name} location={activity.location} image={getImageUrl(activity.image_url)} aiHint={activity.name.toLowerCase()} isSelected={true} onSelect={() => {}} /> : null;
                                 })}
                             </div>
                         </div>
