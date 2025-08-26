@@ -35,6 +35,8 @@ export default function DestinationDetailPage() {
 
   const [destination, setDestination] = useState<ApiDestination | null>(null);
   const [loading, setLoading] = useState(true);
+  const ftpBaseUrl = 'https://content-provider.payshia.com/travel-web';
+
 
   // Hardcoded destinations check
   const hardcodedDestination = destinations.find(d => d.id === id);
@@ -61,6 +63,12 @@ export default function DestinationDetailPage() {
       setLoading(false);
     }
   }, [id, hardcodedDestination]);
+
+  const getImageUrl = (url: string | null) => {
+    if (!url) return 'https://placehold.co/1920x1080.png';
+    if (url.startsWith('http')) return url;
+    return `${ftpBaseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -91,7 +99,7 @@ export default function DestinationDetailPage() {
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
         <div className="absolute inset-0">
           <Image
-            src={destination.hero_bg_image_url}
+            src={getImageUrl(destination.hero_bg_image_url)}
             alt={`Hero image for ${destination.name}`}
             fill
             className="object-cover"
@@ -123,7 +131,7 @@ export default function DestinationDetailPage() {
                 </div>
                  <div className="relative">
                     <Image
-                        src={destination.intro_image_url}
+                        src={getImageUrl(destination.intro_image_url)}
                         alt={destination.intro_heading}
                         width={800}
                         height={600}
@@ -147,7 +155,7 @@ export default function DestinationDetailPage() {
                 <div className="grid gap-4">
                     <div>
                         <Image
-                            src={destination.gallery_image_urls[0] || "https://placehold.co/500x750.png"}
+                            src={getImageUrl(destination.gallery_image_urls[0])}
                             alt={`${destination.name} gallery image 1`}
                             width={500}
                             height={750}
@@ -159,7 +167,7 @@ export default function DestinationDetailPage() {
                 <div className="grid gap-4">
                      <div>
                         <Image
-                            src={destination.gallery_image_urls[1] || "https://placehold.co/500x500.png"}
+                            src={getImageUrl(destination.gallery_image_urls[1])}
                             alt={`${destination.name} gallery image 2`}
                             width={500}
                             height={500}
@@ -169,7 +177,7 @@ export default function DestinationDetailPage() {
                     </div>
                     <div>
                         <Image
-                            src={destination.gallery_image_urls[2] || "https://placehold.co/500x500.png"}
+                            src={getImageUrl(destination.gallery_image_urls[2])}
                              alt={`${destination.name} gallery image 3`}
                             width={500}
                             height={500}
@@ -181,7 +189,7 @@ export default function DestinationDetailPage() {
                 <div className="grid gap-4">
                     <div>
                          <Image
-                            src={destination.gallery_image_urls[3] || "https://placehold.co/500x500.png"}
+                            src={getImageUrl(destination.gallery_image_urls[3])}
                             alt={`${destination.name} gallery image 4`}
                             width={500}
                             height={500}
@@ -191,7 +199,7 @@ export default function DestinationDetailPage() {
                     </div>
                      <div>
                         <Image
-                             src={destination.gallery_image_urls[4] || "https://placehold.co/500x500.png"}
+                             src={getImageUrl(destination.gallery_image_urls[4])}
                              alt={`${destination.name} gallery image 5`}
                             width={500}
                             height={500}
@@ -203,7 +211,7 @@ export default function DestinationDetailPage() {
                 <div className="grid gap-4">
                     <div>
                         <Image
-                            src={destination.gallery_image_urls[5] || "https://placehold.co/500x750.png"}
+                            src={getImageUrl(destination.gallery_image_urls[5])}
                              alt={`${destination.name} gallery image 6`}
                             width={500}
                             height={750}
@@ -229,7 +237,7 @@ export default function DestinationDetailPage() {
                     {destination.things_to_do.map((item) => (
                         <Card key={item.title} className="overflow-hidden shadow-lg rounded-lg flex flex-col">
                             <Image
-                                src={item.imageUrl}
+                                src={getImageUrl(item.imageUrl)}
                                 alt={item.title}
                                 width={600}
                                 height={400}
@@ -314,5 +322,3 @@ export default function DestinationDetailPage() {
     </div>
   );
 }
-
-    
