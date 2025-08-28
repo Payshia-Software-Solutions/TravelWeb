@@ -106,8 +106,9 @@ type TripPlanData = {
 };
 
 type CostSettings = {
-    accommodation_costs: { [key: string]: { [key: string]: number } };
-    activity_cost_per_person: number;
+    budget_range_costs: { [key: string]: number };
+    activity_costs: { [key: string]: number };
+    amenity_costs: { [key: string]: number };
     transportation_costs: { [key: string]: number };
 };
 
@@ -170,7 +171,7 @@ export default function PlanPage() {
             // Fetch Cost Settings
             const costRes = await fetch('http://localhost/travel_web_server/cost_settings');
             const costData = await costRes.json();
-            setCostSettings(costData);
+            setCostSettings(costData[0] || null);
 
         } catch (error) {
             console.error("Failed to fetch initial data:", error);
@@ -186,7 +187,7 @@ export default function PlanPage() {
     };
     
     fetchInitialData();
-  }, []);
+  }, [toast]);
 
   const groupedActivities = useMemo(() => {
     return allActivities.reduce((acc, activity) => {
@@ -242,43 +243,56 @@ export default function PlanPage() {
   }, [router, toast]);
 
     const estimatedCost = useMemo(() => {
-    if (!costSettings) return 0;
+        if (!costSettings) return 0;
 
-    let totalCost = 0;
-    const numberOfTravelers = adults + children;
-    const tripDuration = (fromDate && toDate) ? differenceInDays(toDate, fromDate) + 1 : 1;
+        let totalCost = 0;
+        const numberOfTravelers = adults + children;
+        const tripDuration = (fromDate && toDate) ? differenceInDays(toDate, fromDate) + 1 : 1;
 
-    // Accommodation Cost
-    if (selectedAccommodation && selectedBudget && costSettings.accommodation_costs) {
-        const accommodationCostMap = costSettings.accommodation_costs[selectedAccommodation] || {};
-        const budgetCost = accommodationCostMap[selectedBudget] || 0;
-        totalCost += budgetCost * tripDuration;
-    }
+        // Accommodation Cost (Budget Range)
+        if (selectedBudget && costSettings.budget_range_costs?.[selectedBudget]) {
+            totalCost += (costSettings.budget_range_costs[selectedBudget] || 0) * tripDuration;
+        }
 
-    // Activity Cost
-    if (costSettings.activity_cost_per_person) {
-        totalCost += selectedActivities.length * costSettings.activity_cost_per_person * numberOfTravelers;
-    }
+        // Accommodation Cost (Type)
+        if (selectedAccommodation && costSettings.amenity_costs?.[selectedAccommodation]) {
+            totalCost += (costSettings.amenity_costs[selectedAccommodation] || 0) * tripDuration;
+        }
 
-    // Transportation Cost
-    if (costSettings.transportation_costs) {
-        selectedTransportation.forEach(transport => {
-            totalCost += costSettings.transportation_costs[transport] || 0;
+        // Amenity costs
+        selectedAmenities.forEach(amenity => {
+            if (costSettings.amenity_costs?.[amenity]) {
+                totalCost += (costSettings.amenity_costs[amenity] || 0) * tripDuration;
+            }
         });
-    }
 
-    return totalCost;
-  }, [
-    costSettings,
-    selectedAccommodation,
-    selectedBudget,
-    selectedActivities,
-    selectedTransportation,
-    adults,
-    children,
-    fromDate,
-    toDate,
-  ]);
+        // Activity costs
+        selectedActivities.forEach(activityName => {
+            if (costSettings.activity_costs?.[activityName]) {
+                totalCost += (costSettings.activity_costs[activityName] || 0) * numberOfTravelers;
+            }
+        });
+
+        // Transportation costs
+        selectedTransportation.forEach(transportName => {
+            if (costSettings.transportation_costs?.[transportName]) {
+                totalCost += (costSettings.transportation_costs[transportName] || 0) * tripDuration;
+            }
+        });
+
+        return totalCost;
+    }, [
+        costSettings,
+        selectedAccommodation,
+        selectedBudget,
+        selectedActivities,
+        selectedTransportation,
+        selectedAmenities,
+        adults,
+        children,
+        fromDate,
+        toDate,
+    ]);
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
