@@ -105,6 +105,12 @@ type TripPlanData = {
     transportation: string[];
 };
 
+type CostSettings = {
+    accommodation_costs: { [key: string]: { [key: string]: number } };
+    activity_cost_per_person: number;
+    transportation_costs: { [key: string]: number };
+};
+
 
 export default function PlanPage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -134,44 +140,52 @@ export default function PlanPage() {
 
   const [user, setUser] = useState<{ id: string, company_id: string } | null>(null);
   const [submittedPlan, setSubmittedPlan] = useState<TripPlanData | null>(null);
+  const [costSettings, setCostSettings] = useState<CostSettings | null>(null);
 
 
   useEffect(() => {
-    const fetchDestinations = async () => {
-      try {
-        const res = await fetch('http://localhost/travel_web_server/destinations');
-        const apiData = await res.json();
-        const combined: CombinedDestination[] = [...hardcodedDestinations];
-        if (Array.isArray(apiData)) {
-            apiData.forEach((apiDest: ApiDestination) => {
-                if (!hardcodedDestinations.some(hd => hd.id === apiDest.id.toString())) {
-                    combined.push(apiDest);
-                }
+    const fetchInitialData = async () => {
+        try {
+            // Fetch Destinations
+            const destRes = await fetch('http://localhost/travel_web_server/destinations');
+            const apiData = await destRes.json();
+            const combined: CombinedDestination[] = [...hardcodedDestinations];
+            if (Array.isArray(apiData)) {
+                apiData.forEach((apiDest: ApiDestination) => {
+                    if (!hardcodedDestinations.some(hd => hd.id === apiDest.id.toString())) {
+                        combined.push(apiDest);
+                    }
+                });
+            }
+            setAllDestinations(combined);
+            setFilteredDestinations(combined);
+
+            // Fetch Activities
+            const actRes = await fetch('http://localhost/travel_web_server/activities');
+            const actData = await actRes.json();
+            if(Array.isArray(actData)) {
+                setAllActivities(actData);
+            }
+            
+            // Fetch Cost Settings
+            const costRes = await fetch('http://localhost/travel_web_server/cost_settings');
+            const costData = await costRes.json();
+            setCostSettings(costData);
+
+        } catch (error) {
+            console.error("Failed to fetch initial data:", error);
+            // Set fallbacks
+            setAllDestinations(hardcodedDestinations);
+            setFilteredDestinations(hardcodedDestinations);
+            toast({
+                variant: "destructive",
+                title: "Data Loading Error",
+                description: "Could not load all necessary data. Some features might not work correctly.",
             });
         }
-        setAllDestinations(combined);
-        setFilteredDestinations(combined);
-      } catch (error) {
-        console.error("Failed to fetch destinations:", error);
-        setAllDestinations(hardcodedDestinations);
-        setFilteredDestinations(hardcodedDestinations);
-      }
     };
     
-    const fetchActivities = async () => {
-        try {
-            const res = await fetch('http://localhost/travel_web_server/activities');
-            const data = await res.json();
-            if(Array.isArray(data)) {
-                setAllActivities(data);
-            }
-        } catch (error) {
-            console.error("Failed to fetch activities:", error);
-        }
-    };
-
-    fetchDestinations();
-    fetchActivities();
+    fetchInitialData();
   }, []);
 
   const groupedActivities = useMemo(() => {
@@ -227,38 +241,44 @@ export default function PlanPage() {
     }
   }, [router, toast]);
 
-  const estimatedCost = useMemo(() => {
+    const estimatedCost = useMemo(() => {
+    if (!costSettings) return 0;
+
     let totalCost = 0;
     const numberOfTravelers = adults + children;
     const tripDuration = (fromDate && toDate) ? differenceInDays(toDate, fromDate) + 1 : 1;
 
-    if (selectedAccommodation && selectedBudget) {
-        const budgetMap: { [key: string]: number } = {
-            'Less than LKR 3000': 2000,
-            'LKR 3000-5000': 4000,
-            'LKR 5000-8000': 6500,
-            'LKR 8000-10,000': 9000,
-            'LKR 10,000 to Above': 12000,
-        };
-        totalCost += (budgetMap[selectedBudget] || 0) * tripDuration;
+    // Accommodation Cost
+    if (selectedAccommodation && selectedBudget && costSettings.accommodation_costs) {
+        const accommodationCostMap = costSettings.accommodation_costs[selectedAccommodation] || {};
+        const budgetCost = accommodationCostMap[selectedBudget] || 0;
+        totalCost += budgetCost * tripDuration;
     }
 
-    totalCost += selectedActivities.length * 1500 * numberOfTravelers;
+    // Activity Cost
+    if (costSettings.activity_cost_per_person) {
+        totalCost += selectedActivities.length * costSettings.activity_cost_per_person * numberOfTravelers;
+    }
 
-    const transportCostMap: { [key: string]: number } = {
-        'Flights': 10000 * numberOfTravelers,
-        'Rental Car': 5000 * tripDuration,
-        'Public Transport': 500 * tripDuration * numberOfTravelers,
-        'Rental Bike': 1000 * tripDuration,
-        'Rental Van': 7000 * tripDuration,
-        'Rental Bus': 10000 * tripDuration,
-    };
-    selectedTransportation.forEach(transport => {
-        totalCost += transportCostMap[transport] || 0;
-    });
+    // Transportation Cost
+    if (costSettings.transportation_costs) {
+        selectedTransportation.forEach(transport => {
+            totalCost += costSettings.transportation_costs[transport] || 0;
+        });
+    }
 
     return totalCost;
-  }, [selectedAccommodation, selectedBudget, selectedActivities, selectedTransportation, adults, children, fromDate, toDate]);
+  }, [
+    costSettings,
+    selectedAccommodation,
+    selectedBudget,
+    selectedActivities,
+    selectedTransportation,
+    adults,
+    children,
+    fromDate,
+    toDate,
+  ]);
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
