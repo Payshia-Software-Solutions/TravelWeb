@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { PawPrint, MapPin, Leaf, Shield, Users, Heart, Calendar, Bird, Anchor, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 
 export default function WildlifePage() {
 
@@ -339,9 +340,11 @@ export default function WildlifePage() {
               Embark on an unforgettable journey through pristine wilderness and encounter magnificent wildlife in their natural habitat.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6">
-                <Button size="lg" className="bg-white hover:bg-gray-100 text-black">
+                <Button asChild size="lg" className="bg-white hover:bg-gray-100 text-black">
+                  <Link href="/plan">
                     <Calendar className="mr-2 h-5 w-5" />
                     Book a Wildlife Experience
+                  </Link>
                 </Button>
                 <div className="flex items-center gap-2">
                     <div className="flex text-yellow-400">
