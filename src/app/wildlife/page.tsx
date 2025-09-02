@@ -323,7 +323,7 @@ export default function WildlifePage() {
       <section className="relative py-24 lg:py-32">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x1080.png"
+              src="https://content-provider.payshia.com/travel-web/images/img4.webp"
               alt="Leopard in the wild"
               fill
               className="z-0 object-cover"
