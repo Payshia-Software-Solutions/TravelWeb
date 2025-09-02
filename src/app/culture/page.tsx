@@ -253,7 +253,7 @@ export default function CulturePage() {
       <section className="relative py-24 lg:py-32">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x1080.png"
+              src="https://content-provider.payshia.com/travel-web/images/img1.webp"
               alt="Person looking over a lush valley"
               fill
               className="z-0 object-cover"
