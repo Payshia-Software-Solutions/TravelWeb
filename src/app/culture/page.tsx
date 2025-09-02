@@ -143,7 +143,7 @@ export default function CulturePage() {
                 </div>
                  <div>
                     <Image
-                        src="https://placehold.co/800x600.png"
+                        src="https://content-provider.payshia.com/travel-web/images/img6.webp"
                         alt="Sri Lankan cultural performance"
                         width={800}
                         height={600}
