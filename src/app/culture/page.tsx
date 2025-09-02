@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Calendar, Sparkles, Star, Users } from 'lucide-react';
+import Link from 'next/link';
 
 export default function CulturePage() {
   const festivals = [
@@ -269,9 +270,11 @@ export default function CulturePage() {
               Join our cultural tours and immerse yourself in authentic traditions with local guides
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                  <Link href="/plan">
                     <Calendar className="mr-2 h-5 w-5" />
                     Book a Traditional Experience
+                  </Link>
                 </Button>
                 <Button size="lg" variant="outline" className="border-white text-black hover:bg-white hover:text-secondary">
                     <Users className="mr-2 h-5 w-5" />
