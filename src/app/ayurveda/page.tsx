@@ -130,7 +130,7 @@ export default function AyurvedaPage() {
                 </div>
                  <div className="relative">
                     <Image
-                        src="https://placehold.co/800x600.png"
+                        src="https://content-provider.payshia.com/travel-web/images/img7.webp"
                         alt="Leopard in Sri Lanka"
                         width={800}
                         height={600}
