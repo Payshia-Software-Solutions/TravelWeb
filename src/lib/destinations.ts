@@ -27,13 +27,15 @@ export type ApiDestination = {
   things_to_do: {
     title: string;
     description: string;
-    imageUrl: string;
+    image_url: string;
     icon: string;
   }[];
   nearby_attractions: string[];
-  travel_tip_heading: string;
-  travel_tip_icon: string;
-  travel_tip_description: string;
+  travel_tips: {
+    heading: string;
+    icon: string;
+    description: string;
+  }[];
   is_popular: boolean;
   created_at: string;
   updated_at: string;
@@ -213,5 +215,3 @@ export const destinations: Destination[] = [
     popular: false,
   },
 ];
-
-    

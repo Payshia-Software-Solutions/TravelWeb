@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import { destinations, ApiDestination } from '@/lib/destinations';
@@ -12,14 +13,17 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
-import { Footprints, Heart, MapPin, Mountain, Sun, Users } from 'lucide-react';
+import { Footprints, Heart, MapPin, Mountain, Sun, Users, Star, Camera, Ticket } from 'lucide-react';
 
 const ICONS: { [key: string]: React.ComponentType<any> } = {
     Sun,
     Footprints,
     Heart,
     Users,
-    Mountain
+    Mountain,
+    Star,
+    Camera,
+    Ticket
 };
 
 function DynamicIcon({ name, ...props }: { name: string, [key: string]: any }) {
@@ -69,9 +73,15 @@ export default function DestinationDetailPage() {
     if (url.startsWith('http')) return url;
     return `${ftpBaseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
   };
+  
+   const getThingsToDoImageUrl = (url: string | null) => {
+    if (!url) return 'https://placehold.co/600x400.png';
+    if (url.startsWith('http')) return url;
+    return `${ftpBaseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+  };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center items-center h-screen">Loading...</div>;
   }
   
   if (hardcodedDestination) {
@@ -234,10 +244,10 @@ export default function DestinationDetailPage() {
                     </h2>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {destination.things_to_do.map((item) => (
-                        <Card key={item.title} className="overflow-hidden shadow-lg rounded-lg flex flex-col">
+                    {destination.things_to_do.map((item, index) => (
+                        <Card key={index} className="overflow-hidden shadow-lg rounded-lg flex flex-col">
                             <Image
-                                src={getImageUrl(item.image_url)}
+                                src={getThingsToDoImageUrl(item.image_url)}
                                 alt={item.title}
                                 width={600}
                                 height={400}
@@ -295,7 +305,7 @@ export default function DestinationDetailPage() {
         </section>
       )}
 
-      {destination.travel_tip_heading && (
+      {destination.travel_tips && destination.travel_tips.length > 0 && (
         <section className="py-16 lg:py-24 bg-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
@@ -305,15 +315,17 @@ export default function DestinationDetailPage() {
                     </h2>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <Card className="text-center p-8 bg-green-50/50 shadow-lg border-green-200 flex flex-col">
+                  {destination.travel_tips.map((tip, index) => (
+                    <Card key={index} className="text-center p-8 bg-green-50/50 shadow-lg border-green-200 flex flex-col">
                         <CardContent className="flex flex-col items-center justify-center gap-4 flex-grow">
                             <div className="mb-4">
-                                <DynamicIcon name={destination.travel_tip_icon} className="h-10 w-10 text-primary" />
+                                <DynamicIcon name={tip.icon} className="h-10 w-10 text-primary" />
                             </div>
-                            <h3 className="font-headline text-xl font-bold h-7 flex items-center justify-center">{destination.travel_tip_heading}</h3>
-                            <p className="text-muted-foreground text-sm flex-grow">{destination.travel_tip_description}</p>
+                            <h3 className="font-headline text-xl font-bold h-7 flex items-center justify-center">{tip.heading}</h3>
+                            <p className="text-muted-foreground text-sm flex-grow">{tip.description}</p>
                         </CardContent>
                     </Card>
+                  ))}
                 </div>
             </div>
         </section>
