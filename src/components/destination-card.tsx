@@ -10,11 +10,17 @@ interface DestinationCardProps {
 
 export function DestinationCard({ destination }: DestinationCardProps) {
     const isApiDestination = 'hero_bg_image_url' in destination;
+    const ftpBaseUrl = 'https://content-provider.payshia.com/travel-web';
+
 
     const name = isApiDestination ? destination.name : destination.name.split(', ')[0];
     const location = isApiDestination ? destination.location : destination.name.split(', ')[1];
-    const imageUrl = isApiDestination ? destination.hero_bg_image_url : destination.image;
+    let imageUrl = isApiDestination ? destination.hero_bg_image_url : destination.image;
     const linkId = isApiDestination ? destination.id : destination.id;
+
+    if (isApiDestination && imageUrl && !imageUrl.startsWith('http')) {
+        imageUrl = `${ftpBaseUrl}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+    }
 
     return (
         <div className="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out h-full flex flex-col">
