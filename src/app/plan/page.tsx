@@ -28,12 +28,12 @@ const steps = [
 ];
 
 const interests = [
-    { name: 'Adventure', image: 'https://placehold.co/400x500.png', aiHint: 'river rafting' },
-    { name: 'Culture', image: 'https://placehold.co/400x500.png', aiHint: 'traditional dancer' },
-    { name: 'Relaxation', image: 'https://placehold.co/400x500.png', aiHint: 'woman relaxing' },
-    { name: 'Food', image: 'https://placehold.co/400x500.png', aiHint: 'food platter' },
-    { name: 'City Exploration', image: 'https://placehold.co/400x500.png', aiHint: 'city skyline' },
-    { name: 'Nature', image: 'https://placehold.co/400x500.png', aiHint: 'mountain landscape' },
+    { name: 'Adventure', image: 'https://content-provider.payshia.com/travel-web/trip-plan/img1.webp', aiHint: 'river rafting' },
+    { name: 'Culture', image: 'https://content-provider.payshia.com/travel-web/trip-plan/img2.webp', aiHint: 'traditional dancer' },
+    { name: 'Relaxation', image: 'https://content-provider.payshia.com/travel-web/trip-plan/img3.webp', aiHint: 'woman relaxing' },
+    { name: 'Food', image: 'https://content-provider.payshia.com/travel-web/trip-plan/img6.webp', aiHint: 'food platter' },
+    { name: 'City Exploration', image: 'https://content-provider.payshia.com/travel-web/trip-plan/img5.webp', aiHint: 'city skyline' },
+    { name: 'Nature', image: 'https://content-provider.payshia.com/travel-web/trip-plan/img4.webp', aiHint: 'mountain landscape' },
 ];
 
 const accommodationTypes = [
@@ -1093,8 +1093,8 @@ export default function PlanPage() {
                         <Button variant="outline" onClick={handleBack}>
                             <ArrowLeft className="mr-2 h-4 w-4" /> Back
                         </Button>
-                        <Button onClick={handleNext} disabled={submissionState === 'submitting'}>
-                            {submissionState === 'submitting' ? 'Finalizing...' : 'Finalize Trip'}
+                        <Button onClick={handleNext} disabled={isSubmitting}>
+                          {isSubmitting ? 'Finalizing...' : 'Finalize Trip'}
                         </Button>
                     </div>
                 </div>
@@ -1106,3 +1106,4 @@ export default function PlanPage() {
     </div>
   );
 }
+
