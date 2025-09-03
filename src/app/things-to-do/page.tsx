@@ -194,7 +194,7 @@ export default function ThingsToDoPage() {
       <section className="relative py-24 lg:py-32">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x800.png"
+              src="https://content-provider.payshia.com/travel-web/images/img8.webp"
               alt="People interacting with locals in Sri Lanka"
               fill
               className="z-0 object-cover"
