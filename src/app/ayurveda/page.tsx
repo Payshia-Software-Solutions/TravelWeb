@@ -258,7 +258,7 @@ export default function AyurvedaPage() {
       <section className="relative py-24 lg:py-32">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x800.png"
+              src="https://content-provider.payshia.com/travel-web/images/img7.webp"
               alt="Leopard in Sri Lanka"
               fill
               className="z-0 object-cover"
@@ -299,3 +299,5 @@ export default function AyurvedaPage() {
     </>
   );
 }
+
+    
