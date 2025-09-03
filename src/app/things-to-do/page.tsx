@@ -103,12 +103,12 @@ export default function ThingsToDoPage() {
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
         <div className="absolute inset-0">
             <Image
-              src="https://content-provider.payshia.com/travel-web/category/adven.jpg"
-              alt="Surfer on a wave"
+              src="https://content-provider.payshia.com/travel-web/images/img8.webp"
+              alt="People rafting on a river"
               fill
               className="z-0 object-cover"
               priority
-              data-ai-hint="surfer wave"
+              data-ai-hint="river rafting"
             />
             <div className="absolute inset-0 bg-black/50 z-10" />
         </div>
