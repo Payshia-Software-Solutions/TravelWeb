@@ -237,7 +237,7 @@ export default function DestinationDetailPage() {
                     {destination.things_to_do.map((item) => (
                         <Card key={item.title} className="overflow-hidden shadow-lg rounded-lg flex flex-col">
                             <Image
-                                src={getImageUrl(item.imageUrl)}
+                                src={getImageUrl(item.image_url)}
                                 alt={item.title}
                                 width={600}
                                 height={400}
