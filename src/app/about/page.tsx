@@ -164,7 +164,7 @@ export default function AboutPage() {
       <section className="relative py-24 lg:py-32">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x800.png"
+              src="https://content-provider.payshia.com/travel-web/about-us/img1.webp"
               alt="Train passing through tea plantations in Sri Lanka"
               fill
               className="z-0 object-cover"
