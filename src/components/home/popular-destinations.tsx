@@ -3,10 +3,31 @@
 import Link from "next/link";
 import { DestinationCard } from "@/components/destination-card";
 import { Button } from "@/components/ui/button";
-import { destinations } from "@/lib/destinations";
+import { ApiDestination } from "@/lib/destinations";
+import { useEffect, useState } from "react";
 
 export function PopularDestinations() {
-    const popularDestinations = destinations.filter(d => d.popular).slice(0, 4);
+    const [popularDestinations, setPopularDestinations] = useState<ApiDestination[]>([]);
+
+    useEffect(() => {
+        const fetchDestinations = async () => {
+            try {
+                const res = await fetch('http://localhost/travel_web_server/destinations');
+                const data = await res.json();
+                if (Array.isArray(data)) {
+                    const popular = data.filter(d => d.is_popular).slice(0, 4);
+                    setPopularDestinations(popular);
+                } else {
+                    console.error("Fetched data is not an array:", data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch destinations:", error);
+            }
+        };
+
+        fetchDestinations();
+    }, []);
+
     return (
         <section className="py-16 lg:py-24 bg-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
