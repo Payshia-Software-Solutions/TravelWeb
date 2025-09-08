@@ -58,12 +58,12 @@ export default function AboutPage() {
       <section className="relative h-screen flex flex-col items-center justify-center text-center text-white">
         <div className="absolute inset-0">
             <Image
-              src="https://placehold.co/1920x1080.png"
-              alt="Ayurvedic items for a traditional ceremony"
+              src="https://content-provider.payshia.com/travel-web/about-us/img3.webp"
+              alt="Lush green tea plantations in Sri Lanka"
               fill
               className="z-0 object-cover"
               priority
-              data-ai-hint="ayurveda items"
+              data-ai-hint="tea plantations"
             />
             <div className="absolute inset-0 bg-black/50 z-10" />
         </div>
