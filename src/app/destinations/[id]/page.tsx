@@ -42,11 +42,8 @@ export default function DestinationDetailPage() {
   const ftpBaseUrl = 'https://content-provider.payshia.com/travel-web';
 
 
-  // Hardcoded destinations check
-  const hardcodedDestination = destinations.find(d => d.id === id);
-
   useEffect(() => {
-    if (!hardcodedDestination && id) {
+    if (id) {
       const fetchDestination = async () => {
         try {
           const res = await fetch(`http://localhost/travel_web_server/destinations/${id}`);
@@ -66,7 +63,7 @@ export default function DestinationDetailPage() {
     } else {
       setLoading(false);
     }
-  }, [id, hardcodedDestination]);
+  }, [id]);
 
   const getImageUrl = (url: string | null) => {
     if (!url) return 'https://placehold.co/1920x1080.png';
@@ -82,21 +79,6 @@ export default function DestinationDetailPage() {
 
   if (loading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
-  }
-  
-  if (hardcodedDestination) {
-    if (id === 'sigiriya-matale') {
-      return <SigiriyaPage />;
-    }
-    if (id === 'ruwanvalisaya-anuradhapura') {
-      return <RuwanvalisayaPage />;
-    }
-    if (id === 'galle-fort-galle') {
-      return <GalleFortPage />;
-    }
-    if (id === 'yala-hambanthota') {
-      return <YalaPage />;
-    }
   }
   
   if (!destination) {
