@@ -99,7 +99,7 @@ export default function AboutPage() {
                 </div>
                  <div className="relative">
                     <Image
-                        src="https://placehold.co/800x600.png"
+                        src="https://content-provider.payshia.com/travel-web/about-us/img2.jpg"
                         alt="Leopard in Sri Lanka"
                         width={800}
                         height={600}
