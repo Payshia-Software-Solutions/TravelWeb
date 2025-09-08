@@ -37,6 +37,7 @@ export type ApiDestination = {
     description: string;
   }[];
   is_popular: boolean;
+  map_link: string;
   created_at: string;
   updated_at: string;
 };

@@ -268,7 +268,7 @@ export default function DestinationDetailPage() {
         </section>
       )}
 
-      {destination.nearby_attractions && destination.nearby_attractions.length > 0 && (
+      {destination.map_link && (
         <section className="py-16 lg:py-24 bg-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
@@ -278,19 +278,21 @@ export default function DestinationDetailPage() {
               </h2>
             </div>
             <div className="relative">
-              <div className="absolute top-4 left-4 z-10 bg-white p-4 rounded-lg shadow-lg">
-                <ul className="space-y-3">
-                  {destination.nearby_attractions.map(attraction => (
-                    <li key={attraction} className="flex items-center gap-3">
-                      <MapPin className="h-5 w-5 text-primary" />
-                      <span className="text-sm font-medium">{attraction}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {destination.nearby_attractions && destination.nearby_attractions.length > 0 && (
+                <div className="absolute top-4 left-4 z-10 bg-white p-4 rounded-lg shadow-lg">
+                  <ul className="space-y-3">
+                    {destination.nearby_attractions.map(attraction => (
+                      <li key={attraction} className="flex items-center gap-3">
+                        <MapPin className="h-5 w-5 text-primary" />
+                        <span className="text-sm font-medium">{attraction}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <div className="w-full h-[500px] rounded-lg overflow-hidden shadow-lg">
                 <iframe
-                  src={`https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=${destination.location}`}
+                  src={destination.map_link}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
