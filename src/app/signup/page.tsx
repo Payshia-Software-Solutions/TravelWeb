@@ -26,6 +26,8 @@ const formSchema = z.object({
   path: ["confirmPassword"],
 });
 
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 
 export default function SignupPage() {
   const { toast } = useToast();
@@ -48,7 +50,7 @@ export default function SignupPage() {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('http://localhost/travel_web_server/users/', {
+      const response = await fetch(`${SERVER_URL}users/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

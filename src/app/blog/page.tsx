@@ -21,6 +21,7 @@ type BlogPost = {
 };
 
 const POSTS_PER_PAGE = 6;
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export default function BlogPage() {
   const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
@@ -34,7 +35,7 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch('http://localhost/travel_web_server/blogs');
+        const res = await fetch(`${SERVER_URL}blogs`);
         if (!res.ok) {
           throw new Error('Failed to fetch blogs');
         }

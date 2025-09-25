@@ -19,6 +19,8 @@ const formSchema = z.object({
   password: z.string().min(1, { message: "Password is required." }),
 });
 
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export default function LoginPage() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,7 +37,7 @@ export default function LoginPage() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     try {
-        const response = await fetch('http://localhost/travel_web_server/login/', {
+        const response = await fetch(`${SERVER_URL}login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

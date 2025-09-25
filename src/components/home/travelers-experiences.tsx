@@ -22,6 +22,8 @@ type Testimonial = {
   is_approved: number;
 };
 
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export function TravelersExperiences() {
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
     const ftpBaseUrl = 'https://content-provider.payshia.com/travel-web';
@@ -29,7 +31,7 @@ export function TravelersExperiences() {
     useEffect(() => {
         const fetchTestimonials = async () => {
             try {
-                const response = await fetch('http://localhost/travel_web_server/feedback');
+                const response = await fetch(`${SERVER_URL}feedback`);
                 if (!response.ok) {
                    throw new Error('Failed to fetch testimonials');
                 }

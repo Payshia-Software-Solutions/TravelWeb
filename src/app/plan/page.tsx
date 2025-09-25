@@ -112,6 +112,8 @@ type CostSettings = {
     transportation_costs: { [key: string]: number };
 };
 
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 
 export default function PlanPage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -148,7 +150,7 @@ export default function PlanPage() {
     const fetchInitialData = async () => {
         try {
             // Fetch Destinations
-            const destRes = await fetch('http://localhost/travel_web_server/destinations');
+            const destRes = await fetch(`${SERVER_URL}destinations`);
             const apiData = await destRes.json();
             const combined: CombinedDestination[] = [...hardcodedDestinations];
             if (Array.isArray(apiData)) {
@@ -162,14 +164,14 @@ export default function PlanPage() {
             setFilteredDestinations(combined);
 
             // Fetch Activities
-            const actRes = await fetch('http://localhost/travel_web_server/activities');
+            const actRes = await fetch(`${SERVER_URL}activities`);
             const actData = await actRes.json();
             if(Array.isArray(actData)) {
                 setAllActivities(actData);
             }
             
             // Fetch Cost Settings
-            const costRes = await fetch('http://localhost/travel_web_server/cost_settings');
+            const costRes = await fetch(`${SERVER_URL}cost_settings`);
             const costData = await costRes.json();
             setCostSettings(costData[0] || null);
 
@@ -435,7 +437,7 @@ export default function PlanPage() {
     setSubmittedPlan(tripPlanData);
 
     try {
-        const response = await fetch('http://localhost/travel_web_server/trip_plans', {
+        const response = await fetch(`${SERVER_URL}trip_plans`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(tripPlanData)

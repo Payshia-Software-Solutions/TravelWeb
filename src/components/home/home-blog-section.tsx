@@ -16,6 +16,8 @@ type BlogPost = {
   created_at: string;
 };
 
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export function HomeBlogSection() {
     const [latestPost, setLatestPost] = useState<BlogPost | null>(null);
     const ftpBaseUrl = 'https://content-provider.payshia.com/travel-web';
@@ -23,7 +25,7 @@ export function HomeBlogSection() {
     useEffect(() => {
         const fetchLatestBlog = async () => {
             try {
-                const res = await fetch('http://localhost/travel_web_server/blogs');
+                const res = await fetch(`${SERVER_URL}blogs`);
                 if (!res.ok) {
                     throw new Error('Failed to fetch blogs');
                 }

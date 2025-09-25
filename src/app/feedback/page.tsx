@@ -27,6 +27,7 @@ const formSchema = z.object({
   profileImage: z.instanceof(File).optional(),
   backgroundImage: z.instanceof(File).optional(),
 });
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export default function FeedbackPage() {
   const { toast } = useToast();
@@ -57,7 +58,7 @@ export default function FeedbackPage() {
     }
 
     try {
-      const response = await fetch('http://localhost/travel_web_server/feedback', {
+      const response = await fetch(`${SERVER_URL}feedback`, {
         method: 'POST',
         body: formData,
         // Do not set Content-Type header for multipart/form-data, the browser will do it.

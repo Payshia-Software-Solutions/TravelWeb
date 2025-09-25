@@ -25,6 +25,7 @@ const ICONS: { [key: string]: React.ComponentType<any> } = {
     Camera,
     Ticket
 };
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 function DynamicIcon({ name, ...props }: { name: string, [key: string]: any }) {
     const IconComponent = ICONS[name];
@@ -46,7 +47,7 @@ export default function DestinationDetailPage() {
     if (id) {
       const fetchDestination = async () => {
         try {
-          const res = await fetch(`http://localhost/travel_web_server/destinations/${id}`);
+          const res = await fetch(`${SERVER_URL}destinations/${id}`);
           if (!res.ok) {
             throw new Error('Failed to fetch destination');
           }

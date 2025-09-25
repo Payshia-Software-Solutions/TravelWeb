@@ -6,13 +6,15 @@ import { Button } from "@/components/ui/button";
 import { ApiDestination } from "@/lib/destinations";
 import { useEffect, useState } from "react";
 
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export function PopularDestinations() {
     const [popularDestinations, setPopularDestinations] = useState<ApiDestination[]>([]);
 
     useEffect(() => {
         const fetchDestinations = async () => {
             try {
-                const res = await fetch('http://localhost/travel_web_server/destinations');
+                const res = await fetch(`${SERVER_URL}destinations`);
                 const data = await res.json();
                 if (Array.isArray(data)) {
                     const popular = data.filter(d => d.is_popular).slice(0, 4);

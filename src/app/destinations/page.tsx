@@ -9,6 +9,8 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export default function ExplorePage() {
   const [allDestinations, setAllDestinations] = useState<ApiDestination[]>([]);
   const [visibleDestinations, setVisibleDestinations] = useState(8);
@@ -16,7 +18,7 @@ export default function ExplorePage() {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const res = await fetch('http://localhost/travel_web_server/destinations');
+        const res = await fetch(`${SERVER_URL}destinations`);
         const data = await res.json();
         if (Array.isArray(data)) {
           setAllDestinations(data);
