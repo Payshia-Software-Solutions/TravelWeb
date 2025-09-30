@@ -8,7 +8,6 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { useState, useEffect, useMemo } from 'react';
-import type { Metadata } from 'next';
 
 type BlogPost = {
   id: number;
@@ -32,6 +31,10 @@ export default function BlogPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const ftpBaseUrl = 'https://content-provider.payshia.com/travel-web';
+  
+  useEffect(() => {
+    document.title = 'Blog | TravelSite';
+  }, []);
 
   useEffect(() => {
     const fetchBlogs = async () => {

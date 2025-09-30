@@ -2,7 +2,6 @@
 "use client"
 import * as React from "react"
 import Image from 'next/image';
-import type { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -34,6 +33,10 @@ export default function Home() {
     const [checkOutDate, setCheckOutDate] = React.useState<Date>()
     const [api, setApi] = React.useState<CarouselApi>()
     const [current, setCurrent] = React.useState(0)
+
+    React.useEffect(() => {
+        document.title = 'Home | TravelSite';
+    }, []);
     
     const fadePlugin = React.useRef(
         Fade({

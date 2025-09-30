@@ -16,7 +16,6 @@ import { Badge } from '@/components/ui/badge';
 import { destinations as hardcodedDestinations, ApiDestination, Destination } from '@/lib/destinations';
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from 'next/navigation';
-import type { Metadata } from 'next';
 
 
 const steps = [
@@ -146,6 +145,9 @@ export default function PlanPage() {
   const [submittedPlan, setSubmittedPlan] = useState<TripPlanData | null>(null);
   const [costSettings, setCostSettings] = useState<CostSettings | null>(null);
 
+  useEffect(() => {
+    document.title = 'Plan Your Trip | TravelSite';
+  }, []);
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -1109,5 +1111,3 @@ export default function PlanPage() {
     </div>
   );
 }
-
-    

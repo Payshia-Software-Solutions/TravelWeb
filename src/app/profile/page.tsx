@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Mail, Phone, Home, Edit } from "lucide-react";
-import type { Metadata } from 'next';
 
 type UserProfile = {
   full_name: string;
@@ -20,6 +19,10 @@ type UserProfile = {
 export default function ProfilePage() {
   const router = useRouter();
   const [user, setUser] = useState<UserProfile | null>(null);
+
+  useEffect(() => {
+    document.title = 'Profile | TravelSite';
+  }, []);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');

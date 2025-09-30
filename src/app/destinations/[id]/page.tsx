@@ -43,6 +43,15 @@ export default function DestinationDetailPage() {
   const [loading, setLoading] = useState(true);
   const ftpBaseUrl = 'https://content-provider.payshia.com/travel-web';
 
+  useEffect(() => {
+    if (destination) {
+      document.title = `${destination.name} | TravelSite`;
+    } else if (!loading) {
+      document.title = 'Destination Not Found | TravelSite';
+    } else {
+      document.title = 'Loading... | TravelSite';
+    }
+  }, [destination, loading]);
 
   useEffect(() => {
     if (id) {
