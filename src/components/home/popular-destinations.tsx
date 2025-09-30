@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ApiDestination } from "@/lib/destinations";
 import { useEffect, useState } from "react";
 
-const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+const SERVER_URL = "https://travel-server.payshia.com/";
 
 export function PopularDestinations() {
     const [popularDestinations, setPopularDestinations] = useState<ApiDestination[]>([]);
