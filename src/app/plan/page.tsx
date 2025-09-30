@@ -420,7 +420,7 @@ export default function PlanPage() {
     // If it's a guest user (no existing user object), create one first
     if (!user) {
         try {
-            const userResponse = await fetch(`${SERVER_URL}users/`, {
+            const userResponse = await fetch(`${SERVER_URL}users`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -1188,3 +1188,5 @@ export default function PlanPage() {
     </div>
   );
 }
+
+    
