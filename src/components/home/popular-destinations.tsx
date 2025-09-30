@@ -17,7 +17,7 @@ export function PopularDestinations() {
                 const res = await fetch(`${SERVER_URL}destinations`);
                 const data = await res.json();
                 if (Array.isArray(data)) {
-                    const popular = data.filter(d => d.is_popular).slice(0, 4);
+                    const popular = data.slice(0, 4);
                     setPopularDestinations(popular);
                 } else {
                     console.error("Fetched data is not an array:", data);
