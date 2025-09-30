@@ -7,6 +7,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
+
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

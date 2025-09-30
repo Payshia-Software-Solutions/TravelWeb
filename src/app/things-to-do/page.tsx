@@ -4,6 +4,11 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Waves, Mountain, Leaf, Sparkles, Trophy, Utensils, Wind, Star, Users } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Things to Do in Sri Lanka | TravelSite',
+};
 
 function CultureIcon(props: React.SVGProps<SVGSVGElement>) {
     return (

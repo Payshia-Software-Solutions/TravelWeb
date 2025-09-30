@@ -7,6 +7,11 @@ import { PawPrint, Sparkles, Hand, Leaf, BrainCircuit, HeartPulse, MapPin, Home,
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Ayurveda in Sri Lanka | TravelSite',
+};
 
 export default function AyurvedaPage() {
   const treatments = [

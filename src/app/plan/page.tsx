@@ -16,6 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { destinations as hardcodedDestinations, ApiDestination, Destination } from '@/lib/destinations';
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from 'next/navigation';
+import type { Metadata } from 'next';
 
 
 const steps = [

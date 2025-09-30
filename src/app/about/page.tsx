@@ -4,6 +4,11 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { PawPrint, ShieldCheck, Sprout, UserCheck, HelpCircle, Users, Heart, ClipboardList, Headset } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'About Us | TravelSite',
+};
 
 export default function AboutPage() {
 

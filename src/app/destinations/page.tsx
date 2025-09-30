@@ -8,6 +8,7 @@ import { DestinationCard } from '@/components/destination-card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import type { Metadata } from 'next';
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 

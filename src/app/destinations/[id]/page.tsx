@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Footprints, Heart, MapPin, Mountain, Sun, Users, Star, Camera, Ticket } from 'lucide-react';
+import type { Metadata } from 'next';
 
 const ICONS: { [key: string]: React.ComponentType<any> } = {
     Sun,

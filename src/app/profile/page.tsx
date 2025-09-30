@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Mail, Phone, Home, Edit } from "lucide-react";
+import type { Metadata } from 'next';
 
 type UserProfile = {
   full_name: string;

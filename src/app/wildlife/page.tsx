@@ -5,6 +5,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { PawPrint, MapPin, Leaf, Shield, Users, Heart, Calendar, Bird, Anchor, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Wildlife in Sri Lanka | TravelSite',
+};
 
 export default function WildlifePage() {
 
