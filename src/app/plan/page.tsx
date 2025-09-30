@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility, Edit, Send, Compass, MessageSquare, Diamond, X, Star, Heart, Mountain, Leaf, Palmtree, Eye } from 'lucide-react';
+import { ArrowRight, Info, MapPin, Search, Calendar as CalendarIcon, Users, Minus, Plus, ArrowLeft, Check, Car, Bus, Plane, Bike, Train, Shield, Accessibility, Edit, Send, Compass, MessageSquare, Diamond, X, Star, Heart, Mountain, Leaf, Palmtree, Eye, User, Mail, Phone } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { format, differenceInDays } from 'date-fns';
@@ -112,6 +112,15 @@ type CostSettings = {
     transportation_costs: { [key: string]: number };
 };
 
+type UserProfile = {
+  id: string;
+  company_id: string;
+  full_name: string;
+  email: string;
+  phone_number: string;
+  address: string;
+};
+
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 
@@ -124,6 +133,12 @@ export default function PlanPage() {
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
+  
+  // User details state
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userPhone, setUserPhone] = useState('');
+
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
   const [selectedAccommodation, setSelectedAccommodation] = useState<string | null>(null);
@@ -141,7 +156,7 @@ export default function PlanPage() {
   const { toast } = useToast();
   const router = useRouter();
 
-  const [user, setUser] = useState<{ id: string, company_id: string } | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(null);
   const [submittedPlan, setSubmittedPlan] = useState<TripPlanData | null>(null);
   const [costSettings, setCostSettings] = useState<CostSettings | null>(null);
 
@@ -212,40 +227,22 @@ export default function PlanPage() {
     return `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
   };
 
-  useEffect(() => {
+   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     const isLoggedIn = localStorage.getItem('isLoggedIn');
 
     if (isLoggedIn === 'true' && storedUser) {
       try {
-        const parsedUser = JSON.parse(storedUser);
-        if (parsedUser && parsedUser.id) {
-           if (!parsedUser.company_id) {
-             console.warn("User data is missing company_id, using default value.");
-             parsedUser.company_id = 18;
-           }
-           setUser(parsedUser);
-        } else {
-           throw new Error("User data is incomplete.");
-        }
+        const parsedUser: UserProfile = JSON.parse(storedUser);
+        setUser(parsedUser);
+        setUserName(parsedUser.full_name);
+        setUserEmail(parsedUser.email);
+        setUserPhone(parsedUser.phone_number);
       } catch (error) {
         console.error("Failed to parse user data from localStorage", error);
-        toast({
-            variant: "destructive",
-            title: "Session Error",
-            description: "Your session is invalid. Please log in again.",
-        });
-        router.push('/login');
       }
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Authentication Required",
-        description: "Please log in to create a trip plan.",
-      });
-      router.push('/login');
     }
-  }, [router, toast]);
+  }, []);
 
     const estimatedCost = useMemo(() => {
         if (!costSettings) return 0;
@@ -389,6 +386,9 @@ export default function PlanPage() {
     setAdults(2);
     setChildren(0);
     setInfants(0);
+    setUserName('');
+    setUserEmail('');
+    setUserPhone('');
     setSelectedInterests([]);
     setSelectedActivities([]);
     setSelectedAccommodation(null);
@@ -403,21 +403,68 @@ export default function PlanPage() {
   };
 
   const handleFinalizeTrip = async () => {
-    if (!user) {
+    if (!userName || !userEmail || !userPhone) {
         toast({
             variant: "destructive",
-            title: "Not Logged In",
-            description: "You must be logged in to create a trip plan.",
+            title: "Missing Information",
+            description: "Please fill out your name, email, and phone number.",
         });
-        router.push('/login');
+        return;
+    }
+    
+    setSubmissionState('submitting');
+    
+    let userId = user?.id;
+    let companyId = user?.company_id || '18'; // Default company_id if not present
+
+    // If it's a guest user (no existing user object), create one first
+    if (!user) {
+        try {
+            const userResponse = await fetch(`${SERVER_URL}users/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    full_name: userName,
+                    email: userEmail,
+                    phone_number: userPhone,
+                    address: 'Guest', // Or some default
+                    password: `guest_${Date.now()}`, // Temporary password
+                    role: 'guest_client', // A role for guest users
+                }),
+            });
+            if (!userResponse.ok) {
+                const errorData = await userResponse.json();
+                throw new Error(errorData.error || 'Failed to create guest user.');
+            }
+            const newGuestUser = await userResponse.json();
+            userId = newGuestUser.id;
+            // Company ID might be returned or use a default
+            companyId = newGuestUser.company_id || '18';
+        } catch (error) {
+             const errorMessage = error instanceof Error ? error.message : "An unknown error occurred while creating guest user.";
+             toast({
+                variant: "destructive",
+                title: "Submission Failed",
+                description: errorMessage,
+            });
+            setSubmissionState('form');
+            return;
+        }
+    }
+    
+    if (!userId) {
+         toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Could not identify user. Please try again.",
+        });
+        setSubmissionState('form');
         return;
     }
 
-    setSubmissionState('submitting');
-
     const tripPlanData: TripPlanData = {
-        company_id: user.company_id, 
-        user_id: user.id,
+        company_id: companyId, 
+        user_id: userId,
         from_date: fromDate ? format(fromDate, 'yyyy-MM-dd') : null,
         to_date: toDate ? format(toDate, 'yyyy-MM-dd') : null,
         adults: adults,
@@ -704,6 +751,36 @@ export default function PlanPage() {
             <CardContent className="p-8">
               {currentStep === 1 && (
                 <div className="space-y-8">
+                  <div>
+                    <h2 className="text-2xl font-headline font-semibold flex items-center gap-2 mb-6">
+                      <User className="text-primary" />
+                      Your Details
+                    </h2>
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                            <label htmlFor="userName" className="font-medium">Full Name</label>
+                            <div className="relative">
+                                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                                <Input id="userName" placeholder="John Doe" value={userName} onChange={(e) => setUserName(e.target.value)} disabled={!!user} className="pl-10" />
+                            </div>
+                        </div>
+                        <div className="space-y-2">
+                            <label htmlFor="userEmail" className="font-medium">Email</label>
+                            <div className="relative">
+                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                                <Input id="userEmail" type="email" placeholder="you@example.com" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} disabled={!!user} className="pl-10"/>
+                            </div>
+                        </div>
+                         <div className="space-y-2 md:col-span-2">
+                            <label htmlFor="userPhone" className="font-medium">Contact Number</label>
+                            <div className="relative">
+                                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                                <Input id="userPhone" placeholder="Your contact number" value={userPhone} onChange={(e) => setUserPhone(e.target.value)} disabled={!!user} className="pl-10"/>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+
                   <div>
                     <h2 className="text-2xl font-headline font-semibold flex items-center gap-2 mb-6">
                       <MapPin className="text-primary" />
