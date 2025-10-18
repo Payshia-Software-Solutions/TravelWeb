@@ -52,7 +52,7 @@ export function DiscoverParadise() {
         <div className="grid md:grid-cols-3 gap-8 items-center">
           <div className="space-y-8">
             <Link href={categories[0].link}>
-                <Card className="p-6 shadow-lg hover:shadow-2xl transition-shadow cursor-pointer">
+                <Card className="bg-white p-6 shadow-lg hover:shadow-2xl transition-shadow cursor-pointer">
                   <CardContent className="flex items-center justify-center flex-col gap-4 p-0">
                     {categories[0].icon}
                     <h3 className="font-headline text-xl font-bold">{categories[0].name}</h3>
@@ -60,7 +60,7 @@ export function DiscoverParadise() {
                 </Card>
             </Link>
             <Link href={categories[1].link}>
-                 <Card className="p-6 shadow-lg hover:shadow-2xl transition-shadow cursor-pointer">
+                 <Card className="bg-white p-6 shadow-lg hover:shadow-2xl transition-shadow cursor-pointer">
                   <CardContent className="flex items-center justify-center flex-col gap-4 p-0">
                     {categories[1].icon}
                     <h3 className="font-headline text-xl font-bold">{categories[1].name}</h3>
@@ -82,7 +82,7 @@ export function DiscoverParadise() {
 
           <div className="space-y-8">
              <Link href={categories[2].link}>
-                <Card className="p-6 shadow-lg hover:shadow-2xl transition-shadow cursor-pointer">
+                <Card className="bg-white p-6 shadow-lg hover:shadow-2xl transition-shadow cursor-pointer">
                   <CardContent className="flex items-center justify-center flex-col gap-4 p-0">
                     {categories[2].icon}
                     <h3 className="font-headline text-xl font-bold">{categories[2].name}</h3>
@@ -90,7 +90,7 @@ export function DiscoverParadise() {
                 </Card>
             </Link>
              <Link href={categories[3].link}>
-                <Card className="p-6 shadow-lg hover:shadow-2xl transition-shadow cursor-pointer">
+                <Card className="bg-white p-6 shadow-lg hover:shadow-2xl transition-shadow cursor-pointer">
                   <CardContent className="flex items-center justify-center flex-col gap-4 p-0">
                     {categories[3].icon}
                     <h3 className="font-headline text-xl font-bold">{categories[3].name}</h3>
@@ -106,5 +106,3 @@ export function DiscoverParadise() {
     </section>
   );
 }
-
-    
