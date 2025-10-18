@@ -19,6 +19,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Autoplay from "embla-carousel-autoplay";
 import Fade from "embla-carousel-fade";
 import { HomeBlogSection } from "@/components/home/home-blog-section";
+import { DiscoverParadise } from "@/components/home/discover-paradise";
 
 
 const heroImages = [
@@ -201,6 +202,7 @@ export default function Home() {
 
         </div>
       </section>
+      <DiscoverParadise />
       <PopularDestinations />
        <section className="relative py-24 lg:py-32">
         <div className="absolute inset-0">
@@ -348,3 +350,5 @@ export default function Home() {
     </>
   );
 }
+
+    
