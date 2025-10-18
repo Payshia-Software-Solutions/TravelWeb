@@ -50,7 +50,7 @@ export function DiscoverParadise() {
             </h2>
         </div>
         <div className="grid md:grid-cols-3 gap-8 items-center">
-          <div className="space-y-8">
+          <div className="flex flex-col justify-around h-full gap-8">
             <Link href={categories[0].link}>
                 <Card className="bg-white p-6 shadow-lg hover:shadow-2xl transition-shadow cursor-pointer">
                   <CardContent className="flex items-center justify-center flex-col gap-4 p-0">
@@ -80,7 +80,7 @@ export function DiscoverParadise() {
             />
           </div>
 
-          <div className="space-y-8">
+          <div className="flex flex-col justify-around h-full gap-8">
              <Link href={categories[2].link}>
                 <Card className="bg-white p-6 shadow-lg hover:shadow-2xl transition-shadow cursor-pointer">
                   <CardContent className="flex items-center justify-center flex-col gap-4 p-0">
@@ -99,7 +99,7 @@ export function DiscoverParadise() {
             </Link>
           </div>
         </div>
-        <p className="mt-12 text-center text-lg text-muted-foreground max-w-4xl mx-auto">
+        <p className="mt-12 text-center text-lg text-black max-w-4xl mx-auto">
             Sri Lanka's diverse landscapes offer everything from pristine beaches and lush rainforests to ancient temples and vibrant cities. Whether you seek adrenaline-pumping adventures or serene cultural experiences, the Pearl of the Indian Ocean has something magical waiting for you.
         </p>
       </div>
