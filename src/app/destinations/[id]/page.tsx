@@ -122,110 +122,90 @@ export default function DestinationDetailPage() {
 
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div className="space-y-6">
-                    <h2 className="font-headline text-4xl md:text-5xl relative">
-                       {destination.intro_heading}
-                        <span className="block w-2/3 h-1 bg-accent mt-2"></span>
-                    </h2>
-                    <p className="text-lg text-muted- leading-relaxed">
-                       {destination.description}
-                    </p>
-                </div>
-                 <div className="relative">
-                    <Image
-                        src={getImageUrl(destination.intro_image_url)}
-                        alt={destination.intro_heading}
-                        width={800}
-                        height={600}
-                        className="rounded-lg shadow-lg"
-                        data-ai-hint={destination.intro_heading.toLowerCase()}
-                    />
-                </div>
+            <div className="text-center mb-12">
+                <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
+                    {destination.intro_heading}
+                    <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
+                </h2>
+                <p className="mt-6 text-lg text-muted- max-w-3xl mx-auto">
+                   {destination.description}
+                </p>
             </div>
+
+            {destination.gallery_image_urls && destination.gallery_image_urls.length > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="grid gap-4">
+                        <div>
+                            <Image
+                                className="h-auto max-w-full rounded-lg object-cover"
+                                src={getImageUrl(destination.gallery_image_urls[0])}
+                                alt={`${destination.name} gallery image 1`}
+                                width={500}
+                                height={750}
+                                data-ai-hint={`${destination.name.toLowerCase()} view`}
+                            />
+                        </div>
+                    </div>
+                    <div className="grid gap-4">
+                        <div>
+                            <Image
+                                className="h-auto max-w-full rounded-lg object-cover"
+                                src={getImageUrl(destination.gallery_image_urls[1])}
+                                alt={`${destination.name} gallery image 2`}
+                                width={500}
+                                height={500}
+                                data-ai-hint={`${destination.name.toLowerCase()} landscape`}
+                            />
+                        </div>
+                        <div>
+                            <Image
+                                className="h-auto max-w-full rounded-lg object-cover"
+                                src={getImageUrl(destination.gallery_image_urls[2])}
+                                alt={`${destination.name} gallery image 3`}
+                                width={500}
+                                height={500}
+                                data-ai-hint={`${destination.name.toLowerCase()} scene`}
+                            />
+                        </div>
+                    </div>
+                    <div className="grid gap-4">
+                        <div>
+                             <Image
+                                className="h-auto max-w-full rounded-lg object-cover"
+                                src={getImageUrl(destination.gallery_image_urls[3])}
+                                alt={`${destination.name} gallery image 4`}
+                                width={500}
+                                height={500}
+                                data-ai-hint={`${destination.name.toLowerCase()} scenery`}
+                            />
+                        </div>
+                        <div>
+                            <Image
+                                 src={getImageUrl(destination.gallery_image_urls[4])}
+                                 alt={`${destination.name} gallery image 5`}
+                                width={500}
+                                height={500}
+                                className="h-auto max-w-full rounded-lg object-cover"
+                                data-ai-hint={`${destination.name.toLowerCase()} detail`}
+                            />
+                        </div>
+                    </div>
+                    <div className="grid gap-4">
+                        <div>
+                            <Image
+                                src={getImageUrl(destination.gallery_image_urls[5])}
+                                 alt={`${destination.name} gallery image 6`}
+                                width={500}
+                                height={750}
+                                className="h-auto max-w-full rounded-lg object-cover"
+                                data-ai-hint={`${destination.name.toLowerCase()} portrait`}
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
       </section>
-
-      {destination.gallery_image_urls && destination.gallery_image_urls.length > 0 && (
-        <section className="py-16 lg:py-24 bg-white">
-            <div className="text-center mb-12">
-              <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
-                Explore {destination.name}
-                <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
-              </h2>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4">
-                <div className="grid gap-4">
-                    <div>
-                        <Image
-                            src={getImageUrl(destination.gallery_image_urls[0])}
-                            alt={`${destination.name} gallery image 1`}
-                            width={500}
-                            height={750}
-                            className="h-full w-full rounded-lg object-cover"
-                            data-ai-hint={`${destination.name.toLowerCase()} view`}
-                        />
-                    </div>
-                </div>
-                <div className="grid gap-4">
-                     <div>
-                        <Image
-                            src={getImageUrl(destination.gallery_image_urls[1])}
-                            alt={`${destination.name} gallery image 2`}
-                            width={500}
-                            height={500}
-                            className="h-full w-full rounded-lg object-cover"
-                            data-ai-hint={`${destination.name.toLowerCase()} landscape`}
-                        />
-                    </div>
-                    <div>
-                        <Image
-                            src={getImageUrl(destination.gallery_image_urls[2])}
-                             alt={`${destination.name} gallery image 3`}
-                            width={500}
-                            height={500}
-                            className="h-full w-full rounded-lg object-cover"
-                            data-ai-hint={`${destination.name.toLowerCase()} scene`}
-                        />
-                    </div>
-                </div>
-                <div className="grid gap-4">
-                    <div>
-                         <Image
-                            src={getImageUrl(destination.gallery_image_urls[3])}
-                            alt={`${destination.name} gallery image 4`}
-                            width={500}
-                            height={500}
-                            className="h-full w-full rounded-lg object-cover"
-                            data-ai-hint={`${destination.name.toLowerCase()} scenery`}
-                        />
-                    </div>
-                     <div>
-                        <Image
-                             src={getImageUrl(destination.gallery_image_urls[4])}
-                             alt={`${destination.name} gallery image 5`}
-                            width={500}
-                            height={500}
-                            className="h-full w-full rounded-lg object-cover"
-                            data-ai-hint={`${destination.name.toLowerCase()} detail`}
-                        />
-                    </div>
-                </div>
-                <div className="grid gap-4">
-                    <div>
-                        <Image
-                            src={getImageUrl(destination.gallery_image_urls[5])}
-                             alt={`${destination.name} gallery image 6`}
-                            width={500}
-                            height={750}
-                            className="h-full w-full rounded-lg object-cover"
-                            data-ai-hint={`${destination.name.toLowerCase()} portrait`}
-                        />
-                    </div>
-                </div>
-            </div>
-        </section>
-      )}
 
       {destination.things_to_do && destination.things_to_do.length > 0 && (
         <section className="py-16 lg:py-24 bg-white">
@@ -329,3 +309,5 @@ export default function DestinationDetailPage() {
     </div>
   );
 }
+
+    
