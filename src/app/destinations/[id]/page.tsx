@@ -254,8 +254,8 @@ export default function DestinationDetailPage() {
               {destination.nearby_attractions && destination.nearby_attractions.length > 0 && (
                 <div className="absolute top-4 left-4 z-10 bg-white p-4 rounded-lg shadow-lg">
                   <ul className="space-y-3">
-                    {destination.nearby_attractions.map(attraction => (
-                      <li key={attraction} className="flex items-center gap-3">
+                    {destination.nearby_attractions.map((attraction, index) => (
+                      <li key={`${attraction}-${index}`} className="flex items-center gap-3">
                         <MapPin className="h-5 w-5 text-primary" />
                         <span className="text-sm font-medium">{attraction}</span>
                       </li>
@@ -309,5 +309,3 @@ export default function DestinationDetailPage() {
     </div>
   );
 }
-
-    
