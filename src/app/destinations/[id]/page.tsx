@@ -13,8 +13,9 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
-import { Footprints, Heart, MapPin, Mountain, Sun, Users, Star, Camera, Ticket } from 'lucide-react';
+import { Footprints, Heart, MapPin, Mountain, Sun, Users, Star, Camera, Ticket, Waves, Leaf, Bird, Building, Utensils, Sailboat, Flower, Eye, Palmtree, HelpCircle, MessageSquare } from 'lucide-react';
 import type { Metadata } from 'next';
+import { cn } from '@/lib/utils';
 
 const ICONS: { [key: string]: React.ComponentType<any> } = {
     Sun,
@@ -24,7 +25,18 @@ const ICONS: { [key: string]: React.ComponentType<any> } = {
     Mountain,
     Star,
     Camera,
-    Ticket
+    Ticket,
+    Waves,
+    Leaf,
+    Bird,
+    Building,
+    Utensils,
+    Sailboat,
+    Flower,
+    Eye,
+    Palmtree,
+    HelpCircle,
+    MessageSquare,
 };
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -218,23 +230,29 @@ export default function DestinationDetailPage() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {destination.things_to_do.map((item, index) => (
-                        <Card key={index} className="overflow-hidden shadow-lg rounded-lg flex flex-col">
+                         <div key={index} className="group relative overflow-hidden rounded-lg shadow-lg">
                             <Image
                                 src={getThingsToDoImageUrl(item.image_url)}
                                 alt={item.title}
                                 width={600}
                                 height={400}
-                                className="w-full h-48 object-cover"
+                                className="w-full h-80 object-cover transform transition-transform duration-300 group-hover:scale-105"
                                 data-ai-hint={item.title.toLowerCase()}
                             />
-                            <CardContent className="p-6 flex-grow flex flex-col bg-card">
-                                <div className="flex items-center gap-4">
-                                    <DynamicIcon name={item.icon} className="h-8 w-8 text-primary" />
-                                    <h3 className="font-headline text-xl font-bold flex-grow h-12 flex items-center">{item.title}</h3>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                            <div className="absolute bottom-0 left-0 right-0 p-6 text-white transition-all duration-300 transform translate-y-16 group-hover:translate-y-0">
+                                <div className="flex items-center gap-3">
+                                    <div className="bg-primary/80 p-3 rounded-full">
+                                        <DynamicIcon name={item.icon} className="h-6 w-6 text-primary-foreground" />
+                                    </div>
+                                    <h3 className="font-headline text-2xl font-bold">{item.title}</h3>
                                 </div>
-                                <p className="text-muted-foreground mt-2 flex-grow">{item.description}</p>
-                            </CardContent>
-                        </Card>
+                                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <p className="text-sm mb-4">{item.description}</p>
+                                    <Button variant="secondary" size="sm">See More</Button>
+                                </div>
+                            </div>
+                        </div>
                     ))}
                 </div>
             </div>
