@@ -240,13 +240,8 @@ export default function DestinationDetailPage() {
                                 data-ai-hint={item.title.toLowerCase()}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                            <div className="absolute bottom-0 left-0 right-0 p-6 text-white transition-all duration-300 transform translate-y-16 group-hover:translate-y-0">
-                                <div className="flex items-center gap-3">
-                                    <div className="bg-primary/80 p-3 rounded-full">
-                                        <DynamicIcon name={item.icon} className="h-6 w-6 text-primary-foreground" />
-                                    </div>
-                                    <h3 className="font-headline text-2xl font-bold">{item.title}</h3>
-                                </div>
+                            <div className="absolute bottom-0 left-0 right-0 p-6 text-white transition-all duration-300 transform translate-y-24 group-hover:translate-y-0">
+                                <h3 className="font-headline text-2xl font-bold">{item.title}</h3>
                                 <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     <p className="text-sm mb-4">{item.description}</p>
                                 </div>
