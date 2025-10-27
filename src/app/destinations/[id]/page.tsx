@@ -249,7 +249,6 @@ export default function DestinationDetailPage() {
                                 </div>
                                 <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                     <p className="text-sm mb-4">{item.description}</p>
-                                    <Button variant="secondary" size="sm">See More</Button>
                                 </div>
                             </div>
                         </div>
