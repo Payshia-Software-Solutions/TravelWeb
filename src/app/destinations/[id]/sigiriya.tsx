@@ -265,11 +265,11 @@ export function SigiriyaPage() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
                     <h2 className="font-headline text-4xl md:text-5xl relative inline-block">
-                        Things To Do
+                        Discover Timeless Wonders
                         <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-accent"></span>
                     </h2>
                     <p className="mt-6 text-lg text-muted- max-w-2xl mx-auto">
-                        Sri Lankan performing arts are a spectacular fusion of rhythm, movement, and storytelling that has captivated audiences for centuries.
+                        Step into a world where every destination has a story to tell. From ancient landmarks and natural marvels to vibrant cities and serene escapes, each place invites you to explore its beauty, culture, and history. Let your journey be one of discovery, inspiration, and unforgettable memories.
                     </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -383,3 +383,5 @@ export function SigiriyaPage() {
       </>
     );
 }
+
+    
